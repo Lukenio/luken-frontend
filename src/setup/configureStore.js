@@ -10,7 +10,7 @@ import {
 } from 'react-router-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import reducers from 'redux/reducers';
+import reducers from 'redux/user/reducer';
 import rootSaga from 'redux/sagas';
 
 export default function configureStore(history) {
