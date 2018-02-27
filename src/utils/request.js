@@ -9,13 +9,14 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 const responseData = response => response.data;
 
 const handleError = error => {
+  console.log('^^^', error)
   let data;
 
   if (error.response) {
     if (error.response.status === 500) {
       data = { message: error.response.statusText };
     } else {
-      data = error.response.data;
+      data = error;
     }
   } else {
     data = { message: 'Network Error' };

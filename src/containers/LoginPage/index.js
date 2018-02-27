@@ -35,14 +35,13 @@ class LoginPage extends Component {
     const { email, password } = this.state;
 
     this.props.handleLogin({
-      username: 'polinom',
-      password: 'pass1234'
+      username: email,
+      password: password,
     })
   }
 
   render() {
     const { email, password } = this.state;
-    console.log(this.props)
     return (
       <Wrapper>
         <div className="login_form">

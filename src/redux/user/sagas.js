@@ -12,9 +12,14 @@ import {
 } from './actions';
 
 function* loginRequestWorker({ payload }) {
-  const response = yield call(postData, 'api-token-auth/', payload);
-  alert(`token: ${response.token}`);
-  yield put(loginSuccess(response.token));
+  try {
+    const response = yield call(postData, 'api-token-auth/', payload);
+    alert(`token: ${response.token}`);
+    yield put(loginSuccess(response.token));
+  } catch (error) {
+    alert('Invalid credential');
+  }
+
 }
 
 function* loginRequestWatcher() {
