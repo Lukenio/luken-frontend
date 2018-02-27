@@ -5,13 +5,13 @@ import {
 } from 'react-router-dom';
 
 import App from 'containers/App';
-import ErrorPage from 'containers/errorPage';
+import Login from '../containers/Login';
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={App} />
-      <Route path="/error" component={ErrorPage} />
+      <Route path="/login" component={Login} />
     </Switch>
   )
 }
