@@ -88,11 +88,11 @@ export function dataFetchAccountData(accountId) {
     dispatch(dataFetchAccountDataRequest());
 
     return fetchWithToken(
-      `${SERVER_URL}/api/v1/coin-accounts/${accountId}`,
+      `${SERVER_URL}/api/v1/coin-accounts/${accountId}/`,
       token
     )
       .then(response => {
-        dispatch(dataReceiveAccountData(response.results, accountId));
+        dispatch(dataReceiveAccountData(response, accountId));
       })
       .catch(error => {
         return errorHandler(dispatch, dataFetchAccountDataFailure)(

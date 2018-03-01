@@ -1,13 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { Flex, Box } from 'grid-styled';
+import { Box } from 'grid-styled';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
 import { FlexContainer } from '../components/ui/Containers.jsx';
-// import Modal from '../components/ui/Modal.jsx';
-import Footer from '../components/layout/Footer.jsx';
 import SignupForm from '../components/auth/forms/SignupForm.jsx';
 import SigninForm from '../components/auth/forms/SigninForm.jsx';
 

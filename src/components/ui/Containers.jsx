@@ -1,14 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Flex, Box } from 'grid-styled';
+import { Flex } from 'grid-styled';
 
 const widths = [1, 768, 1024, 1080];
-
-// const Container = ({ children, ...other }) => (
-//   <Flex column align="center" {...other}>
-//     <Box width={widths}>{children}</Box>
-//   </Flex>
-// );
 
 const StyledFlex = styled(Flex)`
   margin-right: ${({ centered }) => (centered ? 'auto' : 'inherit')};
@@ -26,5 +20,3 @@ export const FlexContainer = ({ children, centered, ...other }) => (
     {children}
   </StyledFlex>
 );
-
-// export default Container;

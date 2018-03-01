@@ -1,6 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
-import { Flex, Box } from 'grid-styled';
+import { Box } from 'grid-styled';
 import { cssUnit } from '../cssUtils';
 
 const defaultSize = 50;

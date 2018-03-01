@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { Flex } from 'grid-styled';
 import ReactModal from 'react-modal';
 
 import GradientedOverlay from './GradientedOverlay.jsx';

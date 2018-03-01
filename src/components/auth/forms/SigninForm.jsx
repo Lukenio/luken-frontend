@@ -1,10 +1,9 @@
 import React from 'react';
-import { Flex, Box } from 'grid-styled';
+import { Flex } from 'grid-styled';
 import { Field, reduxForm } from 'redux-form';
 
 import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
-
-import Button, { LinkButton } from '../../ui/Button.jsx';
+import Button from '../../ui/Button.jsx';
 import { authLoginUser } from '../../../actions/auth';
 
 const dispatchValues = (values, dispatch) => {

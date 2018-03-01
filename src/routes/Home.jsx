@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
-import { Flex, Box } from 'grid-styled';
+import { Flex } from 'grid-styled';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 

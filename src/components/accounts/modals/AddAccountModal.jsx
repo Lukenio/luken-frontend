@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 import CloseIcon from 'material-ui-icons/Close';

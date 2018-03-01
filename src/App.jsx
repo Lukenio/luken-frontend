@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { Flex, Box } from 'grid-styled';
+import { Flex } from 'grid-styled';
 
 import routes from './routes';
 

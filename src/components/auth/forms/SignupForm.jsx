@@ -1,5 +1,4 @@
 import React from 'react';
-import { Flex } from 'grid-styled';
 import { Field, reduxForm } from 'redux-form';
 
 import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';

@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import SVGContainer from './SVGContainer.jsx';
 import { BaseButton } from './Button.jsx';
 

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch
-} from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Signup, Signin } from './Auth.jsx';
 import Home from './Home.jsx';
