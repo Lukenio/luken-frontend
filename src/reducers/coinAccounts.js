@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux';
-
 import {
   DATA_FETCH_ACCOUNT_COINS_DATA_REQUEST,
   DATA_RECEIVE_ACCOUNT_COINS_DATA,
@@ -13,29 +11,23 @@ import {
 
 const defaultState = {
   isFetching: false,
-  byId: {
-    1: {
-      id: 1,
-      user: 'd7553e9c-265c-44cc-93d7-cc81da5b1858',
-      name: 'Bitcoin',
-      type: 0,
-      pub_address: '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',
-      vault_id: null,
-      created: '2018-03-01T08:21:13+0000',
-      updated: '2018-03-01T08:21:13+0000'
-    }
-  },
-  allIds: [1],
+  byId: {},
+  allIds: [],
   statusText: null
 };
 
-const mergeStateWithAccount = (state, action) => ({
-  allIds: [...state.allIds, action.payload.data.id],
+const updateById = (state, action) => ({
   byId: {
     ...state.byId,
     [action.payload.data.id]: action.payload.data
   }
 });
+
+const updateAllIds = (state, action) => {
+  const { id } = action.payload.data;
+  const allIds = state.byId[id] ? state.allIds : [...state.allIds, id];
+  return { allIds };
+};
 
 function coinAccounts(state = defaultState, action) {
   switch (action.type) {
@@ -89,12 +81,14 @@ function coinAccounts(state = defaultState, action) {
       return {
         ...state,
         isFetching: false,
-        ...mergeStateWithAccount(state, action)
+        ...updateAllIds(state, action),
+        ...updateById(state, action)
       };
     case DATA_ADD_ACCOUNT_SUCCESS:
       return {
         ...state,
-        ...mergeStateWithAccount(state, action)
+        ...updateAllIds(state, action),
+        ...updateById(state, action)
       };
     default:
       return state;
