@@ -46,6 +46,7 @@ const AlignedRight = styled(Box)`
 `;
 
 const FlexWrap = styled(Flex)`
+  min-height: 86px;
   border-bottom: 1px solid rgba(151, 151, 151, 0.2);
 `;
 
