@@ -6,6 +6,7 @@ import { PlaceholderImage } from '../components/ui/Placeholders';
 import Header from '../components/layout/Header';
 import SideNavigation from '../components/layout/SideNavigation';
 import { FlexContainer } from '../components/ui/Containers';
+import DataLoaderPlaceholder from '../components/ui/DataLoaderPlaceholder';
 import TransactionsList from '../components/accounts/TransactionsList';
 import { dataFetchAccountData } from '../actions/coin-accounts';
 import { getCRTickerSymbols } from '../utils';
@@ -65,25 +66,25 @@ class AccountDetailsPage extends Component {
         <Flex width={1} flex="1">
           <SideNavigation />
           <WrapFlexContainer flexDirection="column">
-            {isFetching && <h3>Loading</h3>}
-            {!isFetching && (
-              <Fragment>
-                <Flex width={1} alignItems="center" py={10} px={30}>
-                  <PlaceholderImage size={48} />
-                  <AccountName>{account.name}</AccountName>
-                </Flex>
-                <Divider width={1} />
-                <Flex width={1} flexDirection="column" py={20} px={30}>
-                  <CoinsOwned>
-                    <strong>0.00</strong> {getCRTickerSymbols(account.type)}
-                  </CoinsOwned>
-                  <CoinsPending>
-                    Pending: 0.00 {getCRTickerSymbols(account.type)}
-                  </CoinsPending>
-                </Flex>
-                <TransactionsList account={account} />
-              </Fragment>
-            )}
+            <DataLoaderPlaceholder
+              isFetching={isFetching}
+              isDataExists={account.id}
+            >
+              <Flex width={1} alignItems="center" py={10} px={30}>
+                <PlaceholderImage size={48} />
+                <AccountName>{account.name}</AccountName>
+              </Flex>
+              <Divider width={1} />
+              <Flex width={1} flexDirection="column" py={20} px={30}>
+                <CoinsOwned>
+                  <strong>0.0000</strong> {getCRTickerSymbols(account.type)}
+                </CoinsOwned>
+                <CoinsPending>
+                  Pending: 0,0000 {getCRTickerSymbols(account.type)}
+                </CoinsPending>
+              </Flex>
+              <TransactionsList account={account} />
+            </DataLoaderPlaceholder>
           </WrapFlexContainer>
         </Flex>
       </Fragment>

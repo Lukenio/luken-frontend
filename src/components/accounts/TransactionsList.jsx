@@ -3,15 +3,9 @@ import { Flex, Box } from 'grid-styled';
 import styled from 'styled-components';
 import moment from 'moment';
 
-import NoContentList from '../ui/NoContentList';
+import DataLoaderPlaceholder from '../ui/DataLoaderPlaceholder';
 import Scrollable from '../ui/Scrollable';
 import { getCRTickerSymbols } from '../../utils';
-
-const transactions = [
-  {
-    id: 1
-  }
-];
 
 const WrapFlex = styled(Flex)`
   background: #eeeeee;
@@ -57,17 +51,20 @@ const TransactionRow = ({ symbol }) => (
   </FlexWithBorder>
 );
 
+const NoDataComponent = () => <Box py={20}>No transactions to show yet</Box>;
+
 class TransactionsList extends Component {
   render() {
-    const { account } = this.props;
+    const { account, transactions = [] } = this.props;
+
     return (
       <WrapFlex width={1} flexDirection="column" pt={20} px={30}>
         <TransactionHeadingRow />
         <Scrollable width={1} flexDirection="column">
-          <NoContentList
+          <DataLoaderPlaceholder
             data={transactions}
             isFetching={false}
-            noDataText="No transactions to show yet"
+            noDataComponent={<NoDataComponent />}
           >
             {transactions.map(d => (
               <TransactionRow
@@ -76,7 +73,7 @@ class TransactionsList extends Component {
                 symbol={getCRTickerSymbols(account.type)}
               />
             ))}
-          </NoContentList>
+          </DataLoaderPlaceholder>
         </Scrollable>
       </WrapFlex>
     );
