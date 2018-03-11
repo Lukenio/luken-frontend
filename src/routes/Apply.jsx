@@ -23,7 +23,6 @@ import {
 } from '../components/ui/SVGIcons';
 
 const Title = styled.span`
-  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 14px;
   color: #ffffff;
@@ -56,7 +55,6 @@ const ContentWrap = styled(Box)`
 `;
 
 const NavItem = styled(NavLink)`
-  font-family: Helvetica;
   font-size: 14px;
   color: #ffffff;
   letter-spacing: 0;
@@ -76,7 +74,6 @@ const NavItem = styled(NavLink)`
 `;
 
 const LeadTitle = styled.h1`
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 30px;
   color: #ffffff;
@@ -87,7 +84,6 @@ const LeadTitle = styled.h1`
 `;
 
 const LeadText = styled.p`
-  font-family: 'Montserrat';
   font-size: 12px;
   color: #ffffff;
   letter-spacing: 0;
@@ -104,7 +100,6 @@ const ContentHeaderWrapper = styled(Flex)`
 `;
 
 const CryptoAssetTitle = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 20px;
   color: #ffffff;
@@ -124,7 +119,6 @@ const TabBoxWrapper = styled(Box)`
 `;
 
 const CryptocyrrencyTitle = styled.p`
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 14px;
   color: ${({ active }) => (active ? '#fff' : 'rgba(255, 255, 255, 0.25)')};
@@ -135,7 +129,6 @@ const CryptocyrrencyTitle = styled.p`
 `;
 
 const FooterColumnHeading = styled.h4`
-  font-family: Montserrat;
   font-weight: 600;
   font-size: 16px;
   color: #ffffff;
@@ -145,7 +138,6 @@ const FooterColumnHeading = styled.h4`
 `;
 
 const FooterText = styled.span`
-  font-family: Montserrat;
   font-size: 12px;
   color: #ffffff;
   letter-spacing: 0;
@@ -156,7 +148,6 @@ const FooterLink = styled.a`
   text-decoration: none;
 
   opacity: 0.5;
-  font-family: Montserrat;
   font-weight: 500;
   font-size: 12px;
   color: #ffffff;
@@ -180,6 +171,16 @@ const Icon = ({ children, h, ...other }) => (
 
 const FooterSocialLink = styled.a`
   margin-left: 15px;
+`;
+
+const CopyrightBox = styled(Box)`
+  border-top: 1px solid rgba(155, 155, 155, 0.3);
+  font-size: 12px;
+  color: #ffffff;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 18px;
+  text-align: center;
 `;
 
 const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
@@ -267,6 +268,7 @@ class Apply extends Component {
           justifyContent="center"
           w={1}
           my={60}
+          centered
         >
           <ContentWrap w={870} flexDirection="column">
             <ContentHeaderWrapper pt={24} flexDirection="column">
@@ -286,7 +288,7 @@ class Apply extends Component {
             )}
           </ContentWrap>
         </FlexContainer>
-        <Footer w={1} justifyContent="center">
+        <Footer w={1} alignItems="center" flexDirection="column">
           <Flex w={870} mt={55}>
             <Flex w={1 / 3} flexDirection="column">
               <FooterColumnHeading>Contact Us</FooterColumnHeading>
@@ -355,6 +357,11 @@ class Apply extends Component {
               </Flex>
             </Flex>
           </Flex>
+          <CopyrightBox w={870} mt={40} p={16}>
+            {'© '}
+            {new Date().getFullYear()}
+            {' Loanzio. All Rights Reserved.'}
+          </CopyrightBox>
         </Footer>
       </Fragment>
     );
