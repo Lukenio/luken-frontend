@@ -1,14 +1,23 @@
 import fetch from 'isomorphic-fetch';
-import { push } from 'react-router-redux';
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
-import { APPLY_NEW_LOAN_REQUEST, APPLY_NEW_LOAN_FAILURE } from '../constants';
+import {
+  APPLY_NEW_LOAN_REQUEST,
+  APPLY_NEW_LOAN_SUCCESS,
+  APPLY_NEW_LOAN_FAILURE
+} from '../constants';
 import { errorHandler } from './utils';
 
 function applyNewLoanRequest() {
   return {
     type: APPLY_NEW_LOAN_REQUEST
+  };
+}
+
+function applyNewLoanSuccess() {
+  return {
+    type: APPLY_NEW_LOAN_SUCCESS
   };
 }
 
@@ -48,15 +57,13 @@ export function applyNewLoan({
     })
       .then(checkHttpStatus)
       .then(parseJSON)
-      .then(d => {
-        console.log('success', d);
-        // dispatch(push('/'));
+      .then(() => {
+        dispatch(applyNewLoanSuccess());
       })
       .catch(error => {
-        console.error(error);
-        // return errorHandler(dispatch, applyNewLoanFailure, {
-        //   noRedirect: true
-        // })(error);
+        return errorHandler(dispatch, applyNewLoanFailure, {
+          noRedirect: true
+        })(error);
       });
   };
 }

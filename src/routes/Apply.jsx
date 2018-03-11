@@ -3,14 +3,12 @@ import { Flex, Box } from 'grid-styled';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { push } from 'react-router-redux';
 
+import dataFetchCoinsPrice from '../actions/coinsPrice';
 import SVGContainer from '../components/ui/SVGContainer';
 import { FlexContainer } from '../components/ui/Containers';
-import {
-  BTCApplyForm,
-  ETHApplyForm
-} from '../components/apply/forms/ApplyForm';
+import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
+import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
 import { PlaceholderImage } from '../components/ui/Placeholders';
 import {
   PhoneIcon,
@@ -90,6 +88,14 @@ const LeadText = styled.p`
   text-align: center;
   line-height: 18px;
   margin: 12px 0 0;
+`;
+
+const ThankYouHeading = LeadTitle.extend`
+  color: #9b9b9b;
+`;
+
+const ThankYouText = LeadText.extend`
+  color: #9b9b9b;
 `;
 
 const ContentHeaderWrapper = styled(Flex)`
@@ -223,6 +229,10 @@ class Apply extends Component {
     currencies: [{ type: 0, title: 'Bitcoin' }, { type: 2, title: 'Ethereum' }]
   };
 
+  componentWillMount() {
+    this.props.dataFetchCoinsPrice();
+  }
+
   handleTabClick = c => {
     this.setState({
       activeCurrencyType: c.type
@@ -230,6 +240,7 @@ class Apply extends Component {
   };
 
   render() {
+    const { applied } = this.props;
     const { activeCurrencyType, currencies } = this.state;
 
     return (
@@ -268,23 +279,43 @@ class Apply extends Component {
           justifyContent="center"
           w={1}
           my={60}
-          centered
+          centered={true}
         >
           <ContentWrap w={870} flexDirection="column">
-            <ContentHeaderWrapper pt={24} flexDirection="column">
-              <CryptoAssetTitle>
-                What Cryptoasset Type are You Using for Collateral?
-              </CryptoAssetTitle>
-              <Tabs
-                currencies={currencies}
-                activeType={activeCurrencyType}
-                onChange={this.handleTabClick}
-              />
-            </ContentHeaderWrapper>
-            {activeCurrencyType === currencies[0].type ? (
-              <BTCApplyForm conversionRate={9800} />
+            {applied ? (
+              <Flex
+                flex="1"
+                w={1}
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                style={{ height: '100%' }}
+              >
+                <ThankYouHeading>Thank You!</ThankYouHeading>
+                <ThankYouText>
+                  You've successfully submitted an application! We are going to
+                  review your application in 24 hours. We will<br />send you an
+                  email once your loan application is approved.
+                </ThankYouText>
+              </Flex>
             ) : (
-              <ETHApplyForm conversionRate={860} />
+              <Fragment>
+                <ContentHeaderWrapper pt={24} flexDirection="column">
+                  <CryptoAssetTitle>
+                    What Cryptoasset Type are You Using for Collateral?
+                  </CryptoAssetTitle>
+                  <Tabs
+                    currencies={currencies}
+                    activeType={activeCurrencyType}
+                    onChange={this.handleTabClick}
+                  />
+                </ContentHeaderWrapper>
+                {activeCurrencyType === currencies[0].type ? (
+                  <BTCApplyForm />
+                ) : (
+                  <ETHApplyForm />
+                )}
+              </Fragment>
             )}
           </ContentWrap>
         </FlexContainer>
@@ -369,12 +400,11 @@ class Apply extends Component {
 }
 
 const mapStateToProps = state => ({
-  userId: state.auth.userId,
-  statusText: state.auth.statusText
+  applied: state.ui.newLoanUserApplied
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   // homeRedirect: () => dispatch(push('/home'))
-// });
+const mapDispatchToProps = {
+  dataFetchCoinsPrice
+};
 
-export default connect(mapStateToProps, null)(Apply);
+export default connect(mapStateToProps, mapDispatchToProps)(Apply);

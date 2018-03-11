@@ -1,8 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Box } from 'grid-styled';
-import { createNumberMask } from 'redux-form-input-masks';
-import { Field } from 'redux-form';
 
 import SVGContainer from '../../ui/SVGContainer';
 import { ConvertionIcon as ConvertionIconSVG } from '../../ui/SVGIcons';
@@ -66,52 +64,6 @@ export const Input = ({ input, meta, label, placeholder }) => (
     {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
   </InputWrapper>
 );
-
-export const CryptoInput = ({ conversionRate, form, change, prefix }) => {
-  const cryptoChange = crypto => {
-    change(form, 'loaned_amount', crypto * conversionRate);
-  };
-
-  const cryptoMask = createNumberMask({
-    prefix,
-    decimalPlaces: 5,
-    locale: 'en-US',
-    onChange: cryptoChange
-  });
-
-  return (
-    <Field
-      name="crypto_collateral"
-      label="How Much Collateral are You Posting?"
-      type="text"
-      component={Input}
-      {...cryptoMask}
-    />
-  );
-};
-
-export const USDInput = ({ conversionRate, form, change }) => {
-  const usdChange = usd => {
-    change(form, 'crypto_collateral', usd / conversionRate);
-  };
-
-  const usdMask = createNumberMask({
-    prefix: '$ ',
-    decimalPlaces: 2,
-    locale: 'en-US',
-    onChange: usdChange
-  });
-
-  return (
-    <Field
-      name="loaned_amount"
-      label="How Much are You Looking to Borrow?"
-      type="text"
-      component={Input}
-      {...usdMask}
-    />
-  );
-};
 
 const StyledRadio = styled.input`
   position: absolute;
