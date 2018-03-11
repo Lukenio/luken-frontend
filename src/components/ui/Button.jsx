@@ -24,6 +24,24 @@ const Button = BaseButton.extend`
   min-width: 61px;
 `;
 
+export const BlueButton = BaseButton.extend`
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background: #2893ef;
+  border-radius: 100px;
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0.24px;
+  text-align: center;
+  line-height: 22px;
+  padding: 11px;
+
+  min-width: 360px;
+`;
+
 // export const LinkButton = Button.withComponent(Link);
 
 export const UnderlinedButton = BaseButton.extend`

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
+import { Box } from 'grid-styled';
 
-const SVGContainer = styled.div`
+const SVGContainer = styled(Box)`
   position: relative;
   background: transparent;
-
   > svg {
     position: absolute;
     top: 0;

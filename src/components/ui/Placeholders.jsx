@@ -8,5 +8,5 @@ export const PlaceholderImage = styled(Box)`
   width: ${({ size }) => (size ? cssUnit(size) : cssUnit(defaultSize))};
   height: ${({ size }) => (size ? cssUnit(size) : cssUnit(defaultSize))};
   border-radius: 50%;
-  background: #d8d8d8;
+  background: ${({ background }) => background || '#d8d8d8'};
 `;
