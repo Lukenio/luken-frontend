@@ -1,9 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Box } from 'grid-styled';
 
 import SVGContainer from '../../ui/SVGContainer';
 import { ConvertionIcon as ConvertionIconSVG } from '../../ui/SVGIcons';
+import NumberFormat from 'react-number-format';
 
 export const FormWrapper = styled.form`
   width: 100%;
@@ -21,7 +22,7 @@ const Label = styled.label`
   line-height: 22px;
 `;
 
-const StyledInput = styled.input`
+const inputStyles = css`
   width: 100%;
   height: 44px;
   padding: 11px 19px;
@@ -37,6 +38,10 @@ const StyledInput = styled.input`
   &::placeholder {
     color: rgba(155, 155, 155, 0.4);
   }
+`;
+
+const StyledInput = styled.input`
+  ${inputStyles};
 `;
 
 export const ErrorField = styled.span`
@@ -56,6 +61,46 @@ export const ConvertionIcon = () => (
     <ConvertionIconSVG />
   </SVGContainer>
 );
+
+const StyledNumberFormat = styled(NumberFormat)`
+  ${inputStyles};
+`;
+
+export const CurrencyInput = ({
+  input,
+  meta,
+  label,
+  placeholder,
+  prefix = '$ ',
+  decimalScale = 2,
+  handleChange
+}) => {
+  const onChange = ({ formattedValue, value }) => {
+    const parsedValue = parseFloat(value) || '';
+
+    input.onChange(parsedValue);
+
+    if (typeof handleChange === 'function') {
+      handleChange(parsedValue);
+    }
+  };
+
+  return (
+    <InputWrapper w={1}>
+      <Label>{label}</Label>
+      <StyledNumberFormat
+        value={input.value}
+        placeholder={placeholder || label}
+        thousandSeparator={true}
+        decimalScale={decimalScale}
+        prefix={prefix}
+        allowNegative={false}
+        onValueChange={onChange}
+      />
+      {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
+    </InputWrapper>
+  );
+};
 
 export const Input = ({ input, meta, label, placeholder }) => (
   <InputWrapper w={1}>

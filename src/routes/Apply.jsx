@@ -11,8 +11,8 @@ import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
 import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
 import { PlaceholderImage } from '../components/ui/Placeholders';
 
-import btcLogo from '../components/apply/images/btc.png'
-import ethLogo from '../components/apply/images/eth.png'
+import btcLogo from '../components/apply/images/btc.png';
+import ethLogo from '../components/apply/images/eth.png';
 
 import {
   PhoneIcon,
@@ -34,15 +34,14 @@ import {
 //   margin-left: 7px;
 // `;
 
-
 const CryptoIconImg = styled.img`
-    height: 50px;
-    width: 50px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    opacity: ${({ active }) => (active ? '1' : '0.3')};
-`
+  height: 50px;
+  width: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: ${({ active }) => (active ? '1' : '0.3')};
+`;
 
 const Header = styled(Flex)`
   height: 130px;
@@ -51,7 +50,7 @@ const Header = styled(Flex)`
 
 const Footer = styled(Flex)`
   height: 297px;
-  background: #323B45;
+  background: #323b45;
 `;
 
 const Navigation = styled(Flex)`
@@ -68,7 +67,7 @@ const ContentWrap = styled(Box)`
 
 const NavItem = styled.a`
   font-size: 20px;
-  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #ffffff;
   letter-spacing: 0;
   text-align: center;
@@ -97,7 +96,7 @@ const LeadTitle = styled.h1`
 
 const LogoLoanz = styled.img`
   height: 100px;
-`
+`;
 
 const LeadText = styled.p`
   font-size: 12px;
@@ -212,12 +211,12 @@ const Disclaimer = styled.p`
   opacity: 0.5;
   font-weight: 500;
   font-size: 12px;
-  color: #323B45;
+  color: #323b45;
   letter-spacing: 0;
   line-height: 18px;
   margin-bottom: 4px;
-  padding: 4px 110px; 
-`
+  padding: 4px 110px;
+`;
 
 const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
   const currenciesNumber = currencies.length;
@@ -244,7 +243,7 @@ const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
 const Tab = ({ active, children, image, onClick, ...other }) => {
   return (
     <TabBoxWrapper w={1} active={active} {...other} onClick={onClick}>
-      <CryptoIconImg src={image} active={active}></CryptoIconImg>
+      <CryptoIconImg src={image} active={active} />
       <CryptocyrrencyTitle active={active}>{children}</CryptocyrrencyTitle>
     </TabBoxWrapper>
   );
@@ -253,7 +252,10 @@ const Tab = ({ active, children, image, onClick, ...other }) => {
 class Apply extends Component {
   state = {
     activeCurrencyType: 0,
-    currencies: [{ type: 0, title: 'Bitcoin', image: btcLogo }, { type: 2, title: 'Ethereum', image: ethLogo }]
+    currencies: [
+      { type: 0, title: 'Bitcoin', image: btcLogo },
+      { type: 2, title: 'Ethereum', image: ethLogo }
+    ]
   };
 
   componentWillMount() {
@@ -281,7 +283,10 @@ class Apply extends Component {
           >
             <Flex alignItems="center" flexDirection="row">
               {/* <PlaceholderImage size={40} /> */}
-              <LogoLoanz src="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png" data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png" />
+              <LogoLoanz
+                src="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
+                data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
+              />
             </Flex>
             <Box>
               <NavItem href="/apply">Apply for a loan</NavItem>
@@ -299,10 +304,10 @@ class Apply extends Component {
           justifyContent="center"
           w={10}
           my={30}
-          centered={true}>
-
+          centered={true}
+        >
           <Flex alignItems="center" flexDirection="column">
-              <LeadTitle>Apply in under 1 minute</LeadTitle>
+            <LeadTitle>Apply in under 1 minute</LeadTitle>
           </Flex>
         </FlexContainer>
 
@@ -351,22 +356,21 @@ class Apply extends Component {
             )}
           </ContentWrap>
         </FlexContainer>
-        
+
         <FlexContainer
           alignItems="center"
           justifyContent="center"
           w={10}
           my={30}
           centered={true}
-          >
-
+        >
           <Disclaimer>
-              * Disclaimer: The crypto value increase is dependent upon your own perception of the Bitcoin or Ethereum market values. 
-              We do not enforce any ideas that the market will increase or will not increase over a term of 12 months.
+            * Disclaimer: The crypto value increase is dependent upon your own
+            perception of the Bitcoin or Ethereum market values. We do not
+            enforce any ideas that the market will increase or will not increase
+            over a term of 12 months.
           </Disclaimer>
-
         </FlexContainer>
-
 
         <Footer w={1} alignItems="center" flexDirection="column">
           <Flex w={870} mt={55}>

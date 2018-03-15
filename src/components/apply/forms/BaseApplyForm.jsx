@@ -6,10 +6,10 @@ import {
   getFormSyncErrors,
   formValueSelector
 } from 'redux-form';
-import { createNumberMask } from 'redux-form-input-masks';
 
 import {
   Input,
+  CurrencyInput,
   FormWrapper,
   ErrorField,
   ConvertionIcon,
@@ -99,6 +99,11 @@ class BaseApplyForm extends Component {
   };
 
   handleUSDInputChange = ta => {
+    if (!ta) {
+      this.setFormValue('crypto_collateral', '');
+      return;
+    }
+
     const cryptosToCollate = this.calculateCryptoCollateral(
       ta,
       this.props.termsMonth
@@ -107,6 +112,10 @@ class BaseApplyForm extends Component {
   };
 
   handleCryptoInputChange = c => {
+    if (!c) {
+      this.setFormValue('loaned_amount', '');
+      return;
+    }
     const totalAmount = this.calculateLoanedAmmount(c, this.props.termsMonth);
     this.setFormValue('loaned_amount', totalAmount);
   };
@@ -122,20 +131,6 @@ class BaseApplyForm extends Component {
       isCryptoPriceFetching
     } = this.props;
 
-    const cryptoMask = createNumberMask({
-      prefix,
-      decimalPlaces: 8,
-      locale: 'en-US',
-      onChange: this.handleCryptoInputChange
-    });
-
-    const usdMask = createNumberMask({
-      prefix: '$ ',
-      decimalPlaces: 2,
-      locale: 'en-US',
-      onChange: this.handleUSDInputChange
-    });
-
     return (
       <Flex p={59} w={1}>
         <FormWrapper onSubmit={handleSubmit(dispatchValues(cryptoType))}>
@@ -146,9 +141,9 @@ class BaseApplyForm extends Component {
                 name="loaned_amount"
                 label="How Much are You Looking to Borrow?"
                 type="text"
-                component={Input}
+                component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
-                {...usdMask}
+                handleChange={this.handleUSDInputChange}
               />
             </Box>
             <ConvertionIcon />
@@ -157,9 +152,11 @@ class BaseApplyForm extends Component {
                 name="crypto_collateral"
                 label="How Much Collateral are You Posting?"
                 type="text"
-                component={Input}
+                component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
-                {...cryptoMask}
+                prefix={prefix}
+                decimalScale={8}
+                handleChange={this.handleCryptoInputChange}
               />
             </Box>
           </Flex>
@@ -218,8 +215,7 @@ export const formOptionsBuilder = (form, prefix, cryptoType) => ({
   prefix,
   cryptoType,
   initialValues: {
-    terms_month: '0',
-    loaned_amount: 0
+    terms_month: '0'
   },
   validate
 });
