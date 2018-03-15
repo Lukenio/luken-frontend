@@ -107,11 +107,11 @@ const MenuIconBox = styled(Flex)`
 const MenuItems = () => (
   <Fragment>
     <NavItem href="/apply">Apply for a loan</NavItem>
-    <NavItem href="https://loanz.io/buy-bitcoin">Buy Bitcoin</NavItem>
-    <NavItem href="https://loanz.io/wallet">Digital Wallet</NavItem>
-    <NavItem href="https://loanz.io/company">Company</NavItem>
-    <NavItem href="https://loanz.io/faq">FAQ's</NavItem>
-    <NavItem href="https://loanz.io/contact">Contact Us</NavItem>
+    <NavItem href="https://loanz.io/buy-bitcoin/">Buy Bitcoin</NavItem>
+    <NavItem href="https://loanz.io/digital-wallet/">Digital Wallet</NavItem>
+    <NavItem href="https://loanz.io/company/">Company</NavItem>
+    <NavItem href="https://loanz.io/faqs/">FAQ's</NavItem>
+    <NavItem href="https://loanz.io/contact-support/">Contact Us</NavItem>
   </Fragment>
 );
 
@@ -139,10 +139,12 @@ const Navigation = ({ menuOpen, handleNavMenuToggle }) => (
       py={[0, 15]}
     >
       <Flex alignItems="center" flexDirection="row">
+      <a href="https://loanz.io/">
         <LogoLoanz
           src="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
           data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
         />
+      </a>
       </Flex>
       <DesktopMenu w={[0, 1]} justifyContent="space-between">
         <MenuItems />

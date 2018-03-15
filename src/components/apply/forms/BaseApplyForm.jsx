@@ -136,7 +136,7 @@ class BaseApplyForm extends Component {
         <FormWrapper onSubmit={handleSubmit(dispatchValues(cryptoType))}>
           {/* {statusText && <FormErrorAlert statusText={statusText} />} */}
           <Flex w={1} flexDirection={['column', 'row']}>
-            <Box w={[1, 340]}>
+            <Box w={[1, 340]} my={[30, 0]}>
               <Field
                 name="loaned_amount"
                 label="How Much are You Looking to Borrow?"
@@ -147,7 +147,7 @@ class BaseApplyForm extends Component {
               />
             </Box>
             <ConvertionIcon w={[1, '20px']} />
-            <Box w={[1, 340]}>
+            <Box w={[1, 340]} mb={[10, 0]}>
               <Field
                 name="crypto_collateral"
                 label="How Much Collateral are You Posting?"
@@ -160,7 +160,7 @@ class BaseApplyForm extends Component {
               />
             </Box>
           </Flex>
-          <Flex width={1} flexDirection={['column', 'row']}>
+          <Flex width={1} my={[0, 20]} flexDirection={['column', 'row']} >
             <TermSpan>Term:</TermSpan>
             <Field
               type="radio"

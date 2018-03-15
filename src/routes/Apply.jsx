@@ -364,11 +364,12 @@ class Apply extends Component {
                   flexWrap
                   justifyContent={['space-between', 'flex-start']}
                 >
-                  <FooterLink href="#">Crypto Loans</FooterLink>
-                  <FooterLink href="#">Digital Wallet</FooterLink>
-                  <FooterLink href="#">Buy Bitcoin</FooterLink>
-                  <FooterLink href="#">Our Company</FooterLink>
-                  <FooterLink href="#">Contact Us</FooterLink>
+                  <FooterLink href="/apply/">Apply for Loan</FooterLink>
+                  <FooterLink href="https://loanz.io/buy-bitcoin/">Buy Bitcoin</FooterLink>
+                  <FooterLink href="https://loanz.io/digital-wallet/">Digital Wallet</FooterLink>
+                  <FooterLink href="https://loanz.io/company/">Our Company</FooterLink>
+                  <FooterLink href="https://loanz.io/faqs/">FAQ</FooterLink>
+                  <FooterLink href="https://loanz.io/contact-support/">Contact Us</FooterLink>
                 </Flex>
               </Flex>
             </Flex>
