@@ -12,14 +12,15 @@ import './index.css';
 
 const App = ({ history, store }) => (
   <Provider store={store}>
-    <Router history={history}>
-      <Flex
-        flexDirection="column"
-        style={{ height: '100%', minHeight: 'calc(100vh)' }}
-      >
-        {routes}
-      </Flex>
-    </Router>
+    <ThemeProvider
+      theme={{
+        breakpoints: ['768px', '1024px', '1080px']
+      }}
+    >
+      <Router history={history}>
+        <Flex flexDirection="column">{routes}</Flex>
+      </Router>
+    </ThemeProvider>
   </Provider>
 );
 

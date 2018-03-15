@@ -26,7 +26,7 @@ const LogoLoanz = styled.img`
   @media only screen and (max-width: 767px) {
     height: 50px;
     min-height: 50px;
-    margin-left: 15px;
+    margin-left: 10px;
     margin-top: 5px;
   }
 `;
@@ -47,7 +47,7 @@ const MobileMenu = styled(Box)`
   }
 `;
 
-const DesktopMenu = styled(Box)`
+const DesktopMenu = styled(Flex)`
   @media only screen and (max-width: 767px) {
     ${hide()};
   }
@@ -67,6 +67,7 @@ const NavItem = styled.a`
   line-height: 22px;
   padding: 5px 20px;
   text-decoration: none;
+  display: inline-block;
 
   &:last-child {
     margin-right: 0;
@@ -76,12 +77,18 @@ const NavItem = styled.a`
     // border-bottom: 2px solid #ffffff;
   }
 
+  @media only screen and (min-width: 767px) and (max-width: 1024px) {
+    font-size: 17px;
+    line-height: 17px;
+    padding-right: 15px;
+    padding-left: 0;
+  }
+
   @media only screen and (max-width: 767px) {
     padding: 14px 25px;
     height: 60px;
     width: 100%;
     text-align: left;
-    display: inline-block;
   }
 `;
 
@@ -109,7 +116,13 @@ const MenuItems = () => (
 );
 
 const MenuIcon = ({ ...other }) => (
-  <MenuIconBox w={34} justifyContent="center" alignItems="center" {...other}>
+  <MenuIconBox
+    w={34}
+    justifyContent="center"
+    alignItems="center"
+    mr="5px"
+    {...other}
+  >
     <SVGContainer w={22} h={22}>
       <MenuIconSVG />
     </SVGContainer>
@@ -131,7 +144,7 @@ const Navigation = ({ menuOpen, handleNavMenuToggle }) => (
           data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
         />
       </Flex>
-      <DesktopMenu w={[0, 1]}>
+      <DesktopMenu w={[0, 1]} justifyContent="space-between">
         <MenuItems />
       </DesktopMenu>
       <MenuIcon onClick={handleNavMenuToggle} />

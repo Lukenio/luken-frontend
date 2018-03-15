@@ -82,7 +82,7 @@ const ThankYouText = LeadText.extend`
 `;
 
 const ContentHeaderWrapper = styled(Flex)`
-  height: 167px;
+  min-height: 167px;
   background: #2893ef;
   text-align: center;
   border-radius: 6px 6px 0 0;
@@ -262,7 +262,7 @@ class Apply extends Component {
           my={10}
           centered={true}
         >
-          <ContentWrap w={[1, 870]} flexDirection="column">
+          <ContentWrap w={[1, 767, 870]} flexDirection="column">
             {applied ? (
               <Flex
                 w={1}
@@ -317,7 +317,7 @@ class Apply extends Component {
 
         <Footer w={1} alignItems="center" flexDirection="column">
           <Flex
-            w={[1, 870]}
+            w={[1, 767, 870]}
             mt={[20, 55]}
             px={[20, 0]}
             flexDirection={['column', 'row']}
@@ -351,8 +351,12 @@ class Apply extends Component {
                 </FooterText>
               </Flex>
             </Flex>
-            <Flex w={[1, 1 / 3]} mb={[20, 0]} justifyContent="center">
-              <Flex flexDirection="column">
+            <Flex
+              w={[1, 1 / 3]}
+              mb={[20, 0]}
+              justifyContent={['flex-start', 'center']}
+            >
+              <Flex flexDirection="column" w={[1, 'inherit']}>
                 <FooterColumnHeading>Categories</FooterColumnHeading>
                 <Flex
                   w={1}
@@ -400,7 +404,7 @@ class Apply extends Component {
               </Flex>
             </Flex>
           </Flex>
-          <CopyrightBox w={[1, 870]} mt={40} p={16}>
+          <CopyrightBox w={[1, 767, 870]} mt={40} p={16}>
             {'© '}
             {new Date().getFullYear()}
             {' Loanzio. All Rights Reserved.'}
