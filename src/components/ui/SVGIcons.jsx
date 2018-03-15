@@ -232,3 +232,13 @@ export const LinkedInIcon = () => (
     </g>
   </svg>
 );
+
+export const MenuIcon = () => (
+  <svg viewBox="0 0 480 330">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <rect fill="#FFFFFF" x="0" y="0" width="480" height="30" rx="15" />
+      <rect fill="#FFFFFF" x="0" y="300" width="480" height="30" rx="15" />
+      <rect fill="#FFFFFF" x="0" y="150" width="480" height="30" rx="15" />
+    </g>
+  </svg>
+);

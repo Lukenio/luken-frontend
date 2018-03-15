@@ -2,13 +2,15 @@ import {
   DATA_PICK_NEW_ACCOUNT,
   HIDE_NEW_ACCOUNT_MODAL,
   // APPLY_NEW_LOAN_REQUEST,
-  APPLY_NEW_LOAN_SUCCESS
-  // APPLY_NEW_LOAN_FAILURE
+  APPLY_NEW_LOAN_SUCCESS,
+  // APPLY_NEW_LOAN_FAILURE,
+  NAV_MENU_TOGGLE
 } from '../constants';
 
 const defaultState = {
   chosenNewAccount: null,
-  newLoanUserApplied: false
+  newLoanUserApplied: false,
+  mobileMenuOpen: false
 };
 
 function modals(state = defaultState, action) {
@@ -27,6 +29,11 @@ function modals(state = defaultState, action) {
       return {
         ...state,
         newLoanUserApplied: true
+      };
+    case NAV_MENU_TOGGLE:
+      return {
+        ...state,
+        mobileMenuOpen: !state.mobileMenuOpen
       };
     default:
       return state;

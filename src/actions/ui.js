@@ -1,4 +1,4 @@
-import { DATA_PICK_NEW_ACCOUNT } from '../constants';
+import { DATA_PICK_NEW_ACCOUNT, NAV_MENU_TOGGLE } from '../constants';
 
 export function dataPickNewAccount(data) {
   return {
@@ -6,5 +6,12 @@ export function dataPickNewAccount(data) {
     payload: {
       data
     }
+  };
+}
+
+export function handleNavMenuToggle() {
+  return {
+    type: NAV_MENU_TOGGLE,
+    payload: {}
   };
 }

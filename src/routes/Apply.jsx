@@ -2,14 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { Flex, Box } from 'grid-styled';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
 import dataFetchCoinsPrice from '../actions/coinsPrice';
 import SVGContainer from '../components/ui/SVGContainer';
 import { FlexContainer } from '../components/ui/Containers';
 import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
 import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
-import { PlaceholderImage } from '../components/ui/Placeholders';
+import Navigation from '../components/ui/Navigation';
 
 import btcLogo from '../components/apply/images/btc.png';
 import ethLogo from '../components/apply/images/eth.png';
@@ -43,19 +42,9 @@ const CryptoIconImg = styled.img`
   opacity: ${({ active }) => (active ? '1' : '0.3')};
 `;
 
-const Header = styled(Flex)`
-  height: 130px;
-  background: #2893ef;
-`;
-
 const Footer = styled(Flex)`
   height: 297px;
   background: #323b45;
-`;
-
-const Navigation = styled(Flex)`
-  height: 130px;
-  width: 100%;
 `;
 
 const ContentWrap = styled(Box)`
@@ -63,25 +52,6 @@ const ContentWrap = styled(Box)`
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
   border-radius: 6px;
   height: 642px;
-`;
-
-const NavItem = styled.a`
-  font-size: 20px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #ffffff;
-  letter-spacing: 0;
-  text-align: center;
-  line-height: 22px;
-  padding: 5px 20px;
-  text-decoration: none;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &.active {
-    // border-bottom: 2px solid #ffffff;
-  }
 `;
 
 const LeadTitle = styled.h1`
@@ -92,10 +62,6 @@ const LeadTitle = styled.h1`
   text-align: center;
   line-height: 42px;
   margin: 0;
-`;
-
-const LogoLoanz = styled.img`
-  height: 100px;
 `;
 
 const LeadText = styled.p`
@@ -186,12 +152,6 @@ const FooterLink = styled.a`
   }
 `;
 
-const Icon = ({ children, h, ...other }) => (
-  <SVGContainer style={{ height: h }} {...other}>
-    {children}
-  </SVGContainer>
-);
-
 const FooterSocialLink = styled.a`
   margin-left: 15px;
 `;
@@ -274,35 +234,11 @@ class Apply extends Component {
 
     return (
       <Fragment>
-        <Header w={1} flexDirection="column">
-          <Navigation
-            justifyContent="space-between"
-            alignItems="center"
-            px={30}
-            py={15}
-          >
-            <Flex alignItems="center" flexDirection="row">
-              {/* <PlaceholderImage size={40} /> */}
-              <LogoLoanz
-                src="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
-                data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
-              />
-            </Flex>
-            <Box>
-              <NavItem href="/apply">Apply for a loan</NavItem>
-              <NavItem href="https://loanz.io/buy-bitcoin">Buy Bitcoin</NavItem>
-              <NavItem href="https://loanz.io/wallet">Digital Wallet</NavItem>
-              <NavItem href="https://loanz.io/company">Company</NavItem>
-              <NavItem href="https://loanz.io/faq">FAQ's</NavItem>
-              <NavItem href="https://loanz.io/contact">Contact Us</NavItem>
-            </Box>
-          </Navigation>
-        </Header>
+        <Navigation />
 
         <FlexContainer
           alignItems="center"
           justifyContent="center"
-          w={10}
           my={30}
           centered={true}
         >
@@ -314,11 +250,10 @@ class Apply extends Component {
         <FlexContainer
           alignItems="center"
           justifyContent="center"
-          w={1}
           my={10}
           centered={true}
         >
-          <ContentWrap w={870} flexDirection="column">
+          <ContentWrap w={[1, 870]} flexDirection="column">
             {applied ? (
               <Flex
                 flex="1"
@@ -360,7 +295,6 @@ class Apply extends Component {
         <FlexContainer
           alignItems="center"
           justifyContent="center"
-          w={10}
           my={30}
           centered={true}
         >
@@ -372,14 +306,14 @@ class Apply extends Component {
           </Disclaimer>
         </FlexContainer>
 
-        <Footer w={1} alignItems="center" flexDirection="column">
-          <Flex w={870} mt={55}>
-            <Flex w={1 / 3} flexDirection="column">
+        <Footer w={1} alignItems="center" flexDirection={['row', 'column']}>
+          <Flex w={[1, 870]} mt={55}>
+            <Flex w={[1, 1 / 3]} flexDirection="column">
               <FooterColumnHeading>Contact Us</FooterColumnHeading>
               <Flex alignItems="center" mb="8px">
-                <Icon w={12} h={12} mr={10}>
+                <SVGContainer w={12} h={12} mr={10}>
                   <PhoneIcon />
-                </Icon>
+                </SVGContainer>
                 <FooterText style={{ marginRight: 5 }}>Toll Free:</FooterText>
                 {'  '}
                 <FooterLink href="tel:1-833-534-2255">
@@ -387,23 +321,23 @@ class Apply extends Component {
                 </FooterLink>
               </Flex>
               <Flex alignItems="center" mb="8px">
-                <Icon w={12} h={9} mr={10}>
+                <SVGContainer w={12} h={9} mr={10}>
                   <EmailIcon />
-                </Icon>
+                </SVGContainer>
                 <FooterLink href="mailto:info@loanz.io">
                   info@loanz.io
                 </FooterLink>
               </Flex>
               <Flex alignItems="center" mb="8px">
-                <Icon w={9} h={12} mr={10}>
+                <SVGContainer w={9} h={12} mr={10}>
                   <LocationIcon />
-                </Icon>
+                </SVGContainer>
                 <FooterText>
                   <strong>Toronto, ON, Canada</strong>
                 </FooterText>
               </Flex>
             </Flex>
-            <Flex w={1 / 3} justifyContent="center">
+            <Flex w={[1, 1 / 3]} justifyContent="center">
               <Flex flexDirection="column">
                 <FooterColumnHeading>Categories</FooterColumnHeading>
                 <FooterLink href="#">Crypto Loans</FooterLink>
@@ -413,30 +347,30 @@ class Apply extends Component {
                 <FooterLink href="#">Contact Us</FooterLink>
               </Flex>
             </Flex>
-            <Flex w={1 / 3} flexDirection="column" alignItems="flex-end">
+            <Flex w={[1, 1 / 3]} flexDirection="column" alignItems="flex-end">
               <FooterColumnHeading style={{ paddingRight: 17 }}>
                 Follow Us
               </FooterColumnHeading>
               <Flex alignItems="flex-start">
                 <FooterSocialLink href="#">
-                  <Icon w={6} h={12}>
+                  <SVGContainer w={6} h={12}>
                     <FacebookIcon />
-                  </Icon>
+                  </SVGContainer>
                 </FooterSocialLink>
                 <FooterSocialLink href="#">
-                  <Icon w={20} h={12}>
+                  <SVGContainer w={20} h={12}>
                     <GoogleIcon />
-                  </Icon>
+                  </SVGContainer>
                 </FooterSocialLink>
                 <FooterSocialLink href="#">
-                  <Icon w={15} h={12}>
+                  <SVGContainer w={15} h={12}>
                     <TwitterIcon />
-                  </Icon>
+                  </SVGContainer>
                 </FooterSocialLink>
                 <FooterSocialLink href="#">
-                  <Icon w={13} h={12}>
+                  <SVGContainer w={13} h={12}>
                     <LinkedInIcon />
-                  </Icon>
+                  </SVGContainer>
                 </FooterSocialLink>
               </Flex>
             </Flex>
