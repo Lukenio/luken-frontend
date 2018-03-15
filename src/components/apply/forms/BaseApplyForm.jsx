@@ -132,11 +132,11 @@ class BaseApplyForm extends Component {
     } = this.props;
 
     return (
-      <Flex p={59} w={1}>
+      <Flex px={[20, 59]} py={[20, 59]} w={1}>
         <FormWrapper onSubmit={handleSubmit(dispatchValues(cryptoType))}>
           {/* {statusText && <FormErrorAlert statusText={statusText} />} */}
-          <Flex w={1}>
-            <Box w={340}>
+          <Flex w={1} flexDirection={['column', 'row']}>
+            <Box w={[1, 340]}>
               <Field
                 name="loaned_amount"
                 label="How Much are You Looking to Borrow?"
@@ -146,8 +146,8 @@ class BaseApplyForm extends Component {
                 handleChange={this.handleUSDInputChange}
               />
             </Box>
-            <ConvertionIcon />
-            <Box w={340}>
+            <ConvertionIcon w={[1, '20px']} />
+            <Box w={[1, 340]}>
               <Field
                 name="crypto_collateral"
                 label="How Much Collateral are You Posting?"
@@ -160,7 +160,7 @@ class BaseApplyForm extends Component {
               />
             </Box>
           </Flex>
-          <Flex width={1}>
+          <Flex width={1} flexDirection={['column', 'row']}>
             <TermSpan>Term:</TermSpan>
             <Field
               type="radio"
@@ -199,7 +199,7 @@ class BaseApplyForm extends Component {
             />
           </Flex>
 
-          <Flex justify="center" pt={54}>
+          <Flex justify="center" pt={[20, 54]}>
             <BlueButton type="submit" disabled={submitting}>
               Get Started
             </BlueButton>

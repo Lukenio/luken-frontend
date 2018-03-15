@@ -50,10 +50,11 @@ export const ErrorField = styled.span`
   color: #9b9b9b;
   letter-spacing: 0;
   line-height: 20px;
+  display: inline-block;
 `;
 
 const InputWrapper = styled(Box)`
-  height: 87px;
+  min-height: 87px;
 `;
 
 export const ConvertionIcon = () => (

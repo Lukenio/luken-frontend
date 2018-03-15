@@ -43,7 +43,7 @@ const CryptoIconImg = styled.img`
 `;
 
 const Footer = styled(Flex)`
-  height: 297px;
+  min-height: 297px;
   background: #323b45;
 `;
 
@@ -51,7 +51,7 @@ const ContentWrap = styled(Box)`
   background: #ffffff;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
   border-radius: 6px;
-  height: 642px;
+  min-height: 642px;
 `;
 
 const LeadTitle = styled.h1`
@@ -154,6 +154,10 @@ const FooterLink = styled.a`
 
 const FooterSocialLink = styled.a`
   margin-left: 15px;
+
+  @media only screen and (max-width: 767px) {
+    margin-right: 15px;
+  }
 `;
 
 const CopyrightBox = styled(Box)`
@@ -176,6 +180,11 @@ const Disclaimer = styled.p`
   line-height: 18px;
   margin-bottom: 4px;
   padding: 4px 110px;
+  margin: 0;
+
+  @media only screen and (max-width: 767px) {
+    padding: 0 20px;
+  }
 `;
 
 const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
@@ -256,12 +265,12 @@ class Apply extends Component {
           <ContentWrap w={[1, 870]} flexDirection="column">
             {applied ? (
               <Flex
-                flex="1"
                 w={1}
                 flexDirection="column"
                 justifyContent="center"
                 alignItems="center"
-                style={{ height: '100%' }}
+                px={[15, 0]}
+                style={{ minHeight: '642px' }}
               >
                 <ThankYouHeading>Thank You!</ThankYouHeading>
                 <ThankYouText>
@@ -306,9 +315,14 @@ class Apply extends Component {
           </Disclaimer>
         </FlexContainer>
 
-        <Footer w={1} alignItems="center" flexDirection={['row', 'column']}>
-          <Flex w={[1, 870]} mt={55}>
-            <Flex w={[1, 1 / 3]} flexDirection="column">
+        <Footer w={1} alignItems="center" flexDirection="column">
+          <Flex
+            w={[1, 870]}
+            mt={[20, 55]}
+            px={[20, 0]}
+            flexDirection={['column', 'row']}
+          >
+            <Flex w={[1, 1 / 3]} mb={[20, 0]} flexDirection="column">
               <FooterColumnHeading>Contact Us</FooterColumnHeading>
               <Flex alignItems="center" mb="8px">
                 <SVGContainer w={12} h={12} mr={10}>
@@ -337,17 +351,28 @@ class Apply extends Component {
                 </FooterText>
               </Flex>
             </Flex>
-            <Flex w={[1, 1 / 3]} justifyContent="center">
+            <Flex w={[1, 1 / 3]} mb={[20, 0]} justifyContent="center">
               <Flex flexDirection="column">
                 <FooterColumnHeading>Categories</FooterColumnHeading>
-                <FooterLink href="#">Crypto Loans</FooterLink>
-                <FooterLink href="#">Digital Wallet</FooterLink>
-                <FooterLink href="#">Buy Bitcoin</FooterLink>
-                <FooterLink href="#">Our Company</FooterLink>
-                <FooterLink href="#">Contact Us</FooterLink>
+                <Flex
+                  w={1}
+                  flexDirection={['row', 'column']}
+                  flexWrap
+                  justifyContent={['space-between', 'flex-start']}
+                >
+                  <FooterLink href="#">Crypto Loans</FooterLink>
+                  <FooterLink href="#">Digital Wallet</FooterLink>
+                  <FooterLink href="#">Buy Bitcoin</FooterLink>
+                  <FooterLink href="#">Our Company</FooterLink>
+                  <FooterLink href="#">Contact Us</FooterLink>
+                </Flex>
               </Flex>
             </Flex>
-            <Flex w={[1, 1 / 3]} flexDirection="column" alignItems="flex-end">
+            <Flex
+              w={[1, 1 / 3]}
+              flexDirection="column"
+              alignItems={['flex-start', 'flex-end']}
+            >
               <FooterColumnHeading style={{ paddingRight: 17 }}>
                 Follow Us
               </FooterColumnHeading>
@@ -375,7 +400,7 @@ class Apply extends Component {
               </Flex>
             </Flex>
           </Flex>
-          <CopyrightBox w={870} mt={40} p={16}>
+          <CopyrightBox w={[1, 870]} mt={40} p={16}>
             {'© '}
             {new Date().getFullYear()}
             {' Loanzio. All Rights Reserved.'}

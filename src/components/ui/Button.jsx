@@ -40,6 +40,10 @@ export const BlueButton = BaseButton.extend`
   padding: 11px;
 
   min-width: 360px;
+
+  @media only screen and (max-width: 767px) {
+    min-width: 150px;
+  }
 `;
 
 // export const LinkButton = Button.withComponent(Link);
