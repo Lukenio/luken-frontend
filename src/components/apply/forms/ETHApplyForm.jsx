@@ -7,19 +7,17 @@ import BaseApplyForm, {
   formOptionsBuilder
 } from './BaseApplyForm';
 
+// Settings
 const form = 'apply-form-eth';
 const prefix = 'ETH ';
 const cryptoType = 1;
 
+// Redux form
+const formOptions = formOptionsBuilder(form, prefix, cryptoType);
+const ETHApplyForm = reduxForm(formOptions)(BaseApplyForm);
+
+// Redux connect
 const priceSelector = state => state.coinsPrice.pricesById.ethereum;
+const mapStateToProps = mapStateToPropsBuilder(form, priceSelector);
 
-const reduxBTCApplyForm = connect(
-  mapStateToPropsBuilder(form, priceSelector),
-  mapDispatchToProps
-)(BaseApplyForm);
-
-const BTCApplyForm = reduxForm(formOptionsBuilder(form, prefix, cryptoType))(
-  reduxBTCApplyForm
-);
-
-export default BTCApplyForm;
+export default connect(mapStateToProps, mapDispatchToProps)(ETHApplyForm);

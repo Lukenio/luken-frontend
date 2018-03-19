@@ -8,6 +8,7 @@ import modals from './modals';
 import coinAccounts from './coinAccounts';
 import coinsPrice from './coinsPrice';
 import ui from './ui';
+import input from './input';
 
 const rootReducer = combineReducers({
   auth,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   coinAccounts,
   coinsPrice,
   ui,
+  input,
   form: formReducer,
   routing: routerReducer
 });

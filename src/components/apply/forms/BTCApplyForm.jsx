@@ -10,15 +10,10 @@ import BaseApplyForm, {
 const form = 'apply-form-btc';
 const prefix = 'BTC ';
 const cryptoType = 0;
+const formOptions = formOptionsBuilder(form, prefix, cryptoType);
+const BTCApplyForm = reduxForm(formOptions)(BaseApplyForm);
+
 const priceSelector = state => state.coinsPrice.pricesById.bitcoin;
+const mapStateToProps = mapStateToPropsBuilder(form, priceSelector);
 
-const reduxBTCApplyForm = connect(
-  mapStateToPropsBuilder(form, priceSelector),
-  mapDispatchToProps
-)(BaseApplyForm);
-
-const BTCApplyForm = reduxForm(formOptionsBuilder(form, prefix, cryptoType))(
-  reduxBTCApplyForm
-);
-
-export default BTCApplyForm;
+export default connect(mapStateToProps, mapDispatchToProps)(BTCApplyForm);

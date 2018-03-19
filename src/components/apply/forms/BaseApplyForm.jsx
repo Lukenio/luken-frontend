@@ -20,6 +20,7 @@ import {
 } from './Elements.jsx';
 import { BlueButton } from '../../ui/Button.jsx';
 import { applyNewLoan } from '../../../actions/apply';
+import { setGlobalLoanedAmmountValue } from '../../../actions/input';
 import {
   convertFromUSDToCrypto,
   convertFromCryptoToUSD
@@ -67,6 +68,17 @@ const validate = values => {
 };
 
 class BaseApplyForm extends Component {
+  componentWillMount() {
+    if (this.props.initialValues.loaned_amount) {
+      const cryptosToCollate = this.calculateCryptoCollateral(
+        this.props.initialValues.loaned_amount,
+        this.props.initialValues.terms_month
+      );
+
+      this.setFormValue('crypto_collateral', cryptosToCollate);
+    }
+  }
+
   componentWillReceiveProps(newProps) {
     if (newProps.termsMonth !== this.props.termsMonth) {
       const cryptosToCollate = this.calculateCryptoCollateral(
@@ -79,10 +91,10 @@ class BaseApplyForm extends Component {
   }
 
   setFormValue = (key, value) => {
-    const { change, form } = this.props;
+    const { change } = this.props;
 
     if (!isNaN(value)) {
-      change(form, key, value);
+      change(key, value);
     }
   };
 
@@ -99,6 +111,8 @@ class BaseApplyForm extends Component {
   };
 
   handleUSDInputChange = ta => {
+    const { setGlobalLoanedAmmountValue } = this.props;
+
     if (!ta) {
       this.setFormValue('crypto_collateral', '');
       return;
@@ -108,16 +122,22 @@ class BaseApplyForm extends Component {
       ta,
       this.props.termsMonth
     );
+
     this.setFormValue('crypto_collateral', cryptosToCollate);
+    setGlobalLoanedAmmountValue(ta);
   };
 
   handleCryptoInputChange = c => {
+    const { setGlobalLoanedAmmountValue } = this.props;
+
     if (!c) {
       this.setFormValue('loaned_amount', '');
+      setGlobalLoanedAmmountValue('');
       return;
     }
     const totalAmount = this.calculateLoanedAmmount(c, this.props.termsMonth);
     this.setFormValue('loaned_amount', totalAmount);
+    setGlobalLoanedAmmountValue(totalAmount);
   };
 
   render() {
@@ -214,20 +234,17 @@ export const formOptionsBuilder = (form, prefix, cryptoType) => ({
   form,
   prefix,
   cryptoType,
-  initialValues: {
-    terms_month: '0'
-  },
   validate
 });
 
-export const mapDispatchToProps = dispatch => ({
-  change: (form, field, value) => dispatch(change(form, field, value))
-});
+export const mapDispatchToProps = {
+  setGlobalLoanedAmmountValue
+};
 
-export const mapStateToPropsBuilder = (
-  form,
-  priceSelector = () => {}
-) => state => {
+export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
+  state,
+  ownProps
+) => {
   const valuesSelector = formValueSelector(form);
 
   return {
@@ -235,7 +252,11 @@ export const mapStateToPropsBuilder = (
     termsMonth: valuesSelector(state, 'terms_month'),
     loanedAmount: valuesSelector(state, 'loaned_amount'),
     isCryptoPriceFetching: state.coinsPrice.isFetching,
-    cryptoPrice: priceSelector(state)
+    cryptoPrice: priceSelector(state),
+    initialValues: {
+      terms_month: '0',
+      loaned_amount: state.input.globalLoanedAmountValue
+    }
   };
 };
 

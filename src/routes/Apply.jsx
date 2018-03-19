@@ -20,7 +20,9 @@ import {
   FacebookIcon,
   TwitterIcon,
   GoogleIcon,
-  LinkedInIcon
+  LinkedInIcon,
+  BitcoinIcon,
+  EthereumIcon
 } from '../components/ui/SVGIcons';
 
 // const Title = styled.span`
@@ -33,12 +35,9 @@ import {
 //   margin-left: 7px;
 // `;
 
-const CryptoIconImg = styled.img`
+const CryptoIcon = styled(SVGContainer)`
   height: 50px;
   width: 50px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   opacity: ${({ active }) => (active ? '1' : '0.3')};
 `;
 
@@ -98,7 +97,7 @@ const CryptoAssetTitle = styled.h3`
   margin: 0;
 `;
 
-const TabBoxWrapper = styled(Box)`
+const TabBoxWrapper = styled(Flex)`
   text-align: center;
   background: #2893ef;
   border-bottom-width: : 1px;
@@ -196,10 +195,11 @@ const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
       {currencies.map(c => (
         <Tab
           active={c.type === activeType}
-          image={c.image}
+          icon={<c.icon />}
           onClick={() => {
             onChange(c);
           }}
+          key={c.title}
           w={width}
         >
           {c.title}
@@ -209,10 +209,17 @@ const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
   );
 };
 
-const Tab = ({ active, children, image, onClick, ...other }) => {
+const Tab = ({ active, children, icon, onClick, ...other }) => {
   return (
-    <TabBoxWrapper w={1} active={active} {...other} onClick={onClick}>
-      <CryptoIconImg src={image} active={active} />
+    <TabBoxWrapper
+      w={1}
+      active={active}
+      {...other}
+      onClick={onClick}
+      flexDirection="column"
+      alignItems="center"
+    >
+      <CryptoIcon active={active}>{icon}</CryptoIcon>
       <CryptocyrrencyTitle active={active}>{children}</CryptocyrrencyTitle>
     </TabBoxWrapper>
   );
@@ -222,8 +229,8 @@ class Apply extends Component {
   state = {
     activeCurrencyType: 0,
     currencies: [
-      { type: 0, title: 'Bitcoin', image: btcLogo },
-      { type: 2, title: 'Ethereum', image: ethLogo }
+      { type: 0, title: 'Bitcoin', icon: BitcoinIcon },
+      { type: 2, title: 'Ethereum', icon: EthereumIcon }
     ]
   };
 
