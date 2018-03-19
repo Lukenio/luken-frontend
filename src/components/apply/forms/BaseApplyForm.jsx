@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { Flex, Box } from 'grid-styled';
-import {
-  Field,
-  change,
-  getFormSyncErrors,
-  formValueSelector
-} from 'redux-form';
+import { Field, getFormSyncErrors, formValueSelector } from 'redux-form';
 
 import {
   Input,
@@ -180,7 +175,7 @@ class BaseApplyForm extends Component {
               />
             </Box>
           </Flex>
-          <Flex width={1} my={[0, 20]} flexDirection={['column', 'row']} >
+          <Flex width={1} my={[0, 20]} flexDirection={['column', 'row']}>
             <TermSpan>Term:</TermSpan>
             <Field
               type="radio"

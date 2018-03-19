@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Flex, Box } from 'grid-styled';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SVGContainer from './SVGContainer';
@@ -139,12 +138,12 @@ const Navigation = ({ menuOpen, handleNavMenuToggle }) => (
       py={[0, 15]}
     >
       <Flex alignItems="center" flexDirection="row">
-      <a href="https://loanz.io/">
-        <LogoLoanz
-          src="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
-          data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
-        />
-      </a>
+        <a href="https://loanz.io/">
+          <LogoLoanz
+            src="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
+            data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
+          />
+        </a>
       </Flex>
       <DesktopMenu w={[0, 1]} justifyContent="space-between">
         <MenuItems />
