@@ -10,9 +10,6 @@ import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
 import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
 import Navigation from '../components/ui/Navigation';
 
-import btcLogo from '../components/apply/images/btc.png';
-import ethLogo from '../components/apply/images/eth.png';
-
 import {
   PhoneIcon,
   EmailIcon,
@@ -24,16 +21,6 @@ import {
   BitcoinIcon,
   EthereumIcon
 } from '../components/ui/SVGIcons';
-
-// const Title = styled.span`
-//   font-weight: 500;
-//   font-size: 14px;
-//   color: #ffffff;
-//   letter-spacing: 0;
-//   text-align: center;
-//   line-height: 22px;
-//   margin-left: 7px;
-// `;
 
 const CryptoIcon = styled(SVGContainer)`
   height: 50px;
