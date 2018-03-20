@@ -105,8 +105,8 @@ const MenuIconBox = styled(Flex)`
 
 const MenuItems = () => (
   <Fragment>
-    <NavItem href="/apply">Apply for a loan</NavItem>
-    <NavItem href="https://loanz.io/buy-bitcoin/">Buy Bitcoin</NavItem>
+    <NavItem href="/apply">Apply for a Crypto Loan</NavItem>
+    <NavItem href="https://loanz.io/buy-bitcoin/">Buy / Sell Bitcoin</NavItem>
     <NavItem href="https://loanz.io/digital-wallet/">Digital Wallet</NavItem>
     <NavItem href="https://loanz.io/company/">Company</NavItem>
     <NavItem href="https://loanz.io/faqs/">FAQ's</NavItem>

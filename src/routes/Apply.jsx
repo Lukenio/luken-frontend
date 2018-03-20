@@ -341,7 +341,7 @@ class Apply extends Component {
                   <LocationIcon />
                 </SVGContainer>
                 <FooterText>
-                  <strong>Toronto, ON, Canada</strong>
+                  <strong>15 Wertheim Court Unit 203A Richmond Hill, ON L4B 3H7</strong>
                 </FooterText>
               </Flex>
             </Flex>
@@ -358,8 +358,8 @@ class Apply extends Component {
                   flexWrap
                   justifyContent={['space-between', 'flex-start']}
                 >
-                  <FooterLink href="/apply/">Apply for Loan</FooterLink>
-                  <FooterLink href="https://loanz.io/buy-bitcoin/">Buy Bitcoin</FooterLink>
+                  <FooterLink href="/apply/">Apply for a Crypto Loan</FooterLink>
+                  <FooterLink href="https://loanz.io/buy-bitcoin/">Buy / Sell Bitcoin</FooterLink>
                   <FooterLink href="https://loanz.io/digital-wallet/">Digital Wallet</FooterLink>
                   <FooterLink href="https://loanz.io/company/">Our Company</FooterLink>
                   <FooterLink href="https://loanz.io/faqs/">FAQ</FooterLink>
