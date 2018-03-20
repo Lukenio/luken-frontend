@@ -346,7 +346,7 @@ class Apply extends Component {
               </Flex>
             </Flex>
             <Flex
-              w={[1, 1 / 3]}
+              w={[1, 1 / 2]}
               mb={[20, 0]}
               justifyContent={['flex-start', 'center']}
             >
@@ -358,8 +358,8 @@ class Apply extends Component {
                   flexWrap
                   justifyContent={['space-between', 'flex-start']}
                 >
-                  <FooterLink href="/apply/">Apply for a Crypto Loan</FooterLink>
-                  <FooterLink href="https://loanz.io/buy-bitcoin/">Buy / Sell Bitcoin</FooterLink>
+                  <FooterLink href="/apply/">Apply for Loan</FooterLink>
+                  <FooterLink href="https://loanz.io/buy-bitcoin/">Buy Bitcoin</FooterLink>
                   <FooterLink href="https://loanz.io/digital-wallet/">Digital Wallet</FooterLink>
                   <FooterLink href="https://loanz.io/company/">Our Company</FooterLink>
                   <FooterLink href="https://loanz.io/faqs/">FAQ</FooterLink>
@@ -367,8 +367,30 @@ class Apply extends Component {
                 </Flex>
               </Flex>
             </Flex>
+
             <Flex
-              w={[1, 1 / 3]}
+              w={[1, 1 / 2]}
+              mb={[20, 0]}
+              justifyContent={['flex-start', 'center']}
+            >
+              <Flex flexDirection="column" w={[1, 'inherit']}>
+                <FooterColumnHeading>Legal Information</FooterColumnHeading>
+                <Flex
+                  w={1}
+                  flexDirection={['row', 'column']}
+                  flexWrap
+                  justifyContent={['space-between', 'flex-start']}
+                >
+                  <FooterLink href="https://loanz.io/privacy-policy/">Privacy Policy</FooterLink>
+                  <FooterLink href="https://loanz.io/terms-of-service/"> Terms of Service</FooterLink>
+                  <FooterLink href="https://loanz.io/aml-and-kyc-policy/"> AML and KYC Policy</FooterLink>
+                  <FooterLink href="https://loanz.io/verification-guide/">Verification Guide</FooterLink>
+                </Flex>
+              </Flex>
+            </Flex>
+
+            <Flex
+              w={[1, 1 / 6]}
               flexDirection="column"
               alignItems={['flex-start', 'flex-end']}
             >
@@ -402,7 +424,7 @@ class Apply extends Component {
           <CopyrightBox w={[1, 767, 870]} mt={40} p={16}>
             {'© '}
             {new Date().getFullYear()}
-            {' Loanzio. All Rights Reserved.'}
+            {' LOANZ.IO. All Rights Reserved.'}
           </CopyrightBox>
         </Footer>
       </Fragment>
