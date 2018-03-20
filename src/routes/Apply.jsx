@@ -17,9 +17,9 @@ import {
   FacebookIcon,
   TwitterIcon,
   GoogleIcon,
-  LinkedInIcon,
+  InstagrammIcon,
   BitcoinIcon,
-  EthereumIcon
+  EthereumIcon,
 } from '../components/ui/SVGIcons';
 
 const CryptoIcon = styled(SVGContainer)`
@@ -376,24 +376,24 @@ class Apply extends Component {
                 Follow Us
               </FooterColumnHeading>
               <Flex alignItems="flex-start">
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://www.facebook.com/Loanz-Fiat-Loans-for-Crypto-Community-310966579427905/">
                   <SVGContainer w={6} h={12}>
                     <FacebookIcon />
                   </SVGContainer>
                 </FooterSocialLink>
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://plus.google.com/u/5/105757677441837867265">
                   <SVGContainer w={20} h={12}>
                     <GoogleIcon />
                   </SVGContainer>
                 </FooterSocialLink>
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://twitter.com/loanzio">
                   <SVGContainer w={15} h={12}>
                     <TwitterIcon />
                   </SVGContainer>
                 </FooterSocialLink>
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://www.instagram.com/loanzio">
                   <SVGContainer w={13} h={12}>
-                    <LinkedInIcon />
+                    <InstagrammIcon />
                   </SVGContainer>
                 </FooterSocialLink>
               </Flex>
