@@ -217,6 +217,7 @@ export const TLAText = styled.span`
   font-weight: 800;
   display: inline-block;
   color: #2893ef;
+  margin-right: 15px;
 `;
 
 const TLAWrapper = styled(NumberFormat)`
@@ -224,7 +225,6 @@ const TLAWrapper = styled(NumberFormat)`
   font-weight: 800;
   display: inline-block;
   color: #2893ef;
-  margin-left: 15px;
 `;
 
 const TLATextWrapper = styled.div`
