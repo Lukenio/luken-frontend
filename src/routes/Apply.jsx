@@ -17,9 +17,9 @@ import {
   FacebookIcon,
   TwitterIcon,
   GoogleIcon,
-  LinkedInIcon,
+  InstagrammIcon,
   BitcoinIcon,
-  EthereumIcon
+  EthereumIcon,
 } from '../components/ui/SVGIcons';
 
 const CryptoIcon = styled(SVGContainer)`
@@ -341,12 +341,12 @@ class Apply extends Component {
                   <LocationIcon />
                 </SVGContainer>
                 <FooterText>
-                  <strong>Toronto, ON, Canada</strong>
+                  <strong>15 Wertheim Court Unit 203A Richmond Hill, ON L4B 3H7</strong>
                 </FooterText>
               </Flex>
             </Flex>
             <Flex
-              w={[1, 1 / 3]}
+              w={[1, 1 / 2]}
               mb={[20, 0]}
               justifyContent={['flex-start', 'center']}
             >
@@ -367,8 +367,30 @@ class Apply extends Component {
                 </Flex>
               </Flex>
             </Flex>
+
             <Flex
-              w={[1, 1 / 3]}
+              w={[1, 1 / 2]}
+              mb={[20, 0]}
+              justifyContent={['flex-start', 'center']}
+            >
+              <Flex flexDirection="column" w={[1, 'inherit']}>
+                <FooterColumnHeading>Legal Information</FooterColumnHeading>
+                <Flex
+                  w={1}
+                  flexDirection={['row', 'column']}
+                  flexWrap
+                  justifyContent={['space-between', 'flex-start']}
+                >
+                  <FooterLink href="https://loanz.io/privacy-policy/">Privacy Policy</FooterLink>
+                  <FooterLink href="https://loanz.io/terms-of-service/"> Terms of Service</FooterLink>
+                  <FooterLink href="https://loanz.io/aml-and-kyc-policy/"> AML and KYC Policy</FooterLink>
+                  <FooterLink href="https://loanz.io/verification-guide/">Verification Guide</FooterLink>
+                </Flex>
+              </Flex>
+            </Flex>
+
+            <Flex
+              w={[1, 1 / 6]}
               flexDirection="column"
               alignItems={['flex-start', 'flex-end']}
             >
@@ -376,24 +398,24 @@ class Apply extends Component {
                 Follow Us
               </FooterColumnHeading>
               <Flex alignItems="flex-start">
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://www.facebook.com/Loanz-Fiat-Loans-for-Crypto-Community-310966579427905/">
                   <SVGContainer w={6} h={12}>
                     <FacebookIcon />
                   </SVGContainer>
                 </FooterSocialLink>
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://plus.google.com/u/5/105757677441837867265">
                   <SVGContainer w={20} h={12}>
                     <GoogleIcon />
                   </SVGContainer>
                 </FooterSocialLink>
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://twitter.com/loanzio">
                   <SVGContainer w={15} h={12}>
                     <TwitterIcon />
                   </SVGContainer>
                 </FooterSocialLink>
-                <FooterSocialLink href="#">
+                <FooterSocialLink href="https://www.instagram.com/loanzio">
                   <SVGContainer w={13} h={12}>
-                    <LinkedInIcon />
+                    <InstagrammIcon />
                   </SVGContainer>
                 </FooterSocialLink>
               </Flex>
@@ -402,7 +424,7 @@ class Apply extends Component {
           <CopyrightBox w={[1, 767, 870]} mt={40} p={16}>
             {'© '}
             {new Date().getFullYear()}
-            {' Loanzio. All Rights Reserved.'}
+            {' LOANZ.IO. All Rights Reserved.'}
           </CopyrightBox>
         </Footer>
       </Fragment>
