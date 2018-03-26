@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import { Box } from 'grid-styled';
 
@@ -9,6 +9,18 @@ import NumberFormat from 'react-number-format';
 export const FormWrapper = styled.form`
   width: 100%;
 `;
+
+export const FormError = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+  color: #cd021b;
+`;
+
+export const FormErrorAlert = ({ statusText }) => (
+  <Box mb={20} style={{ textAlign: 'center' }}>
+    <FormError>{statusText}</FormError>
+  </Box>
+);
 
 const Label = styled.label`
   width: 100%;
@@ -103,10 +115,10 @@ export const CurrencyInput = ({
   );
 };
 
-export const Input = ({ input, meta, label, placeholder }) => (
+export const Input = ({ input, meta, label, placeholder, ...other }) => (
   <InputWrapper w={1}>
     <Label>{label}</Label>
-    <StyledInput {...input} placeholder={placeholder || label} />
+    <StyledInput {...input} placeholder={placeholder || label} {...other} />
     {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
   </InputWrapper>
 );
@@ -194,3 +206,50 @@ export const Divider = styled(Box)`
   height: 1px;
   background: rgba(155, 155, 155, 0.25);
 `;
+
+export const DisclaimerTotalLoanAmount = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+export const TLAText = styled.span`
+  font-size: 26px;
+  font-weight: 800;
+  display: inline-block;
+  color: #2893ef;
+`;
+
+const TLAWrapper = styled(NumberFormat)`
+  font-size: 36px;
+  font-weight: 800;
+  display: inline-block;
+  color: #2893ef;
+  margin-left: 15px;
+`;
+
+const TLATextWrapper = styled.div`
+  min-height: 44px;
+`;
+
+export const TLAComponent = ({
+  input,
+  meta,
+  prefix = '$ ',
+  decimalScale = 2
+}) => (
+  <Fragment>
+    <TLATextWrapper>
+      <TLAText>Total Loan Amount:</TLAText>
+      <TLAWrapper
+        value={input.value}
+        thousandSeparator={true}
+        decimalScale={decimalScale}
+        prefix={prefix}
+        suffix={' *'}
+        allowNegative={false}
+        displayType="text"
+      />
+    </TLATextWrapper>
+    {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
+  </Fragment>
+);

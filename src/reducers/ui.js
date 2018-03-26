@@ -30,6 +30,11 @@ function modals(state = defaultState, action) {
         ...state,
         newLoanUserApplied: true
       };
+    // case APPLY_NEW_LOAN_FAILURE:
+    //   return {
+    //     ...state,
+    //     newLoanError: action.payload.statusText
+    //   };
     case NAV_MENU_TOGGLE:
       return {
         ...state,

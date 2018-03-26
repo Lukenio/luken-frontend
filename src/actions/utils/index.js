@@ -9,9 +9,11 @@ const defaultProps = {
   redirectUrl: '/login'
 };
 
+const fieldString = i => `${i[0]} - ${i[1]}`;
+
 const stringifyErrorList = l =>
   l.reduce(
-    (acc, i) => (Array.isArray(i) ? stringifyErrorList(i) : `${acc} ${i}`),
+    (acc, i) => (acc === '' ? fieldString(i) : `${acc}</br>${fieldString(i)}`),
     ''
   );
 
@@ -38,6 +40,8 @@ export const errorHandler = (dispatch, failureAction, opts = defaultProps) => (
       }
 
       dispatch(batchActions(actions));
+
+      return Promise.reject({ 401: true });
     });
   } else if (
     error &&
@@ -52,6 +56,9 @@ export const errorHandler = (dispatch, failureAction, opts = defaultProps) => (
         ...other
       )
     );
+    return Promise.reject({
+      500: 'A server error occurred while sending your data!'
+    });
   } else if (
     error &&
     typeof error.response !== 'undefined' &&
@@ -63,10 +70,11 @@ export const errorHandler = (dispatch, failureAction, opts = defaultProps) => (
       dispatch(
         failureAction(
           400,
-          stringifyErrorList(Object.values(data)) || data || 'Bad request',
+          stringifyErrorList(Object.entries(data)) || data || 'Bad request',
           ...other
         )
       );
+      return Promise.reject(data);
     });
   } else {
     // Most likely connection issues
@@ -77,11 +85,12 @@ export const errorHandler = (dispatch, failureAction, opts = defaultProps) => (
         ...other
       )
     );
+
+    return Promise.reject({
+      'Connection Error': 'An error occurred while sending your data!'
+    });
   }
 
-  // if (!noRedirect) {
-  //   dispatch(push(redirectUrl));
-  // }
   return Promise.reject();
 };
 

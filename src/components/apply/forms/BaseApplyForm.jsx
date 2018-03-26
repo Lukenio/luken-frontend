@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Flex, Box } from 'grid-styled';
-import { Field, getFormSyncErrors, formValueSelector } from 'redux-form';
+import {
+  Field,
+  getFormSyncErrors,
+  formValueSelector,
+  SubmissionError
+} from 'redux-form';
 
 import {
   Input,
@@ -10,43 +15,57 @@ import {
   ConvertionIcon,
   TermSpan,
   RadioInput,
-  Divider
-  // FormErrorAlert
+  Divider,
+  DisclaimerTotalLoanAmount,
+  TLAComponent,
+  FormErrorAlert
 } from './Elements.jsx';
 import { BlueButton } from '../../ui/Button.jsx';
 import { applyNewLoan } from '../../../actions/apply';
 import { setGlobalLoanedAmmountValue } from '../../../actions/input';
 import {
   convertFromUSDToCrypto,
-  convertFromCryptoToUSD
+  convertFromCryptoToUSD,
+  getTE,
+  getAPR,
+  calculateTLA,
+  LTV
 } from '../../../utils/currencyConverters';
 
-const getTermMonthsByType = type => {
-  if (typeof type === 'undefined') return null;
-
-  const termsMontsMap = {
-    0: 3,
-    1: 6,
-    2: 12
-  };
-  return termsMontsMap[Number(type)];
-};
-
 const dispatchValues = cryptoType => (values, dispatch) => {
-  const { email, crypto_collateral, loaned_amount, terms_month } = values;
-  dispatch(
-    applyNewLoan({
-      email,
-      crypto_collateral,
-      loaned_amount,
-      terms_month,
-      crypto_type: cryptoType
-    })
-  );
+  const {
+    email,
+    crypto_collateral,
+    loaned_amount,
+    terms_month,
+    total_loaned_amount
+  } = values;
+
+  const apr = getAPR(terms_month);
+
+  const payload = {
+    email,
+    crypto_collateral,
+    total_loaned_amount,
+    loaned_amount,
+    terms_month,
+    apr,
+    crypto_type: cryptoType,
+    ltv: LTV
+  };
+
+  return dispatch(applyNewLoan(payload)).catch((e = {}) => {
+    throw new SubmissionError({
+      loaned_amount: e.loaned_amount[0],
+      _error: 'Submission failed!'
+    });
+  });
 };
 
 const validate = values => {
   const errors = {};
+
+  console.log('total_loaned_amount', values.total_loaned_amount);
 
   if (!values.loaned_amount) {
     errors.loaned_amount =
@@ -58,30 +77,51 @@ const validate = values => {
   if (!values.email) {
     errors.email = 'Please enter an email address.';
   }
+  if (!values.total_loaned_amount || values.total_loaned_amount === '0') {
+    errors.total_loaned_amount =
+      "Please let us know how much you're looking to borrow.";
+  }
 
   return errors;
 };
 
 class BaseApplyForm extends Component {
   componentWillMount() {
-    if (this.props.initialValues.loaned_amount) {
-      const cryptosToCollate = this.calculateCryptoCollateral(
-        this.props.initialValues.loaned_amount,
-        this.props.initialValues.terms_month
-      );
+    const { initialValues } = this.props;
 
-      this.setFormValue('crypto_collateral', cryptosToCollate);
+    if (initialValues.loaned_amount) {
+      this.setFormValue(
+        'crypto_collateral',
+        this.calculateCryptoCollateral(
+          initialValues.loaned_amount,
+          initialValues.terms_month
+        )
+      );
+      this.setFormValue(
+        'total_loaned_amount',
+        this.calculateTLA(
+          initialValues.loaned_amount,
+          initialValues.terms_month
+        )
+      );
     }
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.termsMonth !== this.props.termsMonth) {
-      const cryptosToCollate = this.calculateCryptoCollateral(
-        this.props.loanedAmount,
-        newProps.termsMonth
-      );
+  componentWillReceiveProps({ termsMonth }) {
+    if (termsMonth !== this.props.termsMonth) {
+      const { loanedAmount } = this.props;
 
-      this.setFormValue('crypto_collateral', cryptosToCollate);
+      if (loanedAmount) {
+        this.setFormValue(
+          'crypto_collateral',
+          this.calculateCryptoCollateral(loanedAmount, termsMonth)
+        );
+
+        this.setFormValue(
+          'total_loaned_amount',
+          this.calculateTLA(loanedAmount, termsMonth)
+        );
+      }
     }
   }
 
@@ -93,51 +133,64 @@ class BaseApplyForm extends Component {
     }
   };
 
-  calculateLoanedAmmount = (c, termsMonth) => {
+  calculateLoanedAmmount = (C, termsMonth) => {
     const { cryptoPrice } = this.props;
-    const te = getTermMonthsByType(termsMonth);
-    return convertFromCryptoToUSD(c, cryptoPrice, te);
+    const TE = getTE(termsMonth);
+    const APR = getAPR(termsMonth);
+    return convertFromCryptoToUSD({ C, P: cryptoPrice, TE, APR });
   };
 
-  calculateCryptoCollateral = (ta, termsMonth) => {
+  calculateCryptoCollateral = (TA, termsMonth) => {
     const { cryptoPrice } = this.props;
-    const te = getTermMonthsByType(termsMonth);
-    return convertFromUSDToCrypto(ta, cryptoPrice, te);
+    const TE = getTE(termsMonth);
+    const APR = getAPR(termsMonth);
+    return convertFromUSDToCrypto({ TA, P: cryptoPrice, TE, APR });
   };
 
-  handleUSDInputChange = ta => {
-    const { setGlobalLoanedAmmountValue } = this.props;
+  calculateTLA = (TA, termsMonth) => {
+    const TE = getTE(termsMonth);
+    const APR = getAPR(termsMonth);
+    return calculateTLA({ TA, APR, TE });
+  };
 
-    if (!ta) {
+  handleUSDInputChange = TA => {
+    const { setGlobalLoanedAmmountValue, termsMonth } = this.props;
+
+    if (!TA) {
       this.setFormValue('crypto_collateral', '');
+      this.setFormValue('total_loaned_amount', '');
       return;
     }
 
-    const cryptosToCollate = this.calculateCryptoCollateral(
-      ta,
-      this.props.termsMonth
+    this.setFormValue(
+      'crypto_collateral',
+      this.calculateCryptoCollateral(TA, termsMonth)
     );
+    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
 
-    this.setFormValue('crypto_collateral', cryptosToCollate);
-    setGlobalLoanedAmmountValue(ta);
+    setGlobalLoanedAmmountValue(TA);
   };
 
   handleCryptoInputChange = c => {
-    const { setGlobalLoanedAmmountValue } = this.props;
+    const { setGlobalLoanedAmmountValue, termsMonth } = this.props;
 
     if (!c) {
       this.setFormValue('loaned_amount', '');
+      this.setFormValue('total_loaned_amount', '');
       setGlobalLoanedAmmountValue('');
       return;
     }
-    const totalAmount = this.calculateLoanedAmmount(c, this.props.termsMonth);
-    this.setFormValue('loaned_amount', totalAmount);
-    setGlobalLoanedAmmountValue(totalAmount);
+
+    const TA = this.calculateLoanedAmmount(c, termsMonth);
+    this.setFormValue('loaned_amount', TA);
+    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
+    setGlobalLoanedAmmountValue(TA);
   };
 
   render() {
     const {
       syncErrors = {},
+      error,
       submitFailed,
       prefix,
       cryptoType,
@@ -149,7 +202,7 @@ class BaseApplyForm extends Component {
     return (
       <Flex px={[20, 59]} py={[20, 59]} w={1}>
         <FormWrapper onSubmit={handleSubmit(dispatchValues(cryptoType))}>
-          {/* {statusText && <FormErrorAlert statusText={statusText} />} */}
+          {error && <FormErrorAlert statusText={error} />}
           <Flex w={1} flexDirection={['column', 'row']}>
             <Box w={[1, 340]} my={[30, 0]}>
               <Field
@@ -204,14 +257,39 @@ class BaseApplyForm extends Component {
               <ErrorField>{syncErrors.terms_month}</ErrorField>
             )}
           <Divider width={1} mt={26} />
+
+          <Flex
+            w={1}
+            mt={27}
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="column"
+          >
+            <Field name="total_loaned_amount" component={TLAComponent} />
+          </Flex>
+
           <Flex w={1} mt={27}>
             <Field
               name="email"
               label="Enter Your Email Address"
-              type="text"
+              type="email"
               placeholder="Email Address"
               component={Input}
             />
+          </Flex>
+
+          <Flex w={1}>
+            <DisclaimerTotalLoanAmount>
+              * The Total Loan Amount calculation based on your desired loan
+              amount, term of the loan and annual percentage rate (APR). Due to
+              high volatility, the collateral amount based on 35% LTV of our
+              perception of the yearly minimal price of the bitcoin and
+              etherium. Total Loan Amount includes all fees associated with your
+              transactions. In order to receive the collateral back, total Loan
+              Amount must be discharged on maturity date. The loan maturity date
+              will be indicated on the final loan agreement. Email notification
+              will be sent 30 days prior date of discharge.
+            </DisclaimerTotalLoanAmount>
           </Flex>
 
           <Flex justify="center" pt={[20, 54]}>
@@ -250,6 +328,7 @@ export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
     cryptoPrice: priceSelector(state),
     initialValues: {
       terms_month: '0',
+      total_loaned_amount: '0',
       loaned_amount: state.input.globalLoanedAmountValue
     }
   };

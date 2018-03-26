@@ -34,9 +34,12 @@ function applyNewLoanFailure(error, message) {
 export function applyNewLoan({
   email,
   loaned_amount,
+  total_loaned_amount,
   crypto_collateral,
   crypto_type,
-  terms_month
+  terms_month,
+  ltv,
+  apr
 }) {
   return dispatch => {
     dispatch(applyNewLoanRequest());
@@ -50,7 +53,10 @@ export function applyNewLoan({
       body: JSON.stringify({
         email,
         crypto_type,
+        apr,
+        ltv,
         loaned_amount: parseFloat(loaned_amount.toFixed(2)),
+        total_loaned_amount: parseFloat(loaned_amount.toFixed(2)),
         crypto_collateral: parseFloat(crypto_collateral.toFixed(8)),
         terms_month: Number(terms_month)
       })
