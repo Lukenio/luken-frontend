@@ -57,7 +57,7 @@ const dispatchValues = cryptoType => (values, dispatch) => {
   return dispatch(applyNewLoan(payload)).catch((e = {}) => {
     throw new SubmissionError({
       loaned_amount: e.loaned_amount[0],
-      _error: 'Submission failed!'
+      _error: e.loaned_amount[0]
     });
   });
 };
