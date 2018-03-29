@@ -302,10 +302,7 @@ class Apply extends Component {
           centered={true}
         >
           <Disclaimer>
-            * Disclaimer: The crypto value increase is dependent upon your own
-            perception of the Bitcoin or Ethereum market values. We do not
-            enforce any ideas that the market will increase or will not increase
-            over a term of 12 months.
+          * The Total Loan Amount will be calculated based on your Desired Loan Amount, Term of the Loan and Annual Percentage Rate (APR). Due to high volatility, the collateral amount based on 35% LTV of our perception of the yearly minimal price of the Btcoin and Eherium. Total Loan Amount includes all fees associated with your transactions. In order to receive the collateral back, total Loan Amount must be discharged on maturity date. The loan maturity date will be indicated on the final loan agreement. Email notification will be sent 30 days prior date of discharge
           </Disclaimer>
         </FlexContainer>
 
@@ -337,7 +334,7 @@ class Apply extends Component {
                 </FooterLink>
               </Flex>
               <Flex alignItems="center" mb="8px">
-                <SVGContainer w={9} h={12} mr={10}>
+                <SVGContainer w={20} h={20} mr={10} mb={35}>
                   <LocationIcon />
                 </SVGContainer>
                 <FooterText>

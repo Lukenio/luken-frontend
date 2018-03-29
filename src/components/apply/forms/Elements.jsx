@@ -239,7 +239,7 @@ export const TLAComponent = ({
 }) => (
   <Fragment>
     <TLATextWrapper>
-      <TLAText>Total Loan Amount:</TLAText>
+      <TLAText>Desired Loan Amount:</TLAText>
       <TLAWrapper
         value={input.value}
         thousandSeparator={true}

@@ -8,7 +8,7 @@
 `teType` - TA in a backend-supported format. 0 - 3 months, 1 - 6 months, 2 - 12 months
 */
 
-export const LTV = 0.5;
+export const LTV = 0.35;
 
 export const getTE = teType => {
   if (typeof teType === 'undefined') return null;

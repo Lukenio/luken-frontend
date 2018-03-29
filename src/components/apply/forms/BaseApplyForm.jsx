@@ -56,8 +56,8 @@ const dispatchValues = cryptoType => (values, dispatch) => {
 
   return dispatch(applyNewLoan(payload)).catch((e = {}) => {
     throw new SubmissionError({
-      loaned_amount: e.loaned_amount[0],
-      _error: e.loaned_amount[0]
+      loaned_amount: e.loaned_amount[0].replace('this value', '`Loan Amount`'),
+      _error: e.loaned_amount[0].replace('this value', '`Loan Amount`')
     });
   });
 };
@@ -208,6 +208,7 @@ class BaseApplyForm extends Component {
               <Field
                 name="loaned_amount"
                 label="How Much are You Looking to Borrow?"
+                placeholder="Please enter your desired loan amount"
                 type="text"
                 component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
@@ -220,6 +221,7 @@ class BaseApplyForm extends Component {
                 name="crypto_collateral"
                 label="How Much Collateral are You Posting?"
                 type="text"
+                placeholder="Please enter your collateral amount"
                 component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
                 prefix={prefix}
@@ -276,20 +278,6 @@ class BaseApplyForm extends Component {
               placeholder="Email Address"
               component={Input}
             />
-          </Flex>
-
-          <Flex w={1}>
-            <DisclaimerTotalLoanAmount>
-              * The Total Loan Amount calculation based on your desired loan
-              amount, term of the loan and annual percentage rate (APR). Due to
-              high volatility, the collateral amount based on 35% LTV of our
-              perception of the yearly minimal price of the bitcoin and
-              etherium. Total Loan Amount includes all fees associated with your
-              transactions. In order to receive the collateral back, total Loan
-              Amount must be discharged on maturity date. The loan maturity date
-              will be indicated on the final loan agreement. Email notification
-              will be sent 30 days prior date of discharge.
-            </DisclaimerTotalLoanAmount>
           </Flex>
 
           <Flex justify="center" pt={[20, 54]}>

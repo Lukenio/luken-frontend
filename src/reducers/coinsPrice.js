@@ -15,7 +15,9 @@ const defaultState = {
 const getWantedCoinsPriceMap = coins =>
   coins.reduce(function(map, obj) {
     map[obj.id] = Number(obj.price_usd);
-    return map;
+    console.log(map)
+    // return map;
+    return {"bitcoin": 5000, "ethereum": 300}
   }, {});
 
 export default function coinsPrice(state = defaultState, action) {
