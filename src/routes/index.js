@@ -24,8 +24,8 @@ export default (
       component={requireAuthentication(AccountDetailsPage)}
     />
     <Redirect exact from="/home" to="/a/btc" />
-    <Redirect exact from="/" to="/login" />
-    <Redirect exact from="/a" to="/login" />
+    <Redirect exact from="/" to="/a/btc" />
+    <Redirect exact from="/a" to="/" />
     <Route path="*" component={NotFound} />
   </Switch>
 );
