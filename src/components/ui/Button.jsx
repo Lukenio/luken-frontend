@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { cssUnit } from '../cssUtils';
 
 export const BaseButton = styled.button`
   cursor: pointer;
@@ -11,8 +12,8 @@ export const BaseButton = styled.button`
 const Button = BaseButton.extend`
   display: inline-block;
   text-decoration: none;
-  color: ${({ secondary, danger }) =>
-    secondary ? '#6F6F6F' : danger ? '#d84256' : '#fff'};
+  color: ${({ secondary, danger, flat }) =>
+    secondary ? '#6F6F6F' : danger ? '#d84256' : flat ? '#9B9B9B' : '#fff'};
   background: ${({ secondary, flat }) =>
     secondary ? '#D8D8D8' : flat ? 'transparent' : '#9B9B9B'};
   border-radius: 5px;
@@ -22,6 +23,17 @@ const Button = BaseButton.extend`
   padding: ${({ small }) => (small ? '10 12px' : '10px 45px')};
   text-align: center;
   min-width: 61px;
+`;
+
+export const AccountButton = Button.extend`
+  height: 44px;
+  border: 1px solid #9b9b9b;
+  padding: 10px 30px;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.24px;
+  line-height: 25px;
+  min-width: ${props => (props.w ? cssUnit(props.w) : 'inherit')};
 `;
 
 export const BlueButton = BaseButton.extend`
