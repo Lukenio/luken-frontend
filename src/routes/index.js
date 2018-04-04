@@ -6,7 +6,8 @@ import Apply from './Apply.jsx';
 
 // auth required routes
 import { Signup, Signin } from './Auth.jsx';
-import Home from './Home.jsx';
+// import Home from './Home.jsx';
+import NotFound from './NotFound.jsx';
 import AccountDetailsPage from './AccountDetailsPage.jsx';
 
 // middlewares
@@ -17,11 +18,14 @@ export default (
     <Route path="/apply" component={Apply} />
     <Route path="/login" component={Signin} />
     <Route path="/signup" component={Signup} />
-    <Route path="/home" component={requireAuthentication(Home)} />
     <Route
-      path="/coin-account/:accountId"
+      exact
+      path="/a/:accountSymbol"
       component={requireAuthentication(AccountDetailsPage)}
     />
+    <Redirect exact from="/home" to="/a/btc" />
     <Redirect exact from="/" to="/login" />
+    <Redirect exact from="/a" to="/login" />
+    <Route path="*" component={NotFound} />
   </Switch>
 );
