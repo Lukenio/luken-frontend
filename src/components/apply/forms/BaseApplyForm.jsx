@@ -9,17 +9,18 @@ import {
 
 import {
   Input,
-  CurrencyInput,
   FormWrapper,
+  FormErrorAlert,
   ErrorField,
+  CurrencyInput,
   ConvertionIcon,
   TermSpan,
   RadioInput,
   Divider,
   DisclaimerTotalLoanAmount,
-  TLAComponent,
-  FormErrorAlert
+  TLAComponent
 } from './Elements.jsx';
+
 import { BlueButton } from '../../ui/Button.jsx';
 import { applyNewLoan } from '../../../actions/apply';
 import { setGlobalLoanedAmmountValue } from '../../../actions/input';
@@ -212,6 +213,7 @@ class BaseApplyForm extends Component {
                 label="How Much are You Looking to Borrow?"
                 placeholder="Please enter your desired loan amount"
                 type="text"
+                rounded
                 component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
                 handleChange={this.handleUSDInputChange}
@@ -224,6 +226,7 @@ class BaseApplyForm extends Component {
                 label="How Much Collateral are You Posting?"
                 type="text"
                 placeholder="Please enter your collateral amount"
+                rounded
                 component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
                 prefix={prefix}
@@ -291,10 +294,12 @@ class BaseApplyForm extends Component {
                 name="email"
                 label="Enter Your Email Address"
                 type="email"
+                rounded
                 placeholder="Email Address"
                 component={Input}
               />
             </Box>
+
           </Flex>
 
           <Flex justify="center" pt={[20, 54]}>

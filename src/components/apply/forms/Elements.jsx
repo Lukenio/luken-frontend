@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react';
-import styled, { css } from 'styled-components';
+import {styled, css} from 'styled-components';
 import { Box } from 'grid-styled';
 
 import SVGContainer from '../../ui/SVGContainer';
 import { ConvertionIcon as ConvertionIconSVG } from '../../ui/SVGIcons';
+import {
+  inputStyles,
+  Label,
+  InputWrapper,
+  ErrorField
+} from '../../ui/FormElements';
 import NumberFormat from 'react-number-format';
 
 export const FormWrapper = styled.form`
@@ -81,6 +87,7 @@ const InputWrapper = styled(Box)`
   min-height: 87px;
 `;
 
+
 export const ConvertionIcon = () => (
   <SVGContainer w={18} mx={27}>
     <ConvertionIconSVG />
@@ -98,7 +105,8 @@ export const CurrencyInput = ({
   placeholder,
   prefix = '$ ',
   decimalScale = 2,
-  handleChange
+  handleChange,
+  ...other
 }) => {
   const onChange = ({ formattedValue, value }) => {
     const parsedValue = parseFloat(value) || '';
@@ -121,6 +129,7 @@ export const CurrencyInput = ({
         prefix={prefix}
         allowNegative={false}
         onValueChange={onChange}
+        {...other}
       />
       {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
     </InputWrapper>
