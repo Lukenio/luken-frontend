@@ -13,10 +13,12 @@ const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 
-const token = sessionStorage.getItem('token');
+const token = localStorage.getItem('token');
+const user = localStorage.getItem('user');
 
 if (token !== null) {
-  store.dispatch(initWithPreCachedData(token));
+  const userData = user ? JSON.parse(user) : null;
+  store.dispatch(initWithPreCachedData(token, userData));
 }
 
 ReactDOM.render(

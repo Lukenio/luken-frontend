@@ -4,13 +4,15 @@ import {
   // APPLY_NEW_LOAN_REQUEST,
   APPLY_NEW_LOAN_SUCCESS,
   // APPLY_NEW_LOAN_FAILURE,
-  NAV_MENU_TOGGLE
+  NAV_MENU_TOGGLE,
+  SIDE_MENU_TOGGLE
 } from '../constants';
 
 const defaultState = {
   chosenNewAccount: null,
   newLoanUserApplied: false,
-  mobileMenuOpen: false
+  mobileMenuOpen: false,
+  sideMenuOpen: false
 };
 
 function modals(state = defaultState, action) {
@@ -39,6 +41,11 @@ function modals(state = defaultState, action) {
       return {
         ...state,
         mobileMenuOpen: !state.mobileMenuOpen
+      };
+    case SIDE_MENU_TOGGLE:
+      return {
+        ...state,
+        sideMenuOpen: !state.sideMenuOpen
       };
     default:
       return state;

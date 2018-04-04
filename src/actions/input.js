@@ -1,10 +1,11 @@
-import { SET_LOANED_AMMOUNT_VALUE } from '../constants';
+import { SET_GLOBAL_FORM_VALUES } from '../constants';
 
-export function setGlobalLoanedAmmountValue(value) {
+export function setGlobalFormValues({ TA, LA }) {
   return {
-    type: SET_LOANED_AMMOUNT_VALUE,
+    type: SET_GLOBAL_FORM_VALUES,
     payload: {
-      value
+      TA,
+      LA
     }
   };
 }
