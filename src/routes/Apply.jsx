@@ -18,8 +18,8 @@ import {
   TwitterIcon,
   GoogleIcon,
   InstagrammIcon,
-  BitcoinIcon,
-  EthereumIcon,
+  BitcoinIconApply,
+  EthereumIconApply,
 } from '../components/ui/SVGIcons';
 
 const Footer = styled(Flex)`
@@ -234,8 +234,8 @@ class Apply extends Component {
   state = {
     activeCurrencyType: 0,
     currencies: [
-      { type: 0, title: 'BICOIN', icon: BitcoinIcon },
-      { type: 2, title: 'ETHERIUM', icon: EthereumIcon }
+      { type: 0, title: 'BICOIN', icon: BitcoinIconApply },
+      { type: 2, title: 'ETHERIUM', icon: EthereumIconApply }
     ]
   };
 
