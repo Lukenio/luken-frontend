@@ -22,12 +22,6 @@ import {
   EthereumIcon,
 } from '../components/ui/SVGIcons';
 
-const CryptoIcon = styled(SVGContainer)`
-  height: 50px;
-  width: 50px;
-  opacity: ${({ active }) => (active ? '1' : '0.3')};
-`;
-
 const Footer = styled(Flex)`
   min-height: 297px;
   background: #323b45;
@@ -43,7 +37,7 @@ const ContentWrap = styled(Box)`
 const LeadTitle = styled.h1`
   font-weight: 600;
   font-size: 30px;
-  color: #2893ef;
+  color: #224e88;
   letter-spacing: -1px;
   text-align: center;
   line-height: 42px;
@@ -69,39 +63,62 @@ const ThankYouText = LeadText.extend`
 
 const ContentHeaderWrapper = styled(Flex)`
   min-height: 167px;
-  background: #2893ef;
+  background: #ffffff;
   text-align: center;
   border-radius: 6px 6px 0 0;
 `;
 
 const CryptoAssetTitle = styled.h3`
   font-weight: 600;
-  font-size: 20px;
-  color: #ffffff;
+  font-size: 18px;
+  color: #4d4d4d;
   letter-spacing: -0.67px;
   text-align: center;
   line-height: 28px;
   margin: 0;
 `;
 
-const TabBoxWrapper = styled(Flex)`
-  text-align: center;
-  background: #2893ef;
-  border-bottom-width: : 1px;
-  border-bottom-style: solid;
-  border-bottom-color: ${({ active }) => (active ? '#fff' : '#9B9B9B')};
+const TabBoxWrapper = styled(Box)`
   cursor: pointer;
+  display: inline-block;
+  margin: 0 10px; 
+  text-decoration: none;
+  background: ${({ active }) => (active ? '#224e88' : '#ffffff')};
+  border-radius: 100px;
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 16px;
+  color: ${({ active }) => (active ? '#ffffff' : '#224e88')};
+  border-color: #224e88;
+  border: 1px solid;
+  text-align: left;
 `;
 
-const CryptocyrrencyTitle = styled.p`
+const CryptocyrrencyTitle = styled.div`
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 20px;
+  display: inline-block;
   font-weight: 600;
-  font-size: 14px;
-  color: ${({ active }) => (active ? '#fff' : 'rgba(255, 255, 255, 0.25)')};
-  letter-spacing: 0;
+  font-size: 18px;
+  letter-spacing: .2rem;
   text-align: center;
-  line-height: 22px;
-  margin: 5px 0 10px;
 `;
+
+const CryptoIcon = styled.div`
+  display: inline-block;
+  margin-top: 5px;
+  margin-left: 25px;
+  height: 50px;
+  width: 50px;
+  text-align: left;
+  color: ${({ active }) => (active ? '#ffffff' : '#224e88')};
+
+  > svg {
+    fill: ${({ active }) => (active ? '#ffffff' : '#224e88')};
+  }
+`;
+
 
 const FooterColumnHeading = styled.h4`
   font-weight: 600;
@@ -178,7 +195,8 @@ const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
   const width = currenciesNumber ? 1 / currenciesNumber : 1;
 
   return (
-    <Flex w={1} pt={27}>
+    <Flex w={1} pt={27} flexDirection="column" justifyContent="center" alignItems="center">
+      <Box>
       {currencies.map(c => (
         <Tab
           active={c.type === activeType}
@@ -187,11 +205,12 @@ const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
             onChange(c);
           }}
           key={c.title}
-          w={width}
+          w={260}
         >
           {c.title}
         </Tab>
       ))}
+      </Box>
     </Flex>
   );
 };
@@ -199,12 +218,11 @@ const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
 const Tab = ({ active, children, icon, onClick, ...other }) => {
   return (
     <TabBoxWrapper
-      w={1}
       active={active}
-      {...other}
       onClick={onClick}
       flexDirection="column"
       alignItems="center"
+      {...other}
     >
       <CryptoIcon active={active}>{icon}</CryptoIcon>
       <CryptocyrrencyTitle active={active}>{children}</CryptocyrrencyTitle>
@@ -216,8 +234,8 @@ class Apply extends Component {
   state = {
     activeCurrencyType: 0,
     currencies: [
-      { type: 0, title: 'Bitcoin', icon: BitcoinIcon },
-      { type: 2, title: 'Ethereum', icon: EthereumIcon }
+      { type: 0, title: 'BICOIN', icon: BitcoinIcon },
+      { type: 2, title: 'ETHERIUM', icon: EthereumIcon }
     ]
   };
 

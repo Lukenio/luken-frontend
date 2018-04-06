@@ -41,5 +41,6 @@ export const convertFromCryptoToUSD = ({ C, P, TE, APR }) => {
 };
 
 export const calculateTLA = ({ TA, TE, APR }) => {
+  console.log(TA, TE, APR);
   return TA / (1 - APR / 12 * TE);
 };

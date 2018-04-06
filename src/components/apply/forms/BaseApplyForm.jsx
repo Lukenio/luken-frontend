@@ -41,15 +41,17 @@ const dispatchValues = cryptoType => (values, dispatch) => {
     total_loaned_amount
   } = values;
 
-  const apr = getAPR(terms_month);
+  const APR = getAPR(terms_month);
+  const TE = getTE(terms_month);
+  const tla = calculateTLA({TA: total_loaned_amount, TE, APR})
 
   const payload = {
     email,
     crypto_collateral,
-    total_loaned_amount,
+    total_loaned_amount: tla,
     loaned_amount,
     terms_month,
-    apr,
+    apr: APR,
     crypto_type: cryptoType,
     ltv: LTV
   };
@@ -98,11 +100,11 @@ class BaseApplyForm extends Component {
         )
       );
       this.setFormValue(
-        'total_loaned_amount',
-        this.calculateTLA(
-          initialValues.loaned_amount,
-          initialValues.terms_month
-        )
+        'total_loaned_amount', initialValues.loaned_amount
+        // this.calculateTLA(
+        //   initialValues.loaned_amount,
+        //   initialValues.terms_month
+        // )
       );
     }
   }
@@ -118,8 +120,8 @@ class BaseApplyForm extends Component {
         );
 
         this.setFormValue(
-          'total_loaned_amount',
-          this.calculateTLA(loanedAmount, termsMonth)
+          'total_loaned_amount', loanedAmount
+          // this.calculateTLA(loanedAmount, termsMonth)
         );
       }
     }
@@ -166,7 +168,7 @@ class BaseApplyForm extends Component {
       'crypto_collateral',
       this.calculateCryptoCollateral(TA, termsMonth)
     );
-    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
+    this.setFormValue('total_loaned_amount', TA); // this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth)
 
     setGlobalLoanedAmmountValue(TA);
   };
@@ -183,7 +185,7 @@ class BaseApplyForm extends Component {
 
     const TA = this.calculateLoanedAmmount(c, termsMonth);
     this.setFormValue('loaned_amount', TA);
-    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
+    this.setFormValue('total_loaned_amount', TA); // this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
     setGlobalLoanedAmmountValue(TA);
   };
 
@@ -200,7 +202,7 @@ class BaseApplyForm extends Component {
     } = this.props;
 
     return (
-      <Flex px={[20, 59]} py={[20, 59]} w={1}>
+      <Flex px={[20, 59]} py={[20, 20]} w={1}>
         <FormWrapper onSubmit={handleSubmit(dispatchValues(cryptoType))}>
           {error && <FormErrorAlert statusText={error} />}
           <Flex w={1} flexDirection={['column', 'row']}>
@@ -230,35 +232,42 @@ class BaseApplyForm extends Component {
               />
             </Box>
           </Flex>
-          <Flex width={1} my={[0, 20]} flexDirection={['column', 'row']}>
-            <TermSpan>Term:</TermSpan>
-            <Field
-              type="radio"
-              name="terms_month"
-              label="3 months"
-              value="0"
-              component={RadioInput}
-            />
-            <Field
-              type="radio"
-              name="terms_month"
-              label="6 months"
-              value="1"
-              component={RadioInput}
-            />
-            <Field
-              type="radio"
-              name="terms_month"
-              label="12 months"
-              value="2"
-              component={RadioInput}
-            />
+          <Flex width={1} my={[0, 20]}
+                flexDirection={['column', 'row']}
+                alignItems="center"
+                justifyContent="center">
+            <Box w={[1, 380]} alignItems="center" justifyContent="center">
+              <TermSpan>Select Term:</TermSpan>
+              <Box>
+              <Field
+                type="radio"
+                name="terms_month"
+                label="3 month"
+                value="0"
+                component={RadioInput}
+              />
+              <Field
+                type="radio"
+                name="terms_month"
+                label="6 month"
+                value="1"
+                component={RadioInput}
+              />
+              <Field
+                type="radio"
+                name="terms_month"
+                label="12 month"
+                value="2"
+                component={RadioInput}
+              />
+              </Box>
+            <Divider w={[1, 380]} />
+            </Box>
           </Flex>
           {submitFailed &&
             syncErrors.terms_month && (
               <ErrorField>{syncErrors.terms_month}</ErrorField>
             )}
-          <Divider width={1} mt={26} />
 
           <Flex
             w={1}
@@ -270,19 +279,27 @@ class BaseApplyForm extends Component {
             <Field name="total_loaned_amount" component={TLAComponent} />
           </Flex>
 
-          <Flex w={1} mt={27}>
-            <Field
-              name="email"
-              label="Enter Your Email Address"
-              type="email"
-              placeholder="Email Address"
-              component={Input}
-            />
+          <Flex 
+            w={1}
+            mt={27}
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="column"
+          >
+            <Box w={[1, 340]} my={[30, 0]}>
+              <Field
+                name="email"
+                label="Enter Your Email Address"
+                type="email"
+                placeholder="Email Address"
+                component={Input}
+              />
+            </Box>
           </Flex>
 
           <Flex justify="center" pt={[20, 54]}>
             <BlueButton type="submit" disabled={submitting}>
-              Get Started
+              GET STARTED
             </BlueButton>
           </Flex>
         </FormWrapper>

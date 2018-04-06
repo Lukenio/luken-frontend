@@ -10,7 +10,7 @@ import { handleNavMenuToggle } from '../../actions/ui';
 
 const NavigationFlexWrap = styled(Flex)`
   height: 60px;
-  background: #2893ef;
+  background: #1c4c8a;
   z-index: 2;
 
   @media only screen and (min-width: 767px) {
