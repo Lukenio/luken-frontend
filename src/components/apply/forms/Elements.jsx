@@ -1,15 +1,9 @@
 import React, { Fragment } from 'react';
-import {styled, css} from 'styled-components';
+import styled, { css} from 'styled-components';
 import { Box } from 'grid-styled';
 
 import SVGContainer from '../../ui/SVGContainer';
 import { ConvertionIcon as ConvertionIconSVG } from '../../ui/SVGIcons';
-import {
-  inputStyles,
-  Label,
-  InputWrapper,
-  ErrorField
-} from '../../ui/FormElements';
 import NumberFormat from 'react-number-format';
 
 export const FormWrapper = styled.form`

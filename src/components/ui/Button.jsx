@@ -46,10 +46,10 @@ export const BlueButton = BaseButton.extend`
   font-weight: 600;
   font-size: 16px;
   color: #ffffff;
-  letter-spacing: 0.24px;
+  letter-spacing: 0.24rem;
   text-align: center;
   line-height: 22px;
-  padding: 11px;
+  padding: 15px;
 
   min-width: 360px;
 

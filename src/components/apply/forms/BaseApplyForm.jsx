@@ -17,7 +17,6 @@ import {
   TermSpan,
   RadioInput,
   Divider,
-  DisclaimerTotalLoanAmount,
   TLAComponent
 } from './Elements.jsx';
 

@@ -191,8 +191,8 @@ const Disclaimer = styled.p`
 `;
 
 const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
-  const currenciesNumber = currencies.length;
-  const width = currenciesNumber ? 1 / currenciesNumber : 1;
+  // const currenciesNumber = currencies.length;
+  // const width = currenciesNumber ? 1 / currenciesNumber : 1;
 
   return (
     <Flex w={1} pt={27} flexDirection="column" justifyContent="center" alignItems="center">
