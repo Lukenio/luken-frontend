@@ -37,7 +37,7 @@ const ContentWrap = styled(Box)`
 const LeadTitle = styled.h1`
   font-weight: 600;
   font-size: 30px;
-  color: #224e88;
+  color: #4176d1;
   letter-spacing: -1px;
   text-align: center;
   line-height: 42px;
@@ -83,12 +83,12 @@ const TabBoxWrapper = styled(Box)`
   display: inline-block;
   margin: 0 10px; 
   text-decoration: none;
-  background: ${({ active }) => (active ? '#224e88' : '#ffffff')};
+  background: ${({ active }) => (active ? '#4176d1' : '#ffffff')};
   border-radius: 100px;
   font-family: Montserrat;
   font-weight: 600;
   font-size: 16px;
-  color: ${({ active }) => (active ? '#ffffff' : '#224e88')};
+  color: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
   border-color: #224e88;
   border: 1px solid;
   text-align: left;
@@ -96,7 +96,6 @@ const TabBoxWrapper = styled(Box)`
 
 const CryptocyrrencyTitle = styled.div`
   position: absolute;
-  margin-left: 20px;
   margin-top: 20px;
   display: inline-block;
   font-weight: 600;
@@ -112,10 +111,10 @@ const CryptoIcon = styled.div`
   height: 50px;
   width: 50px;
   text-align: left;
-  color: ${({ active }) => (active ? '#ffffff' : '#224e88')};
+  color: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
 
   > svg {
-    fill: ${({ active }) => (active ? '#ffffff' : '#224e88')};
+    fill: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
   }
 `;
 
@@ -205,7 +204,7 @@ const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
             onChange(c);
           }}
           key={c.title}
-          w={260}
+          w={220}
         >
           {c.title}
         </Tab>
@@ -234,7 +233,7 @@ class Apply extends Component {
   state = {
     activeCurrencyType: 0,
     currencies: [
-      { type: 0, title: 'BICOIN', icon: BitcoinIconApply },
+      { type: 0, title: 'BITCOIN', icon: BitcoinIconApply },
       { type: 2, title: 'ETHERIUM', icon: EthereumIconApply }
     ]
   };

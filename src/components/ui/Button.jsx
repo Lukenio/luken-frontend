@@ -37,6 +37,11 @@ export const AccountButton = Button.extend`
 `;
 
 export const BlueButton = BaseButton.extend`
+
+  :hover { 
+    background-color: #244994;
+  }
+
   display: inline-block;
   text-decoration: none;
   color: #fff;
