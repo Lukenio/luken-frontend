@@ -16,6 +16,7 @@ import {
   ConvertionIcon,
   TermSpan,
   RadioInput,
+  CheckboxInput,
   Divider,
   TLAComponent
 } from './Elements.jsx';
@@ -299,6 +300,24 @@ class BaseApplyForm extends Component {
               />
             </Box>
 
+          </Flex>
+
+          <Flex
+            w={1}
+            mt={27}
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="column"
+          >
+            <Box>
+              <Field
+                  type="checkbox"
+                  name="terms_of_service"
+                  label="Check here if you agree to Terms of serrvice"
+                  value="true"
+                  component={CheckboxInput}
+                />
+            </Box>
           </Flex>
 
           <Flex justify="center" pt={[20, 54]}>

@@ -211,6 +211,20 @@ export const RadioInput = ({ label, input }) => {
   );
 };
 
+export const CheckboxInput = ({ label, input }) => {
+  const _onChange = () => input.onChange(input.value);
+
+  return (
+    <RadioWrapper mr={30}>
+      <StyledRadio type="checkbox" {...input} />
+      <RadioLabel for={input.name} onClick={_onChange}>
+        {label}
+      </RadioLabel>
+    </RadioWrapper>
+  );
+};
+
+
 export const TermSpan = styled.span`
   width: 100%;
   display: inline-block;
