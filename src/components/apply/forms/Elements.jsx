@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styled, { css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Box } from 'grid-styled';
 
 import SVGContainer from '../../ui/SVGContainer';
@@ -27,7 +27,7 @@ const Label = styled.label`
   display: inline-block;
   font-weight: 800;
   line-height: 1.5;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
   color: #224e88;
   text-align: left;
   margin-bottom: 5px;
@@ -35,7 +35,7 @@ const Label = styled.label`
 
 const LabelCentered = Label.extend`
   text-align: center;
-`
+`;
 
 const inputStyles = css`
   width: 100%;
@@ -80,7 +80,6 @@ export const ErrorField = styled.span`
 const InputWrapper = styled(Box)`
   min-height: 87px;
 `;
-
 
 export const ConvertionIcon = () => (
   <SVGContainer w={18} mx={27}>
@@ -198,6 +197,11 @@ const RadioWrapper = styled(Box)`
   display: inline-block;
 `;
 
+const CheckboxLabel = styled.label`
+  display: inline-block;
+  padding-left: 5px;
+`;
+
 export const RadioInput = ({ label, input }) => {
   const _onChange = () => input.onChange(input.value);
 
@@ -211,26 +215,29 @@ export const RadioInput = ({ label, input }) => {
   );
 };
 
-export const CheckboxInput = ({ label, input }) => {
-  const _onChange = () => input.onChange(input.value);
+export const CheckboxInput = ({ label, input, meta }) => {
+  const _onChange = () => input.onChange(!input.value);
 
   return (
-    <RadioWrapper mr={30}>
-      <StyledRadio type="checkbox" {...input} />
-      <RadioLabel for={input.name} onClick={_onChange}>
-        {label}
-      </RadioLabel>
-    </RadioWrapper>
+    <Box mr={30}>
+      <Box>
+        <input type="checkbox" {...input} checked={input.value} />
+        <CheckboxLabel for={input.name} onClick={_onChange}>
+          {label}
+        </CheckboxLabel>
+      </Box>
+
+      {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
+    </Box>
   );
 };
-
 
 export const TermSpan = styled.span`
   width: 100%;
   display: inline-block;
   font-weight: 800;
   line-height: 1.5;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
   color: #224e88;
   text-align: center;
   margin-bottom: 11px;

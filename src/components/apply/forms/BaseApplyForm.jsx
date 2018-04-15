@@ -39,12 +39,13 @@ const dispatchValues = cryptoType => (values, dispatch) => {
     crypto_collateral,
     loaned_amount,
     terms_month,
-    total_loaned_amount
+    total_loaned_amount,
+    terms_of_service
   } = values;
 
   const APR = getAPR(terms_month);
   const TE = getTE(terms_month);
-  const tla = calculateTLA({TA: total_loaned_amount, TE, APR})
+  const tla = calculateTLA({ TA: total_loaned_amount, TE, APR });
 
   const payload = {
     email,
@@ -54,13 +55,23 @@ const dispatchValues = cryptoType => (values, dispatch) => {
     terms_month,
     apr: APR,
     crypto_type: cryptoType,
+    terms_of_service,
     ltv: LTV
   };
 
   return dispatch(applyNewLoan(payload)).catch((e = {}) => {
+    const { loaned_amount } = e;
+
+    // handle 500 error
+    if (!loaned_amount) {
+      throw new SubmissionError({
+        _error: 'Error! We are working on fixing it.'
+      });
+    }
+
     throw new SubmissionError({
-      loaned_amount: e.loaned_amount[0].replace('this value', '`Loan Amount`'),
-      _error: e.loaned_amount[0].replace('this value', '`Loan Amount`')
+      loaned_amount: loaned_amount[0].replace('this value', '`Loan Amount`'),
+      _error: loaned_amount[0].replace('this value', '`Loan Amount`')
     });
   });
 };
@@ -84,6 +95,9 @@ const validate = values => {
     errors.total_loaned_amount =
       "Please let us know how much you're looking to borrow.";
   }
+  if (!values.terms_of_service) {
+    errors.terms_of_service = 'You must accept Terms of Service.';
+  }
 
   return errors;
 };
@@ -101,7 +115,8 @@ class BaseApplyForm extends Component {
         )
       );
       this.setFormValue(
-        'total_loaned_amount', initialValues.loaned_amount
+        'total_loaned_amount',
+        initialValues.loaned_amount
         // this.calculateTLA(
         //   initialValues.loaned_amount,
         //   initialValues.terms_month
@@ -121,7 +136,8 @@ class BaseApplyForm extends Component {
         );
 
         this.setFormValue(
-          'total_loaned_amount', loanedAmount
+          'total_loaned_amount',
+          loanedAmount
           // this.calculateTLA(loanedAmount, termsMonth)
         );
       }
@@ -235,36 +251,39 @@ class BaseApplyForm extends Component {
               />
             </Box>
           </Flex>
-          <Flex width={1} my={[0, 20]}
-                flexDirection={['column', 'row']}
-                alignItems="center"
-                justifyContent="center">
+          <Flex
+            width={1}
+            my={[0, 20]}
+            flexDirection={['column', 'row']}
+            alignItems="center"
+            justifyContent="center"
+          >
             <Box w={[1, 380]} alignItems="center" justifyContent="center">
               <TermSpan>Select Term:</TermSpan>
               <Box>
-              <Field
-                type="radio"
-                name="terms_month"
-                label="3 month"
-                value="0"
-                component={RadioInput}
-              />
-              <Field
-                type="radio"
-                name="terms_month"
-                label="6 month"
-                value="1"
-                component={RadioInput}
-              />
-              <Field
-                type="radio"
-                name="terms_month"
-                label="12 month"
-                value="2"
-                component={RadioInput}
-              />
+                <Field
+                  type="radio"
+                  name="terms_month"
+                  label="3 month"
+                  value="0"
+                  component={RadioInput}
+                />
+                <Field
+                  type="radio"
+                  name="terms_month"
+                  label="6 month"
+                  value="1"
+                  component={RadioInput}
+                />
+                <Field
+                  type="radio"
+                  name="terms_month"
+                  label="12 month"
+                  value="2"
+                  component={RadioInput}
+                />
               </Box>
-            <Divider w={[1, 380]} />
+              <Divider w={[1, 380]} />
             </Box>
           </Flex>
           {submitFailed &&
@@ -282,7 +301,7 @@ class BaseApplyForm extends Component {
             <Field name="total_loaned_amount" component={TLAComponent} />
           </Flex>
 
-          <Flex 
+          <Flex
             w={1}
             mt={27}
             alignItems="center"
@@ -299,7 +318,6 @@ class BaseApplyForm extends Component {
                 component={Input}
               />
             </Box>
-
           </Flex>
 
           <Flex
@@ -311,12 +329,10 @@ class BaseApplyForm extends Component {
           >
             <Box>
               <Field
-                  type="checkbox"
-                  name="terms_of_service"
-                  label="Check here if you agree to Terms of serrvice"
-                  value="true"
-                  component={CheckboxInput}
-                />
+                name="terms_of_service"
+                label="Check here if you agree to Terms of service"
+                component={CheckboxInput}
+              />
             </Box>
           </Flex>
 
@@ -357,6 +373,7 @@ export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
     initialValues: {
       terms_month: '0',
       total_loaned_amount: '0',
+      terms_of_service: true,
       loaned_amount: state.input.globalLoanedAmountValue
     }
   };
