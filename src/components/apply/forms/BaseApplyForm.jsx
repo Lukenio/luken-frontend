@@ -40,7 +40,7 @@ const dispatchValues = cryptoType => (values, dispatch) => {
     loaned_amount,
     terms_month,
     total_loaned_amount,
-    terms_of_service
+    terms_of_service_agree
   } = values;
 
   const APR = getAPR(terms_month);
@@ -55,7 +55,7 @@ const dispatchValues = cryptoType => (values, dispatch) => {
     terms_month,
     apr: APR,
     crypto_type: cryptoType,
-    terms_of_service,
+    terms_of_service_agree,
     ltv: LTV
   };
 
@@ -95,8 +95,8 @@ const validate = values => {
     errors.total_loaned_amount =
       "Please let us know how much you're looking to borrow.";
   }
-  if (!values.terms_of_service) {
-    errors.terms_of_service = 'You must accept Terms of Service.';
+  if (!values.terms_of_service_agree) {
+    errors.terms_of_service_agree = 'You must accept Terms of Service.';
   }
 
   return errors;
@@ -329,7 +329,7 @@ class BaseApplyForm extends Component {
           >
             <Box>
               <Field
-                name="terms_of_service"
+                name="terms_of_service_agree"
                 label="Check here if you agree to Terms of service"
                 component={CheckboxInput}
               />
@@ -373,7 +373,7 @@ export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
     initialValues: {
       terms_month: '0',
       total_loaned_amount: '0',
-      terms_of_service: true,
+      terms_of_service_agree: false,
       loaned_amount: state.input.globalLoanedAmountValue
     }
   };
