@@ -9,11 +9,13 @@ import { BitcoinIcon, EthereumIcon } from '../ui/SVGIcons.jsx';
 import SVGContainer from '../ui/SVGContainer';
 
 const WrapFlex = styled(Flex)`
-  background: #9b9b9b;
+  background: #4d92df;
+  box-shadow: 1px 0 5px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: width 300ms ease-out;
   box-shadow: 1px 0 5px 0 rgba(0, 0, 0, 0.05);
   min-width: 80px;
+  flex-shrink: 0;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -21,9 +23,10 @@ const StyledNavLink = styled(NavLink)`
   width: 195px;
   height: 70px;
   text-decoration: none;
+  background: rgba(155, 155, 155, 0.2);
 
   &.active > div {
-    background: #4a4a4a;
+    background: rgba(74, 74, 74, 0.2);
   }
 `;
 

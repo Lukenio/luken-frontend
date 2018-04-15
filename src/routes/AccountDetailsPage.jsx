@@ -36,7 +36,7 @@ const WrapFlexContainer = styled(FlexContainer)`
 const AccountName = styled.h3`
   font-size: 20px;
   font-weight: 500;
-  color: #9b9b9b;
+  color: #4d92df;
   letter-spacing: -0.67px;
   line-height: 32px;
   margin-left: 10px;
@@ -49,7 +49,7 @@ const Divider = styled(Box)`
 
 const CoinsOwned = styled.p`
   font-size: 24px;
-  color: #9b9b9b;
+  color: #4d92df;
   letter-spacing: 0;
   line-height: 38px;
   margin: 0;
@@ -116,7 +116,8 @@ class AccountDetailsPage extends Component {
                 <Flex width={1} py={20} px={30} justifyContent="space-between">
                   <Flex flexDirection="column">
                     <CoinsOwned>
-                      <strong>0.0000</strong> {getCRTickerSymbols(account.type)}
+                      <strong>{account.balance}</strong>{' '}
+                      {getCRTickerSymbols(account.type)}
                     </CoinsOwned>
                     <CoinsPending>
                       Pending: 0,0000 {getCRTickerSymbols(account.type)}

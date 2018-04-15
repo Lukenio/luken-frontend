@@ -13,9 +13,9 @@ const Button = BaseButton.extend`
   display: inline-block;
   text-decoration: none;
   color: ${({ secondary, danger, flat }) =>
-    secondary ? '#6F6F6F' : danger ? '#d84256' : flat ? '#9B9B9B' : '#fff'};
+    secondary ? '#6F6F6F' : danger ? '#d84256' : flat ? '#4D92DF' : '#fff'};
   background: ${({ secondary, flat }) =>
-    secondary ? '#D8D8D8' : flat ? 'transparent' : '#9B9B9B'};
+    secondary ? '#D8D8D8' : flat ? 'transparent' : '#4D92DF'};
   border-radius: 5px;
   font-size: ${({ small }) => (small ? '12px' : 'inherit')};
   line-height: ${({ small }) => (small ? '14px' : 'inherit')};
@@ -27,7 +27,10 @@ const Button = BaseButton.extend`
 
 export const AccountButton = Button.extend`
   height: 44px;
-  border: 1px solid #9b9b9b;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ secondary, flat }) =>
+    flat ? 'rgba(77, 146, 223, 0.3)' : '#4D92DF'};
   padding: 10px 30px;
   font-weight: 600;
   font-size: 16px;
@@ -37,8 +40,7 @@ export const AccountButton = Button.extend`
 `;
 
 export const BlueButton = BaseButton.extend`
-
-  :hover { 
+  :hover {
     background-color: #244994;
   }
 

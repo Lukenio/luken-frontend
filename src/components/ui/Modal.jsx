@@ -81,7 +81,7 @@ const Title = styled.h3`
 `;
 
 const Header = styled(Flex)`
-  background: #9f9f9f;
+  background: #4d92df;
   color: #fff;
   position: relative;
 `;
