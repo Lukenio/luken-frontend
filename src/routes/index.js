@@ -9,6 +9,7 @@ import { Signup, Signin } from './Auth.jsx';
 // import Home from './Home.jsx';
 import NotFound from './NotFound.jsx';
 import AccountDetailsPage from './AccountDetailsPage.jsx';
+import KYCPage from './KYCPage.jsx';
 
 // middlewares
 import requireAuthentication from './utils/requireAuthentication';
@@ -23,6 +24,7 @@ export default (
       path="/a/:accountSymbol"
       component={requireAuthentication(AccountDetailsPage)}
     />
+    <Route exact path="/kyc" component={requireAuthentication(KYCPage)} />
     <Redirect exact from="/home" to="/a/btc" />
     <Redirect exact from="/" to="/a/btc" />
     <Redirect exact from="/a" to="/" />

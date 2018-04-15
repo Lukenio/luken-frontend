@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { BitcoinIcon, EthereumIcon } from '../ui/SVGIcons.jsx';
+import { BitcoinIcon, EthereumIcon, HomeIcon } from '../ui/SVGIcons.jsx';
 import SVGContainer from '../ui/SVGContainer';
 
 const WrapFlex = styled(Flex)`
@@ -67,6 +67,16 @@ const SideNavigation = ({ isOpen = true }) => (
             <EthereumIcon />
           </SVGContainer>
           <NavItemName shown={isOpen}>Ethereum</NavItemName>
+        </NavItem>
+      </StyledNavLink>
+    </Box>
+    <Box>
+      <StyledNavLink exact to="/kyc">
+        <NavItem alignItems="center">
+          <SVGContainer w={20} h={20}>
+            <HomeIcon />
+          </SVGContainer>
+          <NavItemName shown={isOpen}>KYC</NavItemName>
         </NavItem>
       </StyledNavLink>
     </Box>
