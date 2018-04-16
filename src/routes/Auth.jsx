@@ -7,6 +7,7 @@ import { push } from 'react-router-redux';
 import { FlexContainer } from '../components/ui/Containers.jsx';
 import SignupForm from '../components/auth/forms/SignupForm.jsx';
 import SigninForm from '../components/auth/forms/SigninForm.jsx';
+import ResetPasswordForm from '../components/auth/forms/ResetPasswordForm.jsx';
 
 const LeadHeading = styled.p`
   font-size: 30px;
@@ -71,6 +72,12 @@ const SigninRoute = ({ statusText, ...other }) => (
   </Base>
 );
 
+const ResetPasswordRoute = ({ statusText, ...other }) => (
+  <Base title="Reset Password" {...other}>
+    <ResetPasswordForm />
+  </Base>
+);
+
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   userId: state.auth.userId,
@@ -83,3 +90,4 @@ const mapDispatchToProps = dispatch => ({
 
 export const Signin = connect(mapStateToProps, mapDispatchToProps)(SigninRoute);
 export const Signup = connect(mapStateToProps)(SignupRoute);
+export const ResetPassword = connect(mapStateToProps, mapDispatchToProps)(ResetPasswordRoute);

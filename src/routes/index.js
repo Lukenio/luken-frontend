@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Apply from './Apply.jsx';
 
 // auth required routes
-import { Signup, Signin } from './Auth.jsx';
+import { Signup, Signin, ResetPassword } from './Auth.jsx';
 // import Home from './Home.jsx';
 import NotFound from './NotFound.jsx';
 import AccountDetailsPage from './AccountDetailsPage.jsx';
@@ -19,6 +19,7 @@ export default (
     <Route path="/apply" component={Apply} />
     <Route path="/login" component={Signin} />
     <Route path="/signup" component={Signup} />
+    <Route path="/reset-password" component={ResetPassword} />
     <Route
       exact
       path="/a/:accountSymbol"
