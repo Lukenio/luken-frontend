@@ -8,6 +8,7 @@ import { FlexContainer } from '../components/ui/Containers.jsx';
 import SignupForm from '../components/auth/forms/SignupForm.jsx';
 import SigninForm from '../components/auth/forms/SigninForm.jsx';
 import ResetPasswordForm from '../components/auth/forms/ResetPasswordForm.jsx';
+import AuthFormLinks from '../components/auth/AuthFormLinks.jsx';
 
 const LeadHeading = styled.p`
   font-size: 30px;
@@ -53,6 +54,7 @@ class Base extends Component {
           <Content>
             <LeadHeading>{title}</LeadHeading>
             {children}
+            <AuthFormLinks />
           </Content>
         </FlexContainer>
       </Fragment>
