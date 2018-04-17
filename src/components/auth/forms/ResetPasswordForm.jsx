@@ -7,29 +7,41 @@ import Button from '../../ui/Button.jsx';
 import { authResetPassword } from '../../../actions/auth';
 
 const dispatchValues = (values, dispatch) => {
-  const { username } = values;
-  dispatch(authResetPassword(username));
+  const { password1 } = values;
+  // dispatch
 };
 
 const validate = values => {
   const errors = {};
 
-  if (!values.username) {
-    errors.username = 'Please fill out this field.';
+  if (!values.password1) {
+    errors.password1 = 'Required';
+  }
+  if (!values.password2) {
+    errors.password2 = 'Required';
+  }
+  if (values.password1 !== values.password2) {
+    errors.password1 = "Passwords don't match";
   }
 
   return errors;
 };
 
-const ForgotPasswordForm = ({ statusText, handleSubmit, submitting }) => {
+const ResetPasswordForm = ({ statusText, handleSubmit, submitting }) => {
   return (
     <FormWrapper>
       <form onSubmit={handleSubmit(dispatchValues)}>
         {statusText && <FormErrorAlert statusText={statusText} />}
         <Field
-          name="username"
-          label="Username"
-          type="username"
+          name="password1"
+          label="Password"
+          type="password"
+          component={Input}
+        />
+        <Field
+          name="password2"
+          label="Confirm Password"
+          type="password"
           component={Input}
         />
         <Flex justify="center">
@@ -43,8 +55,8 @@ const ForgotPasswordForm = ({ statusText, handleSubmit, submitting }) => {
 };
 
 const formConfiguration = {
-  form: 'forgot-password-form',
+  form: 'reset-password-form',
   validate
 };
 
-export default reduxForm(formConfiguration)(ForgotPasswordForm);
+export default reduxForm(formConfiguration)(ResetPasswordForm);

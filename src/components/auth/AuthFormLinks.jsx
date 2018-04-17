@@ -22,7 +22,7 @@ const LoginLinks = () => (
   </LinksWrapper>
 );
 
-const ResetLinks = () => (
+const ForgotPasswordLinks = () => (
   <LinksWrapper centered>
     <span><BolderLink to="/login">Go Back to Sign In</BolderLink></span>
   </LinksWrapper>
@@ -38,7 +38,8 @@ const AuthFormLinks = () => {
   return (
     <Switch>
       <Route exact path="/login" component={LoginLinks} />
-      <Route exact path="/forgot-password" component={ResetLinks} />
+      <Route exact path="/forgot-password" component={ForgotPasswordLinks} />
+      <Route exact path="/reset-password" component={ForgotPasswordLinks} />
       <Route exact path="/signup" component={SignupLinks} />
     </Switch>
   );
