@@ -9,6 +9,7 @@ import SignupForm from '../components/auth/forms/SignupForm.jsx';
 import SigninForm from '../components/auth/forms/SigninForm.jsx';
 import ResetPasswordForm from '../components/auth/forms/ResetPasswordForm.jsx';
 import AuthFormLinks from '../components/auth/AuthFormLinks.jsx';
+import SimpleHeader from '../components/layout/SimpleHeader.jsx';
 
 const LeadHeading = styled.p`
   font-size: 30px;
@@ -44,7 +45,7 @@ class Base extends Component {
     const { title, children } = this.props;
     return (
       <Fragment>
-        {/* <HeaderMenu /> */}
+        <SimpleHeader />
         <FlexContainer
           alignItems="center"
           justifyContent="center"

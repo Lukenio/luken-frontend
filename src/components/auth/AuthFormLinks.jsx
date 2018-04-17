@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const LinksWrapper = styled.div`
   display: flex;
   justify-content: ${props => (props.centered ? 'center' : 'space-between')};
-  padding-top: 30px;
+  padding: 30px 0;
   font-size: 14px;
 `;
 
