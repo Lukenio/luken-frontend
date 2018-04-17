@@ -17,7 +17,7 @@ const BolderLink = styled(Link)`
 
 const LoginLinks = () => (
   <LinksWrapper>
-    <span><BolderLink to="/reset-password">Forgot Password</BolderLink></span>
+    <span><BolderLink to="/forgot-password">Forgot Password</BolderLink></span>
     <span>Don't have an account? <BolderLink to="/signup">Sign Up</BolderLink></span>
   </LinksWrapper>
 );
