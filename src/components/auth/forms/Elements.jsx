@@ -42,7 +42,7 @@ const formStyles = css`
   padding: 25px;
   border-radius: 10px;
   width: ${({ wide }) => (wide ? '100%' : '505px')};
-  min-height: 250px;
+  min-height: 150px;
   font-size: 15px;
 `;
 
