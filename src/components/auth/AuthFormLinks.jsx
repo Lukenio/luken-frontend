@@ -10,22 +10,27 @@ const LinksWrapper = styled.div`
   font-size: 14px;
 `;
 
+const BolderLink = styled(Link)`
+  font-weight: 500;
+  color: #9B9B9B;
+`;
+
 const LoginLinks = () => (
   <LinksWrapper>
-    <span><Link to="/reset-password">Forgot Password</Link></span>
-    <span>Don't have an account? <Link to="/signup">Sign Up</Link></span>
+    <span><BolderLink to="/reset-password">Forgot Password</BolderLink></span>
+    <span>Don't have an account? <BolderLink to="/signup">Sign Up</BolderLink></span>
   </LinksWrapper>
 );
 
 const ResetLinks = () => (
   <LinksWrapper centered>
-    <span><Link to="/login">Go Back to Sign In</Link></span>
+    <span><BolderLink to="/login">Go Back to Sign In</BolderLink></span>
   </LinksWrapper>
 );
 
 const SignupLinks = () => (
   <LinksWrapper centered>
-    <span>Already have an account? <Link to="/login">Sign In</Link></span>
+    <span>Already have an account? <BolderLink to="/login">Sign In</BolderLink></span>
   </LinksWrapper>
 );
 
