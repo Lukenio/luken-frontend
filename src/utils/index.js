@@ -38,3 +38,11 @@ export function omit(obj, omitKey) {
     return result;
   }, {});
 }
+
+export function parseQueryString(str) {
+  return str.slice(1).split('&').reduce((params, pair) => {
+    let [key, value] = pair.split('=');
+    params[key] = value;
+    return params;
+  }, {});
+}

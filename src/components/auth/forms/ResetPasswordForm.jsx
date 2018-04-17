@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Flex } from 'grid-styled';
 import { Field, reduxForm } from 'redux-form';
+import fetch from 'isomorphic-fetch';
+import { push } from 'react-router-redux';
 
 import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
 import Button from '../../ui/Button.jsx';
+import { SERVER_URL } from '../../../utils/config';
+import { checkHttpStatus, parseJSON, parseQueryString } from '../../../utils';
 
 const validate = values => {
   const errors = {};
@@ -22,12 +26,19 @@ const validate = values => {
 };
 
 class ResetPasswordForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { ownStatusText: null };
+  }
+
   render() {
-    const { statusText, handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting } = this.props;
+    const { ownStatusText } = this.state;
+
     return (
       <FormWrapper>
-        <form onSubmit={handleSubmit}>
-          {statusText && <FormErrorAlert statusText={statusText} />}
+        <form onSubmit={handleSubmit(this.processValues)}>
+          {ownStatusText && <FormErrorAlert statusText={ownStatusText} />}
           <Field
             name="password1"
             label="Password"
@@ -48,6 +59,36 @@ class ResetPasswordForm extends Component {
         </form>
       </FormWrapper>
     );
+  }
+
+  processValues = ({ password1 }, dispatch) => {
+    const {
+      user_id,
+      timestamp,
+      signature
+    } = parseQueryString(document.location.search);
+
+    fetch(`${SERVER_URL}/api/v1/accounts/reset-password/`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id,
+        timestamp,
+        signature,
+        password: password1
+      })
+    })
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then(() => {
+        dispatch(push('/login'));
+      })
+      .catch(error => {
+        this.setState({ ownStatusText: error.message })
+      });
   }
 }
 

@@ -21,16 +21,11 @@ const validate = values => {
 class ForgotPasswordForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      didSend: false,
-      ownStatusText: null
-    };
-
-    this.processValues = this.processValues.bind(this);
+    this.state = { didSend: false, ownStatusText: null };
   }
 
   render() {
-    const { statusText, handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting } = this.props;
     const { didSend, ownStatusText } = this.state;
 
     if (didSend) {
@@ -61,7 +56,7 @@ class ForgotPasswordForm extends Component {
     );
   }
 
-  processValues({ username }) {
+  processValues = ({ username }) => {
     fetch(`${SERVER_URL}/api/v1/accounts/send-reset-password-link/`, {
       method: 'POST',
       headers: {

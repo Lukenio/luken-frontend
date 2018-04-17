@@ -83,7 +83,7 @@ const ForgotPasswordRoute = ({ statusText, ...other }) => (
 );
 
 const ResetPasswordRoute = ({ statusText, ...other }) => (
-  <Base title="Reset Password WIP" {...other}>
+  <Base title="Reset Password" {...other}>
     <ResetPasswordForm />
   </Base>
 );
