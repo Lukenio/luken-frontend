@@ -12,10 +12,7 @@ import {
   AUTH_REGISTER_USER_REQUEST,
   AUTH_REGISTER_USER_FAILURE,
   AUTH_REGISTER_USER_SUCCESS,
-  AUTH_LOGOUT_USER,
-  AUTH_RESET_PASSWORD_REQUEST,
-  AUTH_RESET_PASSWORD_FAILURE,
-  AUTH_RESET_PASSWORD_SUCCESS
+  AUTH_LOGOUT_USER
 } from '../constants';
 
 import { errorHandler } from './utils';
@@ -173,57 +170,5 @@ export function authRegisterUser({
           noRedirect: true
         })(error);
       });
-  };
-}
-
-// RESET PASSWORD
-export function authResetPasswordRequest() {
-  return {
-    type: AUTH_RESET_PASSWORD_REQUEST
-  };
-}
-
-export function authResetPasswordSuccess() {
-  return {
-    type: AUTH_RESET_PASSWORD_SUCCESS
-  };
-}
-
-export function authResetPasswordFailure(error, message) {
-  return {
-    type: AUTH_RESET_PASSWORD_FAILURE,
-    payload: {
-      status: error,
-      statusText: message
-    }
-  };
-}
-
-export function authResetPassword(username) {
-  return dispatch => {
-    dispatch(authResetPasswordRequest());
-    return fetch(`${SERVER_URL}/api/v1/accounts/send-reset-password-link/`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        login: username
-      })
-    })
-      .then(checkHttpStatus)
-      .then(parseJSON)
-      .then(() => {
-        batchActions([
-          authResetPasswordSuccess(),
-          push('/home')
-        ]);
-      })
-      .catch(error => {
-        return errorHandler(dispatch, authResetPasswordFailure, {
-          noRedirect: true
-        })(error);
-      })
   };
 }
