@@ -19,7 +19,7 @@ export default (
     <Route path="/apply" component={Apply} />
     <Route path="/login" component={Signin} />
     <Route path="/signup" component={Signup} />
-    <Route path="/reset-password" component={ResetPassword} />
+    <Route path="/forgot-password" component={ResetPassword} />
     <Route
       exact
       path="/a/:accountSymbol"

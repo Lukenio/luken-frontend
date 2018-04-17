@@ -21,7 +21,7 @@ const validate = values => {
   return errors;
 };
 
-const ResetPasswordForm = ({ statusText, handleSubmit, submitting }) => {
+const ForgotPasswordForm = ({ statusText, handleSubmit, submitting }) => {
   return (
     <FormWrapper>
       <form onSubmit={handleSubmit(dispatchValues)}>
@@ -47,4 +47,4 @@ const formConfiguration = {
   validate
 };
 
-export default reduxForm(formConfiguration)(ResetPasswordForm);
+export default reduxForm(formConfiguration)(ForgotPasswordForm);

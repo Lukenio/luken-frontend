@@ -38,7 +38,7 @@ const AuthFormLinks = () => {
   return (
     <Switch>
       <Route exact path="/login" component={LoginLinks} />
-      <Route exact path="/reset-password" component={ResetLinks} />
+      <Route exact path="/forgot-password" component={ResetLinks} />
       <Route exact path="/signup" component={SignupLinks} />
     </Switch>
   );
