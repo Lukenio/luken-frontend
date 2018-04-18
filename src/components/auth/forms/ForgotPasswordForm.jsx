@@ -73,7 +73,7 @@ class ForgotPasswordForm extends Component {
         this.setState({ didSend: true });
       })
       .catch(error => {
-        this.setState({ ownStatusText: error.message })
+        this.setState({ ownStatusText: error.message });
       });
   }
 }
