@@ -1,41 +1,74 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { Flex, Box } from 'grid-styled';
-import { PlaceholderImage } from '../ui/Placeholders';
+import { HeaderMenuIcon } from '../ui/SVGIcons';
+import SVGContainer from '../ui/SVGContainer';
 
-const Title = styled.span`
-  height: 22px;
-  font-size: 17px;
-  font-weight: 400;
+import { handleSideMenuToggle } from '../../actions/ui';
+import { authLogoutAndRedirect } from '../../actions/auth';
+
+const StyledFlex = styled(Flex)`
+  background: #fff;
+`;
+
+const FullNameBox = styled(Box)`
+  font-weight: 500;
+  font-size: 14px;
+  color: #4d92df;
+  letter-spacing: 0;
+  text-align: center;
   line-height: 22px;
-  margin-left: 10px;
+  cursor: pointer;
 `;
 
-const OptionsBox = styled(Box)`
-  min-height: 16px;
+const Logo = styled.img`
+  width: auto;
+  height: 45px;
 `;
 
-const Header = ({ className, optionsBar, title = 'Logo', ...other }) => {
+const UserDropDownBox = ({ fullName = 'Loading', onClick }) => (
+  <Flex alignItems="center" onClick={onClick}>
+    <FullNameBox>{fullName}</FullNameBox>
+  </Flex>
+);
+
+const Header = ({
+  className,
+  fullName,
+  handleSideMenuToggle,
+  hadleLogout,
+  ...other
+}) => {
   return (
-    <Flex
+    <StyledFlex
       alignItems="center"
       justifyContent="space-between"
       py={17}
-      px={27}
+      px={30}
       width={1}
-      className={className}
       {...other}
     >
       <Flex alignItems="center" flexDirection="row">
-        <PlaceholderImage size={45} />
-        <Title>{title}</Title>
+        <SVGContainer w={20} h={13} mr={30} onClick={handleSideMenuToggle}>
+          <HeaderMenuIcon />
+        </SVGContainer>
+        <Logo src="/logo.png" alt="Loanz logo" />
       </Flex>
-      {optionsBar && <OptionsBox ml={20}>{optionsBar}</OptionsBox>}
-    </Flex>
+      <UserDropDownBox fullName={fullName} onClick={hadleLogout} />
+    </StyledFlex>
   );
 };
 
-export default styled(Header)`
-  background: #fff;
-  ${'' /* border-bottom: 1px solid #dcdcdc; */};
-`;
+const fn = userData => `${userData.first_name} ${userData.last_name}`;
+
+const mapStateToProps = state => ({
+  fullName: fn(state.userAccount)
+});
+
+const mapDispatchToProps = {
+  handleSideMenuToggle,
+  hadleLogout: authLogoutAndRedirect
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

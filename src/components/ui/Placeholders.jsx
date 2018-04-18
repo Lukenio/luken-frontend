@@ -9,4 +9,5 @@ export const PlaceholderImage = styled(Box)`
   height: ${({ size }) => (size ? cssUnit(size) : cssUnit(defaultSize))};
   border-radius: 50%;
   background: ${({ background }) => background || '#d8d8d8'};
+  cursor: ${({ pointer }) => (pointer ? 'pointer' : 'inherit')};
 `;

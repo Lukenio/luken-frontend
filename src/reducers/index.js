@@ -9,9 +9,11 @@ import coinAccounts from './coinAccounts';
 import coinsPrice from './coinsPrice';
 import ui from './ui';
 import input from './input';
+import userAccount from './userAccount';
 
 const rootReducer = combineReducers({
   auth,
+  userAccount,
   modals,
   coinAccounts,
   coinsPrice,

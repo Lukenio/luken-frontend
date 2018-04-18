@@ -9,17 +9,18 @@ import {
 
 import {
   Input,
-  CurrencyInput,
   FormWrapper,
+  FormErrorAlert,
   ErrorField,
+  CurrencyInput,
   ConvertionIcon,
   TermSpan,
   RadioInput,
+  CheckboxInput,
   Divider,
-  DisclaimerTotalLoanAmount,
-  TLAComponent,
-  FormErrorAlert
+  TLAComponent
 } from './Elements.jsx';
+
 import { BlueButton } from '../../ui/Button.jsx';
 import { applyNewLoan } from '../../../actions/apply';
 import { setGlobalLoanedAmmountValue } from '../../../actions/input';
@@ -38,26 +39,39 @@ const dispatchValues = cryptoType => (values, dispatch) => {
     crypto_collateral,
     loaned_amount,
     terms_month,
-    total_loaned_amount
+    total_loaned_amount,
+    terms_of_service_agree
   } = values;
 
-  const apr = getAPR(terms_month);
+  const APR = getAPR(terms_month);
+  const TE = getTE(terms_month);
+  const tla = calculateTLA({ TA: total_loaned_amount, TE, APR });
 
   const payload = {
     email,
     crypto_collateral,
-    total_loaned_amount,
+    total_loaned_amount: tla,
     loaned_amount,
     terms_month,
-    apr,
+    apr: APR,
     crypto_type: cryptoType,
+    terms_of_service_agree,
     ltv: LTV
   };
 
   return dispatch(applyNewLoan(payload)).catch((e = {}) => {
+    const { loaned_amount } = e;
+
+    // handle 500 error
+    if (!loaned_amount) {
+      throw new SubmissionError({
+        _error: 'Error! We are working on fixing it.'
+      });
+    }
+
     throw new SubmissionError({
-      loaned_amount: e.loaned_amount[0],
-      _error: e.loaned_amount[0]
+      loaned_amount: loaned_amount[0].replace('this value', '`Loan Amount`'),
+      _error: loaned_amount[0].replace('this value', '`Loan Amount`')
     });
   });
 };
@@ -81,6 +95,9 @@ const validate = values => {
     errors.total_loaned_amount =
       "Please let us know how much you're looking to borrow.";
   }
+  if (!values.terms_of_service_agree) {
+    errors.terms_of_service_agree = 'You must accept Terms of Service.';
+  }
 
   return errors;
 };
@@ -99,10 +116,11 @@ class BaseApplyForm extends Component {
       );
       this.setFormValue(
         'total_loaned_amount',
-        this.calculateTLA(
-          initialValues.loaned_amount,
-          initialValues.terms_month
-        )
+        initialValues.loaned_amount
+        // this.calculateTLA(
+        //   initialValues.loaned_amount,
+        //   initialValues.terms_month
+        // )
       );
     }
   }
@@ -119,7 +137,8 @@ class BaseApplyForm extends Component {
 
         this.setFormValue(
           'total_loaned_amount',
-          this.calculateTLA(loanedAmount, termsMonth)
+          loanedAmount
+          // this.calculateTLA(loanedAmount, termsMonth)
         );
       }
     }
@@ -166,7 +185,7 @@ class BaseApplyForm extends Component {
       'crypto_collateral',
       this.calculateCryptoCollateral(TA, termsMonth)
     );
-    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
+    this.setFormValue('total_loaned_amount', TA); // this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth)
 
     setGlobalLoanedAmmountValue(TA);
   };
@@ -183,7 +202,7 @@ class BaseApplyForm extends Component {
 
     const TA = this.calculateLoanedAmmount(c, termsMonth);
     this.setFormValue('loaned_amount', TA);
-    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
+    this.setFormValue('total_loaned_amount', TA); // this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
     setGlobalLoanedAmmountValue(TA);
   };
 
@@ -200,7 +219,7 @@ class BaseApplyForm extends Component {
     } = this.props;
 
     return (
-      <Flex px={[20, 59]} py={[20, 59]} w={1}>
+      <Flex px={[20, 59]} py={[20, 20]} w={1}>
         <FormWrapper onSubmit={handleSubmit(dispatchValues(cryptoType))}>
           {error && <FormErrorAlert statusText={error} />}
           <Flex w={1} flexDirection={['column', 'row']}>
@@ -208,7 +227,9 @@ class BaseApplyForm extends Component {
               <Field
                 name="loaned_amount"
                 label="How Much are You Looking to Borrow?"
+                placeholder="Please enter your desired loan amount"
                 type="text"
+                rounded
                 component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
                 handleChange={this.handleUSDInputChange}
@@ -220,6 +241,8 @@ class BaseApplyForm extends Component {
                 name="crypto_collateral"
                 label="How Much Collateral are You Posting?"
                 type="text"
+                placeholder="Please enter your collateral amount"
+                rounded
                 component={CurrencyInput}
                 disabled={isCryptoPriceFetching}
                 prefix={prefix}
@@ -228,35 +251,45 @@ class BaseApplyForm extends Component {
               />
             </Box>
           </Flex>
-          <Flex width={1} my={[0, 20]} flexDirection={['column', 'row']}>
-            <TermSpan>Term:</TermSpan>
-            <Field
-              type="radio"
-              name="terms_month"
-              label="3 months"
-              value="0"
-              component={RadioInput}
-            />
-            <Field
-              type="radio"
-              name="terms_month"
-              label="6 months"
-              value="1"
-              component={RadioInput}
-            />
-            <Field
-              type="radio"
-              name="terms_month"
-              label="12 months"
-              value="2"
-              component={RadioInput}
-            />
+          <Flex
+            width={1}
+            my={[0, 20]}
+            flexDirection={['column', 'row']}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Box w={[1, 380]} alignItems="center" justifyContent="center">
+              <TermSpan>Select Term:</TermSpan>
+              <Box>
+                <Field
+                  type="radio"
+                  name="terms_month"
+                  label="3 month"
+                  value="0"
+                  component={RadioInput}
+                />
+                <Field
+                  type="radio"
+                  name="terms_month"
+                  label="6 month"
+                  value="1"
+                  component={RadioInput}
+                />
+                <Field
+                  type="radio"
+                  name="terms_month"
+                  label="12 month"
+                  value="2"
+                  component={RadioInput}
+                />
+              </Box>
+              <Divider w={[1, 380]} />
+            </Box>
           </Flex>
           {submitFailed &&
             syncErrors.terms_month && (
               <ErrorField>{syncErrors.terms_month}</ErrorField>
             )}
-          <Divider width={1} mt={26} />
 
           <Flex
             w={1}
@@ -268,33 +301,44 @@ class BaseApplyForm extends Component {
             <Field name="total_loaned_amount" component={TLAComponent} />
           </Flex>
 
-          <Flex w={1} mt={27}>
-            <Field
-              name="email"
-              label="Enter Your Email Address"
-              type="email"
-              placeholder="Email Address"
-              component={Input}
-            />
+          <Flex
+            w={1}
+            mt={27}
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="column"
+          >
+            <Box w={[1, 340]} my={[30, 0]}>
+              <Field
+                name="email"
+                label="Enter Your Email Address"
+                type="email"
+                rounded
+                placeholder="Email Address"
+                component={Input}
+              />
+            </Box>
           </Flex>
 
-          <Flex w={1}>
-            <DisclaimerTotalLoanAmount>
-              * The Total Loan Amount calculation based on your desired loan
-              amount, term of the loan and annual percentage rate (APR). Due to
-              high volatility, the collateral amount based on 35% LTV of our
-              perception of the yearly minimal price of the bitcoin and
-              etherium. Total Loan Amount includes all fees associated with your
-              transactions. In order to receive the collateral back, total Loan
-              Amount must be discharged on maturity date. The loan maturity date
-              will be indicated on the final loan agreement. Email notification
-              will be sent 30 days prior date of discharge.
-            </DisclaimerTotalLoanAmount>
+          <Flex
+            w={1}
+            mt={27}
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="column"
+          >
+            <Box>
+              <Field
+                name="terms_of_service_agree"
+                label="Check here if you agree to Terms of service"
+                component={CheckboxInput}
+              />
+            </Box>
           </Flex>
 
           <Flex justify="center" pt={[20, 54]}>
             <BlueButton type="submit" disabled={submitting}>
-              Get Started
+              GET STARTED
             </BlueButton>
           </Flex>
         </FormWrapper>
@@ -329,6 +373,7 @@ export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
     initialValues: {
       terms_month: '0',
       total_loaned_amount: '0',
+      terms_of_service_agree: false,
       loaned_amount: state.input.globalLoanedAmountValue
     }
   };

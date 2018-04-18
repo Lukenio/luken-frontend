@@ -10,7 +10,7 @@ import { handleNavMenuToggle } from '../../actions/ui';
 
 const NavigationFlexWrap = styled(Flex)`
   height: 60px;
-  background: #2893ef;
+  background: #4176d1;
   z-index: 2;
 
   @media only screen and (min-width: 767px) {
@@ -38,7 +38,7 @@ const MobileMenu = styled(Box)`
   @media only screen and (max-width: 767px) {
     ${show()};
     height: ${props => (props.open ? '360px' : 0)};
-    background: #2893ef;
+    background: #4176d1;
   }
 
   @media only screen and (min-width: 767px) {
@@ -92,7 +92,7 @@ const NavItem = styled.a`
 `;
 
 const MenuIconBox = styled(Flex)`
-  background: #45aafd;
+  background: #4176d1;
   height: 32px;
   border-radius: 3px;
   text-align: center;
@@ -106,7 +106,7 @@ const MenuIconBox = styled(Flex)`
 const MenuItems = () => (
   <Fragment>
     <NavItem href="/apply">Apply for a Crypto Loan</NavItem>
-    <NavItem href="https://loanz.io/buy-bitcoin/">Buy / Sell Bitcoin</NavItem>
+    <NavItem href="https://loanz.io/buy-bitcoin/">How to Buy or Sell Bitcoin</NavItem>
     <NavItem href="https://loanz.io/digital-wallet/">Digital Wallet</NavItem>
     <NavItem href="https://loanz.io/company/">Company</NavItem>
     <NavItem href="https://loanz.io/faqs/">FAQ's</NavItem>
@@ -140,8 +140,8 @@ const Navigation = ({ menuOpen, handleNavMenuToggle }) => (
       <Flex alignItems="center" flexDirection="row">
         <a href="https://loanz.io/">
           <LogoLoanz
-            src="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
-            data-retina="https://loanz.io/wp-content/uploads/2018/03/bitcoin-loans-for-crypto-blocks2.png"
+            src="https://loanz.io/wp-content/uploads/2018/03/loanzio-logo-bitcoinv4.png"
+            data-retina="https://loanz.io/wp-content/uploads/2018/03/loanzio-logo-bitcoinv4.png"
           />
         </a>
       </Flex>

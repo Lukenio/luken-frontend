@@ -41,7 +41,7 @@ export const errorHandler = (dispatch, failureAction, opts = defaultProps) => (
 
       dispatch(batchActions(actions));
 
-      return Promise.reject({ 401: true });
+      return Promise.reject({ errorDetail: data.detail });
     });
   } else if (
     error &&
@@ -57,7 +57,7 @@ export const errorHandler = (dispatch, failureAction, opts = defaultProps) => (
       )
     );
     return Promise.reject({
-      500: 'A server error occurred while sending your data!'
+      errorDetail: 'A server error occurred while sending your data!'
     });
   } else if (
     error &&
@@ -87,11 +87,9 @@ export const errorHandler = (dispatch, failureAction, opts = defaultProps) => (
     );
 
     return Promise.reject({
-      'Connection Error': 'An error occurred while sending your data!'
+      errorDetail: 'An error occurred while sending your data!'
     });
   }
-
-  return Promise.reject();
 };
 
 const baseRequestWithToken = method => (url, token, body) => {

@@ -5,9 +5,11 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Apply from './Apply.jsx';
 
 // auth required routes
-import { Signup, Signin } from './Auth.jsx';
-import Home from './Home.jsx';
+import { Signup, Signin, ForgotPassword, ResetPassword } from './Auth.jsx';
+// import Home from './Home.jsx';
+import NotFound from './NotFound.jsx';
 import AccountDetailsPage from './AccountDetailsPage.jsx';
+import KYCPage from './KYCPage.jsx';
 
 // middlewares
 import requireAuthentication from './utils/requireAuthentication';
@@ -17,11 +19,17 @@ export default (
     <Route path="/apply" component={Apply} />
     <Route path="/login" component={Signin} />
     <Route path="/signup" component={Signup} />
-    <Route path="/home" component={requireAuthentication(Home)} />
+    <Route path="/forgot-password" component={ForgotPassword} />
+    <Route path="/reset-password" component={ResetPassword} />
     <Route
-      path="/coin-account/:accountId"
+      exact
+      path="/a/:accountSymbol"
       component={requireAuthentication(AccountDetailsPage)}
     />
-    <Redirect exact from="/" to="/login" />
+    <Route exact path="/kyc" component={requireAuthentication(KYCPage)} />
+    <Redirect exact from="/home" to="/a/btc" />
+    <Redirect exact from="/" to="/a/btc" />
+    <Redirect exact from="/a" to="/" />
+    <Route path="*" component={NotFound} />
   </Switch>
 );

@@ -16,10 +16,12 @@ import {
 } from '../constants';
 
 import { errorHandler } from './utils';
+import { dataFetchUserAccountData } from './user-account';
+import { dataFetchAccountsDataRequest } from './coin-accounts';
 
 // LOGIN
 export function authLoginUserSuccess(token) {
-  sessionStorage.setItem('token', token);
+  localStorage.setItem('token', token);
 
   return {
     type: AUTH_LOGIN_USER_SUCCESS,
@@ -30,7 +32,8 @@ export function authLoginUserSuccess(token) {
 }
 
 export function authLoginUserFailure(error, message) {
-  sessionStorage.removeItem('token');
+  localStorage.removeItem('token');
+
   return {
     type: AUTH_LOGIN_USER_FAILURE,
     payload: {
@@ -45,6 +48,14 @@ export function authLoginUserRequest() {
     type: AUTH_LOGIN_USER_REQUEST
   };
 }
+
+const successUserLoginBatchedActions = token =>
+  batchActions([
+    authLoginUserSuccess(token),
+    dataFetchAccountsDataRequest(),
+    dataFetchUserAccountData(),
+    push('/home')
+  ]);
 
 export function authLoginUser(username, password1) {
   return dispatch => {
@@ -63,8 +74,8 @@ export function authLoginUser(username, password1) {
     })
       .then(checkHttpStatus)
       .then(parseJSON)
-      .then(({ token, detail }) => {
-        dispatch(batchActions([authLoginUserSuccess(token), push('/home')]));
+      .then(({ token }) => {
+        dispatch(successUserLoginBatchedActions(token));
       })
       .catch(error => {
         return errorHandler(dispatch, authLoginUserFailure, {
@@ -100,7 +111,7 @@ export function authRegisterUserSuccess() {
 // LOGOUT
 
 export function authInvalidateToken() {
-  sessionStorage.removeItem('token');
+  localStorage.removeItem('token');
 
   return {
     type: AUTH_INVALIDATE_TOKEN
@@ -108,7 +119,8 @@ export function authInvalidateToken() {
 }
 
 export function authLogout() {
-  sessionStorage.removeItem('token');
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
   return {
     type: AUTH_LOGOUT_USER
   };
@@ -150,8 +162,8 @@ export function authRegisterUser({
     })
       .then(checkHttpStatus)
       .then(parseJSON)
-      .then(user => {
-        dispatch(batchActions([authRegisterUserSuccess(), push('/home')]));
+      .then(({ token }) => {
+        dispatch(successUserLoginBatchedActions(token));
       })
       .catch(error => {
         return errorHandler(dispatch, authRegisterUserFailure, {

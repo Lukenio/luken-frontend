@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
+import CloseIcon from 'material-ui-icons/Close';
+import styled from 'styled-components';
+
+import { Flex, Box } from 'grid-styled';
 
 import GradientedOverlay from './GradientedOverlay.jsx';
+import IconButton from './IconButton.jsx';
 
 ReactModal.setAppElement('#root');
 
@@ -26,7 +31,8 @@ const style = {
     transform: 'translate(-50%, -50%)',
     border: 0,
     borderRadius: '5px',
-    padding: '0'
+    padding: '0',
+    background: 'transparent'
   }
 };
 
@@ -67,3 +73,61 @@ export class TransparentModal extends Component {
     );
   }
 }
+
+const Title = styled.h3`
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+const Header = styled(Flex)`
+  background: #4d92df;
+  color: #fff;
+  position: relative;
+`;
+
+const CloseIconBox = styled(Box)`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+export const ModalHeader = ({ handleClose, children }) => (
+  <Header alignItems="center" justifyContent="center" py={30}>
+    <Box>
+      <Title>{children}</Title>
+    </Box>
+    <CloseIconBox p={30}>
+      <IconButton onClick={handleClose}>
+        <CloseIcon />
+      </IconButton>
+    </CloseIconBox>
+  </Header>
+);
+
+const StyledFlexWrap = styled(Flex)`
+  font-size: 14px;
+  height: 100%;
+  background: ${props => (props.flat ? 'transparent' : '#fff')};
+  color: ${props => (props.flat ? '#fff' : 'inherit')};
+`;
+
+export const ModalBody = ({ children, flat, ...other }) => (
+  <StyledFlexWrap flexDirection="column" width={1} flat={flat} {...other}>
+    {children}
+  </StyledFlexWrap>
+);
+
+const Footer = styled(Flex)`
+  align-self: flex-end;
+  background: #f6f6f6;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 18px;
+`;
+
+export const ModalFooter = ({ children }) => (
+  <Footer justifyContent="center" alignItems="center" width={1} py={15}>
+    {children}
+  </Footer>
+);

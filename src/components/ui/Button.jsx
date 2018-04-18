@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { cssUnit } from '../cssUtils';
 
 export const BaseButton = styled.button`
   cursor: pointer;
@@ -11,10 +12,10 @@ export const BaseButton = styled.button`
 const Button = BaseButton.extend`
   display: inline-block;
   text-decoration: none;
-  color: ${({ secondary, danger }) =>
-    secondary ? '#6F6F6F' : danger ? '#d84256' : '#fff'};
+  color: ${({ secondary, danger, flat }) =>
+    secondary ? '#6F6F6F' : danger ? '#d84256' : flat ? '#4D92DF' : '#fff'};
   background: ${({ secondary, flat }) =>
-    secondary ? '#D8D8D8' : flat ? 'transparent' : '#9B9B9B'};
+    secondary ? '#D8D8D8' : flat ? 'transparent' : '#4D92DF'};
   border-radius: 5px;
   font-size: ${({ small }) => (small ? '12px' : 'inherit')};
   line-height: ${({ small }) => (small ? '14px' : 'inherit')};
@@ -24,7 +25,25 @@ const Button = BaseButton.extend`
   min-width: 61px;
 `;
 
+export const AccountButton = Button.extend`
+  height: 44px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ secondary, flat }) =>
+    flat ? 'rgba(77, 146, 223, 0.3)' : '#4D92DF'};
+  padding: 10px 30px;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.24px;
+  line-height: 25px;
+  min-width: ${props => (props.w ? cssUnit(props.w) : 'inherit')};
+`;
+
 export const BlueButton = BaseButton.extend`
+  :hover {
+    background-color: #244994;
+  }
+
   display: inline-block;
   text-decoration: none;
   color: #fff;
@@ -34,10 +53,10 @@ export const BlueButton = BaseButton.extend`
   font-weight: 600;
   font-size: 16px;
   color: #ffffff;
-  letter-spacing: 0.24px;
+  letter-spacing: 0.24rem;
   text-align: center;
   line-height: 22px;
-  padding: 11px;
+  padding: 15px;
 
   min-width: 360px;
 

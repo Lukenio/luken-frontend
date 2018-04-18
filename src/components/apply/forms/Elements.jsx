@@ -25,27 +25,39 @@ export const FormErrorAlert = ({ statusText }) => (
 const Label = styled.label`
   width: 100%;
   display: inline-block;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  color: #224e88;
+  text-align: left;
+  margin-bottom: 5px;
+`;
 
-  font-family: Montserrat;
-  font-weight: 600;
-  font-size: 14px;
-  color: #9b9b9b;
-  letter-spacing: 0;
-  line-height: 22px;
+const LabelCentered = Label.extend`
+  text-align: center;
 `;
 
 const inputStyles = css`
   width: 100%;
-  height: 44px;
-  padding: 11px 19px;
-  border: 1px solid #9b9b9b;
-  border-radius: 100px;
+  /* height: 44px; */
+  /* padding: 11px 19px; */
   font-family: Montserrat;
-  font-size: 15px;
-  color: #9b9b9b;
   letter-spacing: 0;
   line-height: 22px;
   outline: none;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  background: 0 0;
+  box-shadow: inset 0 0 0 transparent;
+  font-size: 15px;
+  line-height: 1.31;
+  text-align: left;
+  color: #9b9b9b;
+  border: 0;
+  border-bottom: solid 2px #3195ec;
+  padding-left: 0;
+  padding-right: 5px;
+  font-weight: 200;
 
   &::placeholder {
     color: rgba(155, 155, 155, 0.4);
@@ -59,7 +71,7 @@ const StyledInput = styled.input`
 export const ErrorField = styled.span`
   font-family: Montserrat;
   font-size: 12px;
-  color: #9b9b9b;
+  color: #f25f55;
   letter-spacing: 0;
   line-height: 20px;
   display: inline-block;
@@ -86,7 +98,8 @@ export const CurrencyInput = ({
   placeholder,
   prefix = '$ ',
   decimalScale = 2,
-  handleChange
+  handleChange,
+  ...other
 }) => {
   const onChange = ({ formattedValue, value }) => {
     const parsedValue = parseFloat(value) || '';
@@ -109,6 +122,7 @@ export const CurrencyInput = ({
         prefix={prefix}
         allowNegative={false}
         onValueChange={onChange}
+        {...other}
       />
       {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
     </InputWrapper>
@@ -117,7 +131,7 @@ export const CurrencyInput = ({
 
 export const Input = ({ input, meta, label, placeholder, ...other }) => (
   <InputWrapper w={1}>
-    <Label>{label}</Label>
+    <LabelCentered>{label}</LabelCentered>
     <StyledInput {...input} placeholder={placeholder || label} {...other} />
     {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
   </InputWrapper>
@@ -130,9 +144,13 @@ const StyledRadio = styled.input`
   margin: 0;
   padding: 0;
   opacity: 0;
+  height: 55px;
+  width: 55px;
 
   &[type='radio']:checked + label::before {
-    border-color: #979797;
+    border-color: #224e88;
+    background-color: #224e88;
+    color: #224e88;
   }
 
   &[type='radio']:checked + label::after {
@@ -179,6 +197,11 @@ const RadioWrapper = styled(Box)`
   display: inline-block;
 `;
 
+const CheckboxLabel = styled.label`
+  display: inline-block;
+  padding-left: 5px;
+`;
+
 export const RadioInput = ({ label, input }) => {
   const _onChange = () => input.onChange(input.value);
 
@@ -192,19 +215,40 @@ export const RadioInput = ({ label, input }) => {
   );
 };
 
+export const CheckboxInput = ({ label, input, meta }) => {
+  const _onChange = () => input.onChange(!input.value);
+
+  return (
+    <Box mr={30}>
+      <Box>
+        <input type="checkbox" {...input} checked={input.value} />
+        <CheckboxLabel for={input.name} onClick={_onChange}>
+          {label}
+        </CheckboxLabel>
+      </Box>
+
+      {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
+    </Box>
+  );
+};
+
 export const TermSpan = styled.span`
-  font-family: Montserrat;
-  font-weight: 600;
-  font-size: 14px;
-  color: #9b9b9b;
-  letter-spacing: 0;
-  line-height: 22px;
-  margin-right: 28px;
+  width: 100%;
+  display: inline-block;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  color: #224e88;
+  text-align: center;
+  margin-bottom: 11px;
 `;
 
 export const Divider = styled(Box)`
-  height: 1px;
-  background: rgba(155, 155, 155, 0.25);
+  margin-top: 10px;
+  height: 2px;
+  background: #3195ec;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 
 export const DisclaimerTotalLoanAmount = styled.p`
@@ -213,15 +257,14 @@ export const DisclaimerTotalLoanAmount = styled.p`
 `;
 
 export const TLAText = styled.span`
-  font-size: 26px;
-  font-weight: 800;
+  font-size: 24px;
   display: inline-block;
   color: #2893ef;
   margin-right: 15px;
 `;
 
 const TLAWrapper = styled(NumberFormat)`
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 800;
   display: inline-block;
   color: #2893ef;
@@ -239,7 +282,7 @@ export const TLAComponent = ({
 }) => (
   <Fragment>
     <TLATextWrapper>
-      <TLAText>Total Loan Amount:</TLAText>
+      <TLAText>Desired Loan Amount:</TLAText>
       <TLAWrapper
         value={input.value}
         thousandSeparator={true}

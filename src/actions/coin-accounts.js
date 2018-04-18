@@ -6,7 +6,10 @@ import {
   DATA_ADD_ACCOUNT_FAILURE,
   DATA_FETCH_ACCOUNT_DATA_REQUEST,
   DATA_RECEIVE_ACCOUNT_DATA,
-  DATA_FETCH_ACCOUNT_DATA_FAILURE
+  DATA_FETCH_ACCOUNT_DATA_FAILURE,
+  DATA_CRYPTO_WITHDRAWAL_REQUEST,
+  DATA_CRYPTO_WITHDRAWAL_SUCCESS,
+  DATA_CRYPTO_WITHDRAWAL_FAILURE
 } from '../constants';
 import { errorHandler, fetchWithToken, postWithToken } from './utils';
 
@@ -96,6 +99,58 @@ export function dataFetchAccountData(accountId) {
       })
       .catch(error => {
         return errorHandler(dispatch, dataFetchAccountDataFailure)(
+          error,
+          accountId
+        );
+      });
+  };
+}
+
+// WITHDRAWAL REQUEST
+export function dataCryptoWithdrawalRequest() {
+  return {
+    type: DATA_CRYPTO_WITHDRAWAL_REQUEST
+  };
+}
+
+export function dataCryptoWithdrawalSuccess(data, accountId) {
+  return {
+    type: DATA_CRYPTO_WITHDRAWAL_SUCCESS,
+    payload: {
+      data,
+      accountId
+    }
+  };
+}
+
+export function dataCryptoWithdrawalFailure(error, message, accountId) {
+  return {
+    type: DATA_CRYPTO_WITHDRAWAL_FAILURE,
+    payload: {
+      status: error,
+      statusText: message,
+      accountId
+    }
+  };
+}
+
+export function dataCryptoWithdrawal(accountId, data) {
+  return (dispatch, state) => {
+    const { token } = state().auth;
+
+    dispatch(dataCryptoWithdrawalRequest());
+
+    return postWithToken(
+      `${SERVER_URL}/api/v1/coin-accounts/${accountId}/withdraw_request/`,
+      token,
+      data
+    )
+      .then(response => {
+        dispatch(dataCryptoWithdrawalSuccess(response, accountId));
+      })
+      .catch(error => {
+        debugger;
+        return errorHandler(dispatch, dataCryptoWithdrawalFailure)(
           error,
           accountId
         );

@@ -1,38 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Flex, Box } from 'grid-styled';
-import CloseIcon from 'material-ui-icons/Close';
 
 import Button from '../../ui/Button';
-import IconButton from '../../ui/IconButton.jsx';
 import Scrollable from '../../ui/Scrollable.jsx';
 import { PlaceholderImage } from '../../ui/Placeholders.jsx';
-
-const Title = styled.h3`
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-const Header = styled(Flex)`
-  background: #9f9f9f;
-  color: #fff;
-  position: relative;
-`;
-
-const Footer = styled(Flex)`
-  align-self: flex-end;
-  background: #f6f6f6;
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 18px;
-`;
-
-const CloseIconBox = styled(Box)`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
+import { ModalHeader, ModalBody, ModalFooter } from '../../ui/Modal.jsx';
 
 const AccountBox = styled(Flex)`
   border-radius: 6px;
@@ -92,17 +65,8 @@ class AddAccountModal extends Component {
     } = this.props;
 
     return (
-      <Flex className={className} flexDirection="column" width={1}>
-        <Header alignItems="center" justifyContent="center" py={30}>
-          <Box>
-            <Title>Add New Account</Title>
-          </Box>
-          <CloseIconBox p={30}>
-            <IconButton onClick={handleCancel}>
-              <CloseIcon />
-            </IconButton>
-          </CloseIconBox>
-        </Header>
+      <ModalBody>
+        <ModalHeader handleClose={handleCancel}>Add New Account</ModalHeader>
         <Scrollable
           flex="1"
           width={1}
@@ -125,12 +89,12 @@ class AddAccountModal extends Component {
             </AccountBox>
           ))}
         </Scrollable>
-        <Footer justifyContent="center" alignItems="center" width={1} py={15}>
+        <ModalFooter>
           <Button onClick={handleSave} disabled={!chosenAccount}>
             Add Account
           </Button>
-        </Footer>
-      </Flex>
+        </ModalFooter>
+      </ModalBody>
     );
   }
 }

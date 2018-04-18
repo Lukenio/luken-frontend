@@ -33,6 +33,7 @@ function applyNewLoanFailure(error, message) {
 
 export function applyNewLoan({
   email,
+  terms_of_service_agree,
   loaned_amount,
   total_loaned_amount,
   crypto_collateral,
@@ -55,10 +56,11 @@ export function applyNewLoan({
         crypto_type,
         apr,
         ltv,
+        terms_of_service_agree,
         loaned_amount: parseFloat(loaned_amount.toFixed(2)),
-        total_loaned_amount: parseFloat(loaned_amount.toFixed(2)),
+        total_loaned_amount: parseFloat(total_loaned_amount.toFixed(2)),
         crypto_collateral: parseFloat(crypto_collateral.toFixed(8)),
-        terms_month: Number(terms_month)
+        terms_month: Number(terms_month),
       })
     })
       .then(checkHttpStatus)
