@@ -12,7 +12,8 @@ import {
   AUTH_REGISTER_USER_REQUEST,
   AUTH_REGISTER_USER_FAILURE,
   AUTH_REGISTER_USER_SUCCESS,
-  AUTH_LOGOUT_USER
+  AUTH_LOGOUT_USER,
+  AUTH_CLEAN_STATUS_TEXT
 } from '../constants';
 
 import { errorHandler } from './utils';
@@ -154,10 +155,15 @@ export function authRegisterUser({
       },
       body: JSON.stringify({
         email,
-        password1,
-        password2,
+        password: password1,
+        password_confirm: password2,
         first_name: firstName,
-        last_name: lastName
+        last_name: lastName,
+
+        // Temporary.
+        // Server requires this data to provided as of now.
+        username: email.split('@')[0],
+        type: 'borrower'
       })
     })
       .then(checkHttpStatus)
@@ -170,5 +176,11 @@ export function authRegisterUser({
           noRedirect: true
         })(error);
       });
+  };
+}
+
+export function authCleanStatusText() {
+  return {
+    type: AUTH_CLEAN_STATUS_TEXT
   };
 }

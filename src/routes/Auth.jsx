@@ -12,6 +12,7 @@ import ResetPasswordForm from '../components/auth/forms/ResetPasswordForm.jsx';
 import AccountVerificationForm from '../components/auth/forms/AccountVerificationForm.jsx';
 import AuthFormLinks from '../components/auth/AuthFormLinks.jsx';
 import SimpleHeader from '../components/layout/SimpleHeader.jsx';
+import { authCleanStatusText } from '../actions/auth';
 
 const LeadHeading = styled.p`
   font-size: 30px;
@@ -29,6 +30,12 @@ const Content = styled(Box)`
 class Base extends Component {
   componentWillMount() {
     this.checkRedirect(this.props);
+  }
+
+  componentWillUnmount() {
+    if (typeof this.props.cleanStatusText === 'function') {
+      this.props.cleanStatusText();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,14 +73,14 @@ class Base extends Component {
 }
 
 const SignupRoute = ({ statusText, ...other }) => (
-  <Base title="Create account" {...other}>
-    <SignupForm />
+  <Base title="Create Account" {...other}>
+    <SignupForm statusText={statusText} />
   </Base>
 );
 
 const SigninRoute = ({ statusText, ...other }) => (
-  <Base title="Sign in to Wallet" {...other}>
-    <SigninForm />
+  <Base title="Sign In to Wallet" {...other}>
+    <SigninForm statusText={statusText} />
   </Base>
 );
 
@@ -102,11 +109,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  homeRedirect: () => dispatch(push('/home'))
+  homeRedirect: () => dispatch(push('/home')),
+  cleanStatusText: () => dispatch(authCleanStatusText())
 });
 
 export const Signin = connect(mapStateToProps, mapDispatchToProps)(SigninRoute);
-export const Signup = connect(mapStateToProps)(SignupRoute);
+export const Signup = connect(mapStateToProps, mapDispatchToProps)(SignupRoute);
 export const ForgotPassword = connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordRoute);
 export const ResetPassword = connect(mapStateToProps, mapDispatchToProps)(ResetPasswordRoute);
 export const AccountVerification = connect(mapStateToProps, mapDispatchToProps)(AccountVerificationRoute);

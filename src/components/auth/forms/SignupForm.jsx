@@ -1,7 +1,8 @@
 import React from 'react';
+import { Flex } from 'grid-styled';
 import { Field, reduxForm } from 'redux-form';
 
-import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
+import { FormWrapper, Input, FormErrorAlertHTML } from './Elements.jsx';
 import Button from '../../ui/Button.jsx';
 import { authRegisterUser } from '../../../actions/auth';
 
@@ -13,19 +14,19 @@ const validate = values => {
   const errors = {};
 
   if (!values.email) {
-    errors.email = 'Required';
+    errors.email = 'Please fill out this field.';
   }
   if (!values.password1) {
-    errors.password1 = 'Required';
+    errors.password1 = 'Please fill out this field.';
   }
   if (!values.password2) {
-    errors.password2 = 'Required';
+    errors.password2 = 'Please fill out this field.';
   }
   if (!values.firstName) {
-    errors.firstName = 'Required';
+    errors.firstName = 'Please fill out this field.';
   }
   if (!values.lastName) {
-    errors.lastName = 'Required';
+    errors.lastName = 'Please fill out this field.';
   }
   if (values.password1 !== values.password2) {
     errors.password1 = "Passwords don't match";
@@ -38,7 +39,7 @@ const SignupForm = ({ handleSubmit, submitting, statusText }) => {
   return (
     <FormWrapper>
       <form onSubmit={handleSubmit(dispatchValues)}>
-        {statusText && <FormErrorAlert statusText={statusText} />}
+        {statusText && <FormErrorAlertHTML statusText={statusText} />}
         <Field name="firstName" label="First Name" component={Input} />
         <Field name="lastName" label="Last Name" component={Input} />
         <Field name="email" label="Email" type="email" component={Input} />
@@ -54,9 +55,11 @@ const SignupForm = ({ handleSubmit, submitting, statusText }) => {
           type="password"
           component={Input}
         />
-        <Button type="submit" disabled={submitting}>
-          Sign Up
-        </Button>
+        <Flex justify="center">
+          <Button type="submit" disabled={submitting}>
+            Create Account
+          </Button>
+        </Flex>
       </form>
     </FormWrapper>
   );

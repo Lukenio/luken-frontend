@@ -85,6 +85,13 @@ export const FormErrorAlert = ({ statusText }) => (
   </Box>
 );
 
+export const FormErrorAlertHTML = ({ statusText }) => (
+  <Box>
+    <FormError dangerouslySetInnerHTML={{ __html: statusText }} />
+    <Rule />
+  </Box>
+);
+
 const StyledInput = styled.input`
   ${inputStyles};
 `;

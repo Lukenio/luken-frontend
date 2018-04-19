@@ -55,17 +55,34 @@ const Loading = styled.p`
   margin: 0;
 `;
 
+const IframeFlex = styled(Flex)`
+  ${({ loading }) => (`
+    min-height: 539px;
+    background: url(/loading.svg) no-repeat 50% 50%;
+    background-size: 185px 185px;
+  `)}
+`;
+
 class KYC extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoadingIframe: true
+    };
+  }
+
   renderIframe(userId) {
+    const { isLoadingIframe } = this.state;
+
     return (
       <iframe
         id="JotFormIFrame-80925336043252"
-        onload="window.parent.scrollTo(0,0)"
+        onLoad={this.handleIframeLoad}
         allowtransparency="true"
-        allowfullscreen="true"
+        allowFullscreen={true}
         allow="geolocation; microphone; camera"
         src={`https://form.jotform.com/80925336043252?userid=${userId}`}
-        frameborder="0"
+        frameBorder="0"
         style={{ width: '1px', minWidth: '100%', height: 539, border: 'none' }}
         scrolling="no"
       />
@@ -74,6 +91,7 @@ class KYC extends Component {
 
   render() {
     const { userId } = this.props;
+    const { isLoadingIframe } = this.state;
 
     return (
       <Fragment>
@@ -86,19 +104,23 @@ class KYC extends Component {
                 <Heading>KYC</Heading>
               </Flex>
               <Divider width={1} />
-              <Flex width={1} py={20} px={30} justifyContent="space-between">
+              <IframeFlex width={1} py={20} px={30} justifyContent="space-between" loading={isLoadingIframe}>
                 {userId ? (
                   this.renderIframe(userId)
                 ) : (
                   <Loading>Loading...</Loading>
                 )}
-              </Flex>
+              </IframeFlex>
             </WrapFlexContainer>
             <Footer />
           </Flex>
         </Flex>
       </Fragment>
     );
+  }
+
+  handleIframeLoad = () => {
+    this.setState({ isLoadingIframe: false });
   }
 }
 
