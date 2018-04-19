@@ -12,7 +12,8 @@ import {
   AUTH_REGISTER_USER_REQUEST,
   AUTH_REGISTER_USER_FAILURE,
   AUTH_REGISTER_USER_SUCCESS,
-  AUTH_LOGOUT_USER
+  AUTH_LOGOUT_USER,
+  AUTH_CLEAN_STATUS_TEXT
 } from '../constants';
 
 import { errorHandler } from './utils';
@@ -170,5 +171,11 @@ export function authRegisterUser({
           noRedirect: true
         })(error);
       });
+  };
+}
+
+export function authCleanStatusText() {
+  return {
+    type: AUTH_CLEAN_STATUS_TEXT
   };
 }

@@ -6,7 +6,8 @@ import {
   AUTH_REGISTER_USER_FAILURE,
   AUTH_REGISTER_USER_SUCCESS,
   AUTH_LOGOUT_USER,
-  AUTH_INVALIDATE_TOKEN
+  AUTH_INVALIDATE_TOKEN,
+  AUTH_CLEAN_STATUS_TEXT
 } from '../constants';
 
 const initialState = {
@@ -81,6 +82,12 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         token: null
+      };
+
+    case AUTH_CLEAN_STATUS_TEXT:
+      return {
+        ...state,
+        statusText: null
       };
 
     default:
