@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex } from 'grid-styled';
 import { Field, reduxForm } from 'redux-form';
 
-import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
+import { FormWrapper, Input, FormErrorAlertHTML } from './Elements.jsx';
 import Button from '../../ui/Button.jsx';
 import { authRegisterUser } from '../../../actions/auth';
 
@@ -39,7 +39,7 @@ const SignupForm = ({ handleSubmit, submitting, statusText }) => {
   return (
     <FormWrapper>
       <form onSubmit={handleSubmit(dispatchValues)}>
-        {statusText && <FormErrorAlert statusText={statusText} />}
+        {statusText && <FormErrorAlertHTML statusText={statusText} />}
         <Field name="firstName" label="First Name" component={Input} />
         <Field name="lastName" label="Last Name" component={Input} />
         <Field name="email" label="Email" type="email" component={Input} />

@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex } from 'grid-styled';
 import { Field, reduxForm } from 'redux-form';
 
-import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
+import { FormWrapper, Input, FormErrorAlertHTML } from './Elements.jsx';
 import Button from '../../ui/Button.jsx';
 import { authLoginUser } from '../../../actions/auth';
 
@@ -28,7 +28,7 @@ const SigninForm = ({ statusText, handleSubmit, submitting }) => {
   return (
     <FormWrapper>
       <form onSubmit={handleSubmit(dispatchValues)}>
-        {statusText && <FormErrorAlert statusText={statusText} />}
+        {statusText && <FormErrorAlertHTML statusText={statusText} />}
         <Field
           name="username"
           label="Username"
