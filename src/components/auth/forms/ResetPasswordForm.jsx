@@ -87,7 +87,7 @@ class ResetPasswordForm extends Component {
         dispatch(push('/login'));
       })
       .catch(error => {
-        this.setState({ ownStatusText: error.message })
+        this.setState({ ownStatusText: error.message });
       });
   }
 }

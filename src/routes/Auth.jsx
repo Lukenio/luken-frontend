@@ -9,6 +9,7 @@ import SignupForm from '../components/auth/forms/SignupForm.jsx';
 import SigninForm from '../components/auth/forms/SigninForm.jsx';
 import ForgotPasswordForm from '../components/auth/forms/ForgotPasswordForm.jsx';
 import ResetPasswordForm from '../components/auth/forms/ResetPasswordForm.jsx';
+import AccountVerificationForm from '../components/auth/forms/AccountVerificationForm.jsx';
 import AuthFormLinks from '../components/auth/AuthFormLinks.jsx';
 import SimpleHeader from '../components/layout/SimpleHeader.jsx';
 
@@ -88,6 +89,12 @@ const ResetPasswordRoute = ({ statusText, ...other }) => (
   </Base>
 );
 
+const AccountVerificationRoute = ({ statusText, ...other }) => (
+  <Base title="Account Verification" {...other}>
+    <AccountVerificationForm />
+  </Base>
+);
+
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   userId: state.auth.userId,
@@ -102,3 +109,4 @@ export const Signin = connect(mapStateToProps, mapDispatchToProps)(SigninRoute);
 export const Signup = connect(mapStateToProps)(SignupRoute);
 export const ForgotPassword = connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordRoute);
 export const ResetPassword = connect(mapStateToProps, mapDispatchToProps)(ResetPasswordRoute);
+export const AccountVerification = connect(mapStateToProps, mapDispatchToProps)(AccountVerificationRoute);

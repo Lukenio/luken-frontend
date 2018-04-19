@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Box } from 'grid-styled';
+
+import SVGContainer from '../../ui/SVGContainer';
+import { SpinnerIcon } from '../../ui/SVGIcons';
 
 const inputStyles = css`
   width: 100%;
@@ -42,7 +45,7 @@ const formStyles = css`
   padding: 25px;
   border-radius: 10px;
   width: ${({ wide }) => (wide ? '100%' : '505px')};
-  min-height: 150px;
+  min-height: 50px;
   font-size: 15px;
 `;
 
@@ -117,3 +120,24 @@ export const Rule = styled(Box)`
   width: 100%;
   margin: ${({ noMargin }) => (noMargin ? 0 : '20px 0')};
 `;
+
+const rotate360 = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
+
+const Rotate = styled.div`
+  display: inline-block;
+  animation: ${rotate360} 2s linear infinite;
+  padding: 1rem;
+  font-size: 1.2rem;
+  opacity: 0.4;
+`;
+
+export const LoadingIndicator = () => (
+  <Rotate>
+    <SVGContainer w={20} h={20}>
+      <SpinnerIcon />
+    </SVGContainer>
+  </Rotate>
+);
