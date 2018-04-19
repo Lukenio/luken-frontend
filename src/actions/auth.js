@@ -155,10 +155,15 @@ export function authRegisterUser({
       },
       body: JSON.stringify({
         email,
-        password1,
-        password2,
+        password: password1,
+        password_confirm: password2,
         first_name: firstName,
-        last_name: lastName
+        last_name: lastName,
+
+        // Temporary.
+        // Server requires this data to provided as of now.
+        username: email.split('@')[0],
+        type: 'borrower'
       })
     })
       .then(checkHttpStatus)
