@@ -74,7 +74,7 @@ class Base extends Component {
 
 const SignupRoute = ({ statusText, ...other }) => (
   <Base title="Create account" {...other}>
-    <SignupForm />
+    <SignupForm statusText={statusText} />
   </Base>
 );
 
@@ -114,7 +114,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export const Signin = connect(mapStateToProps, mapDispatchToProps)(SigninRoute);
-export const Signup = connect(mapStateToProps)(SignupRoute);
+export const Signup = connect(mapStateToProps, mapDispatchToProps)(SignupRoute);
 export const ForgotPassword = connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordRoute);
 export const ResetPassword = connect(mapStateToProps, mapDispatchToProps)(ResetPasswordRoute);
 export const AccountVerification = connect(mapStateToProps, mapDispatchToProps)(AccountVerificationRoute);
