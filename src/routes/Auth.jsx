@@ -73,13 +73,13 @@ class Base extends Component {
 }
 
 const SignupRoute = ({ statusText, ...other }) => (
-  <Base title="Create account" {...other}>
+  <Base title="Create Account" {...other}>
     <SignupForm statusText={statusText} />
   </Base>
 );
 
 const SigninRoute = ({ statusText, ...other }) => (
-  <Base title="Sign in to Wallet" {...other}>
+  <Base title="Sign In to Wallet" {...other}>
     <SigninForm statusText={statusText} />
   </Base>
 );

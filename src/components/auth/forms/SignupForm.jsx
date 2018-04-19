@@ -14,19 +14,19 @@ const validate = values => {
   const errors = {};
 
   if (!values.email) {
-    errors.email = 'Required';
+    errors.email = 'Please fill out this field.';
   }
   if (!values.password1) {
-    errors.password1 = 'Required';
+    errors.password1 = 'Please fill out this field.';
   }
   if (!values.password2) {
-    errors.password2 = 'Required';
+    errors.password2 = 'Please fill out this field.';
   }
   if (!values.firstName) {
-    errors.firstName = 'Required';
+    errors.firstName = 'Please fill out this field.';
   }
   if (!values.lastName) {
-    errors.lastName = 'Required';
+    errors.lastName = 'Please fill out this field.';
   }
   if (values.password1 !== values.password2) {
     errors.password1 = "Passwords don't match";
@@ -57,7 +57,7 @@ const SignupForm = ({ handleSubmit, submitting, statusText }) => {
         />
         <Flex justify="center">
           <Button type="submit" disabled={submitting}>
-            Sign Up
+            Create Account
           </Button>
         </Flex>
       </form>
