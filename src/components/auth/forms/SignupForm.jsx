@@ -1,4 +1,5 @@
 import React from 'react';
+import { Flex } from 'grid-styled';
 import { Field, reduxForm } from 'redux-form';
 
 import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
@@ -54,9 +55,11 @@ const SignupForm = ({ handleSubmit, submitting, statusText }) => {
           type="password"
           component={Input}
         />
-        <Button type="submit" disabled={submitting}>
-          Sign Up
-        </Button>
+        <Flex justify="center">
+          <Button type="submit" disabled={submitting}>
+            Sign Up
+          </Button>
+        </Flex>
       </form>
     </FormWrapper>
   );
