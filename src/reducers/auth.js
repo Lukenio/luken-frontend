@@ -65,9 +65,7 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         isRegistrering: false,
-        isRegistred: true,
-        statusText:
-          'You have been successfully registered. Please confirm your email.'
+        isRegistred: true
       };
 
     case AUTH_REGISTER_USER_FAILURE:
