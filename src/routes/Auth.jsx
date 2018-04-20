@@ -6,6 +6,7 @@ import { push } from 'react-router-redux';
 
 import { FlexContainer } from '../components/ui/Containers.jsx';
 import SignupForm from '../components/auth/forms/SignupForm.jsx';
+import AfterSignupForm from '../components/auth/forms/AfterSignupForm.jsx';
 import SigninForm from '../components/auth/forms/SigninForm.jsx';
 import ForgotPasswordForm from '../components/auth/forms/ForgotPasswordForm.jsx';
 import ResetPasswordForm from '../components/auth/forms/ResetPasswordForm.jsx';
@@ -78,6 +79,12 @@ const SignupRoute = ({ statusText, ...other }) => (
   </Base>
 );
 
+const AfterSignupRoute = ({ statusText, ...other }) => (
+  <Base title="Verify Your Email" {...other}>
+    <AfterSignupForm statusText={statusText} />
+  </Base>
+);
+
 const SigninRoute = ({ statusText, ...other }) => (
   <Base title="Sign In to Wallet" {...other}>
     <SigninForm statusText={statusText} />
@@ -115,6 +122,7 @@ const mapDispatchToProps = dispatch => ({
 
 export const Signin = connect(mapStateToProps, mapDispatchToProps)(SigninRoute);
 export const Signup = connect(mapStateToProps, mapDispatchToProps)(SignupRoute);
+export const AfterSignup = connect(mapStateToProps, mapDispatchToProps)(AfterSignupRoute);
 export const ForgotPassword = connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordRoute);
 export const ResetPassword = connect(mapStateToProps, mapDispatchToProps)(ResetPasswordRoute);
 export const AccountVerification = connect(mapStateToProps, mapDispatchToProps)(AccountVerificationRoute);

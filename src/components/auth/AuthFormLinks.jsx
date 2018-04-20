@@ -34,6 +34,12 @@ const SignupLinks = () => (
   </LinksWrapper>
 );
 
+const AfterSignupLinks = () => (
+  <LinksWrapper centered>
+    <span>Email didn’t arrive? <BolderLink to="#">Resend a verification email</BolderLink></span>
+  </LinksWrapper>
+);
+
 const AuthFormLinks = () => {
   return (
     <Switch>
@@ -41,6 +47,7 @@ const AuthFormLinks = () => {
       <Route exact path="/forgot-password" component={ForgotPasswordLinks} />
       <Route exact path="/reset-password" component={ForgotPasswordLinks} />
       <Route exact path="/signup" component={SignupLinks} />
+      <Route exact path="/verification-email-sent" component={AfterSignupLinks} />
     </Switch>
   );
 };

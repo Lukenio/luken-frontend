@@ -103,11 +103,19 @@ export function authRegisterUserFailure(error, message) {
   };
 }
 
-export function authRegisterUserSuccess() {
+export function authRegisterUserSuccess(email) {
+  localStorage.setItem('email', email);
+
   return {
     type: AUTH_REGISTER_USER_SUCCESS
   };
 }
+
+const successUserRegisterBatchedActions = (email) =>
+  batchActions([
+    authRegisterUserSuccess(email),
+    push('/verification-email-sent')
+  ]);
 
 // LOGOUT
 
@@ -168,8 +176,8 @@ export function authRegisterUser({
     })
       .then(checkHttpStatus)
       .then(parseJSON)
-      .then(({ token }) => {
-        dispatch(successUserLoginBatchedActions(token));
+      .then(() => {
+        dispatch(successUserRegisterBatchedActions(email));
       })
       .catch(error => {
         return errorHandler(dispatch, authRegisterUserFailure, {
