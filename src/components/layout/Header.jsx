@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Flex, Box } from 'grid-styled';
+import md5 from 'js-md5';
 import { HeaderMenuIcon } from '../ui/SVGIcons';
 import SVGContainer from '../ui/SVGContainer';
 
@@ -10,6 +11,15 @@ import { authLogoutAndRedirect } from '../../actions/auth';
 
 const StyledFlex = styled(Flex)`
   background: #fff;
+`;
+
+const Avatar = styled(Box)`
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  background: #D8D8D8 url(https://www.gravatar.com/avatar/${({ email }) => md5(email)}?d=identicon);
+  background-size: 40px 40px;
+  border-radius: 50%;
 `;
 
 const FullNameBox = styled(Box)`
@@ -27,8 +37,9 @@ const Logo = styled.img`
   height: 45px;
 `;
 
-const UserDropDownBox = ({ fullName = 'Loading', onClick }) => (
+const UserDropDownBox = ({ fullName = 'Loading', email = '', onClick }) => (
   <Flex alignItems="center" onClick={onClick}>
+    <Avatar email={email} />
     <FullNameBox>{fullName}</FullNameBox>
   </Flex>
 );
@@ -36,6 +47,7 @@ const UserDropDownBox = ({ fullName = 'Loading', onClick }) => (
 const Header = ({
   className,
   fullName,
+  email,
   handleSideMenuToggle,
   hadleLogout,
   ...other
@@ -55,7 +67,7 @@ const Header = ({
         </SVGContainer>
         <Logo src="/logo.png" alt="Loanz logo" />
       </Flex>
-      <UserDropDownBox fullName={fullName} onClick={hadleLogout} />
+      <UserDropDownBox fullName={fullName} email={email} onClick={hadleLogout} />
     </StyledFlex>
   );
 };
@@ -63,7 +75,8 @@ const Header = ({
 const fn = userData => `${userData.first_name} ${userData.last_name}`;
 
 const mapStateToProps = state => ({
-  fullName: fn(state.userAccount)
+  fullName: fn(state.userAccount),
+  email: state.userAccount.email
 });
 
 const mapDispatchToProps = {
