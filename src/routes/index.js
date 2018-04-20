@@ -10,6 +10,7 @@ import { Signup, Signin, ForgotPassword, ResetPassword, AccountVerification, Aft
 import NotFound from './NotFound.jsx';
 import AccountDetailsPage from './AccountDetailsPage.jsx';
 import KYCPage from './KYCPage.jsx';
+import KYCRedirect from './KYCRedirect.jsx';
 
 // middlewares
 import requireAuthentication from './utils/requireAuthentication';
@@ -29,7 +30,7 @@ export default (
       component={requireAuthentication(AccountDetailsPage)}
     />
     <Route exact path="/kyc" component={requireAuthentication(KYCPage)} />
-    <Redirect exact from="/home" to="/a/btc" />
+    <Route exact path="/home" component={requireAuthentication(KYCRedirect)} />
     <Redirect exact from="/" to="/a/btc" />
     <Redirect exact from="/a" to="/" />
     <Route path="*" component={NotFound} />

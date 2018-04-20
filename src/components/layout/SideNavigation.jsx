@@ -48,7 +48,7 @@ const NavItemName = styled.span`
   transition: all 300ms ease-out;
 `;
 
-const SideNavigation = ({ isOpen = true }) => (
+const SideNavigation = ({ isOpen = true, didApplyKYC }) => (
   <WrapFlex width={isOpen ? 195 : 80} flexDirection="column">
     <Box>
       <StyledNavLink exact to="/a/btc">
@@ -70,21 +70,24 @@ const SideNavigation = ({ isOpen = true }) => (
         </NavItem>
       </StyledNavLink>
     </Box>
-    <Box>
-      <StyledNavLink exact to="/kyc">
-        <NavItem alignItems="center">
-          <SVGContainer w={20} h={20}>
-            <HomeIcon />
-          </SVGContainer>
-          <NavItemName shown={isOpen}>KYC</NavItemName>
-        </NavItem>
-      </StyledNavLink>
-    </Box>
+    {!didApplyKYC && (
+      <Box>
+        <StyledNavLink exact to="/kyc">
+          <NavItem alignItems="center">
+            <SVGContainer w={20} h={20}>
+              <HomeIcon />
+            </SVGContainer>
+            <NavItemName shown={isOpen}>KYC</NavItemName>
+          </NavItem>
+        </StyledNavLink>
+      </Box>
+    )}
   </WrapFlex>
 );
 
 const mapStateToProps = state => ({
-  isOpen: state.ui.sideMenuOpen
+  isOpen: state.ui.sideMenuOpen,
+  didApplyKYC: state.userAccount.kyc_applied
 });
 
 export default withRouter(connect(mapStateToProps)(SideNavigation));
