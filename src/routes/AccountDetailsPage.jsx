@@ -24,7 +24,7 @@ import {
   showAccountAddressModal,
   hideAccountAddressModal
 } from '../actions/modals';
-import { getCRTickerSymbols } from '../utils';
+import { getCRTickerSymbols, format0000 } from '../utils';
 
 const WrapFlexContainer = styled(FlexContainer)`
   background: #ffffff;
@@ -120,7 +120,7 @@ class AccountDetailsPage extends Component {
                       {getCRTickerSymbols(account.type)}
                     </CoinsOwned>
                     <CoinsPending>
-                      Pending: 0,0000 {getCRTickerSymbols(account.type)}
+                      Pending: {format0000(account.pending_withdrawal_request)} {getCRTickerSymbols(account.type)}
                     </CoinsPending>
                   </Flex>
                   <Flex>
