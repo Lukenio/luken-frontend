@@ -70,6 +70,12 @@ class AccountDetailsPage extends Component {
     this.fetchAccountData(this.props);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.accountId !== nextProps.accountId) {
+      this.fetchAccountData(nextProps);
+    }
+  }
+
   fetchAccountData(props) {
     const {
       dataFetchAccountData,
@@ -79,7 +85,6 @@ class AccountDetailsPage extends Component {
     } = props;
 
     if (supportedSymbols.some(t => t === accountSymbol)) {
-      debugger;
       !isFetching && dataFetchAccountData(accountId);
     }
   }
@@ -176,6 +181,7 @@ const mapStateToProps = (state, { match: { params: { accountSymbol } } }) => {
   const accountId = state.userAccount.accountIdsByType[accountType];
 
   return {
+    accountSymbol,
     accountId,
     account: state.coinAccounts.byId[accountId],
     isFetching: state.coinAccounts.isFetching,
