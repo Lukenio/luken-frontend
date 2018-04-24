@@ -1,7 +1,8 @@
 import {
   DATA_FETCH_USER_ACCOUNT_DATA_REQUEST,
   DATA_RECEIVE_USER_ACCOUNT_DATA,
-  DATA_FETCH_USER_ACCOUNT_DATA_FAILURE
+  DATA_FETCH_USER_ACCOUNT_DATA_FAILURE,
+  USER_ACCOUNT_SET_KYC_APPLIED
 } from '../constants';
 
 import { omit } from '../utils';
@@ -42,6 +43,12 @@ export default function userAccount(state = defaultState, action) {
         ...userData,
         accountIdsByType,
         isFetching: false
+      };
+    case USER_ACCOUNT_SET_KYC_APPLIED:
+      const { value: kyc_applied } = action.payload;
+      return {
+        ...state,
+        kyc_applied
       };
 
     default:
