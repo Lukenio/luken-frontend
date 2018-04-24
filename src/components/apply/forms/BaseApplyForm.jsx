@@ -32,6 +32,7 @@ import {
   calculateTLA,
   LTV
 } from '../../../utils/currencyConverters';
+import { parseQueryString } from '../../../utils';
 
 const dispatchValues = cryptoType => (values, dispatch) => {
   const {
@@ -46,6 +47,7 @@ const dispatchValues = cryptoType => (values, dispatch) => {
   const APR = getAPR(terms_month);
   const TE = getTE(terms_month);
   const tla = calculateTLA({ TA: total_loaned_amount, TE, APR });
+  const { partner_token } = parseQueryString(document.location.search);
 
   const payload = {
     email,
@@ -56,7 +58,8 @@ const dispatchValues = cryptoType => (values, dispatch) => {
     apr: APR,
     crypto_type: cryptoType,
     terms_of_service_agree,
-    ltv: LTV
+    ltv: LTV,
+    partner_token
   };
 
   return dispatch(applyNewLoan(payload)).catch((e = {}) => {

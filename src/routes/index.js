@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 // static routes
 import Apply from './Apply.jsx';
+import ApplyEmbedded from './ApplyEmbedded.jsx';
 
 // auth required routes
 import { Signup, Signin, ForgotPassword, ResetPassword, AccountVerification, AfterSignup } from './Auth.jsx';
@@ -18,6 +19,7 @@ import requireAuthentication from './utils/requireAuthentication';
 export default (
   <Switch>
     <Route path="/apply" component={Apply} />
+    <Route path="/apply-embed" component={ApplyEmbedded} />
     <Route path="/login" component={Signin} />
     <Route path="/signup" component={Signup} />
     <Route path="/verification-email-sent" component={AfterSignup} />
