@@ -40,7 +40,8 @@ export function applyNewLoan({
   crypto_type,
   terms_month,
   ltv,
-  apr
+  apr,
+  partner_token
 }) {
   return dispatch => {
     dispatch(applyNewLoanRequest());
@@ -61,6 +62,7 @@ export function applyNewLoan({
         total_loaned_amount: parseFloat(total_loaned_amount.toFixed(2)),
         crypto_collateral: parseFloat(crypto_collateral.toFixed(8)),
         terms_month: Number(terms_month),
+        partner_token
       })
     })
       .then(checkHttpStatus)
