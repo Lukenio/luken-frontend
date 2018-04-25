@@ -2,17 +2,21 @@ import Pusher from 'pusher-js';
 import { push } from 'react-router-redux';
 
 import { userAccountSetKYCApplied } from './actions/user-account';
+import {
+  dataFetchAccountDataRequest,
+  dataReceiveAccountData
+} from './actions/coin-accounts';
 
 let hasBinded = false;
-let unsubscribe;
+
+if (process.env.NODE_ENV !== 'production') {
+  Pusher.logToConsole = true;
+}
 
 function handleStoreChange(store) {
   const { userAccount } = store.getState();
-  if (
-    userAccount
-    && typeof userAccount.kyc_applied !== 'undefined'
-    && !userAccount.kyc_applied
-  ) {
+
+  if (userAccount && userAccount.id) {
     if (hasBinded) {
       return;
     }
@@ -26,20 +30,22 @@ function handleStoreChange(store) {
     });
 
     const channel = pusher.subscribe(userAccount.id);
+
     channel.bind('kyc-done', () => {
       store.dispatch(userAccountSetKYCApplied(true));
       store.dispatch(push('/a/btc'));
-      pusher.disconnect();
+      channel.unbind('kyc-done');
+    });
 
-      if (typeof unsubscribe === 'function') {
-        unsubscribe();
-      }
+    channel.bind('account-changes', (data) => {
+      store.dispatch(dataFetchAccountDataRequest());
+      store.dispatch(dataReceiveAccountData(data, data.id));
     });
   }
 }
 
 function pusherStoreListener(store) {
-  unsubscribe = store.subscribe(() => {
+  store.subscribe(() => {
     handleStoreChange(store);
   });
 }
