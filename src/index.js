@@ -5,6 +5,7 @@ import createHistory from 'history/createBrowserHistory';
 import { initWithPreCachedData } from './actions';
 
 import configureStore from './store/configureStore';
+import pusherStoreListener from './pusherStoreListener';
 import registerServiceWorker from './registerServiceWorker';
 import App from './App.jsx';
 
@@ -26,3 +27,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 registerServiceWorker();
+pusherStoreListener(store);

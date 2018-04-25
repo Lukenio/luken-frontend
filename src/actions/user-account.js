@@ -3,7 +3,8 @@ import { batchActions } from 'redux-batch-enhancer';
 import {
   DATA_FETCH_USER_ACCOUNT_DATA_REQUEST,
   DATA_RECEIVE_USER_ACCOUNT_DATA,
-  DATA_FETCH_USER_ACCOUNT_DATA_FAILURE
+  DATA_FETCH_USER_ACCOUNT_DATA_FAILURE,
+  USER_ACCOUNT_SET_KYC_APPLIED
 } from '../constants';
 import { errorHandler, fetchWithToken } from './utils';
 
@@ -55,5 +56,14 @@ export function dataFetchUserAccountData() {
       .catch(error => {
         return errorHandler(dispatch, dataFetchUserAccountDataFailure)(error);
       });
+  };
+}
+
+export function userAccountSetKYCApplied(value) {
+  return {
+    type: USER_ACCOUNT_SET_KYC_APPLIED,
+    payload: {
+      value
+    }
   };
 }
