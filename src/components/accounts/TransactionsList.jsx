@@ -27,6 +27,24 @@ const CellText = styled(Box)`
   line-height: 22px;
 `;
 
+const TransactionLink = styled.a`
+  color: #808080;
+  &:hover {
+    color: #000;
+  }
+`;
+
+const TransactionCellText = ({ address }) => (
+  <CellText flex="1" pr={20}>
+    <TransactionLink
+      href={`https://blockchain.info/tx/${address}`}
+      target="_blank"
+    >
+      {address}
+    </TransactionLink>
+  </CellText>
+);
+
 const FlexWithBorder = styled(Flex)`
   border-bottom: 1px solid rgba(151, 151, 151, 0.2);
 `;
@@ -35,7 +53,7 @@ const TransactionHeadingRow = () => (
   <FlexWithBorder width={1} py={18}>
     <HeadingText width={200}>Date and Time</HeadingText>
     <HeadingText width={150}>Sent / Received</HeadingText>
-    <HeadingText flex="1">Address</HeadingText>
+    <HeadingText flex="1">Transaction</HeadingText>
     <HeadingText width={150}>Value in USD</HeadingText>
     <HeadingText width={130}>Amount</HeadingText>
   </FlexWithBorder>
@@ -63,7 +81,7 @@ const TransactionRow = ({
   <FlexWithBorder width={1} py={18}>
     <CellText width={200}>{formatDatetime(new Date(datetime))}</CellText>
     <CellText width={150}>{transactionTypes[type]}</CellText>
-    <CellText flex="1" pr={20}>{address}</CellText>
+    <TransactionCellText address={address} />
     <CellText width={150}>${value_usd}</CellText>
     <CellText width={130}>{format0000(parseFloat(amount), '.')} {symbol}</CellText>
   </FlexWithBorder>
