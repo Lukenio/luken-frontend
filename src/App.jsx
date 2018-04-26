@@ -4,6 +4,8 @@ import { Router } from 'react-router';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import { Flex } from 'grid-styled';
+import NotificationsSystem from 'reapop';
+import theme from 'reapop-theme-wybo';
 
 import routes from './routes';
 
@@ -18,7 +20,10 @@ const App = ({ history, store }) => (
       }}
     >
       <Router history={history}>
-        <Flex flexDirection="column">{routes}</Flex>
+        <Flex flexDirection="column">
+          {routes}
+          <NotificationsSystem theme={theme} />
+        </Flex>
       </Router>
     </ThemeProvider>
   </Provider>
