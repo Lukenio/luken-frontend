@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'grid-styled';
 
-const widths = [1, 1, 1, 1080];
+const widths = [1, 1, 1, 1];
 
 const StyledFlex = styled(Flex)`
   margin-right: ${({ centered }) => (centered ? 'auto' : 'none')};
