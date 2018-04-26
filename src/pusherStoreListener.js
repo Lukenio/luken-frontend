@@ -32,8 +32,13 @@ function handleStoreChange(store) {
     const channel = pusher.subscribe(userAccount.id);
 
     channel.bind('kyc-done', () => {
-      store.dispatch(userAccountSetKYCApplied(true));
-      store.dispatch(push('/a/btc'));
+      setTimeout(() => {
+        store.dispatch(userAccountSetKYCApplied(true));
+        if (document.location.pathname.indexOf('/kyc') !== -1) {
+          store.dispatch(push('/a/btc'));
+        }
+      }, 2000);
+
       channel.unbind('kyc-done');
     });
 
