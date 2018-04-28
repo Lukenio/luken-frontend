@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+- stable
+cache:
+  directories:
+  - node_modules
+script:
+- npm install
+- npm run build
+deploy:
+  provider: s3
+  access_key_id: AKIAJRJLCO24GQAIAFNQ
+  secret_access_key:
+    secure: LJwjULJf95ftn/mECnYVnRaopBS+mLqSKPXYGXA5THb9DTWK5TjozZ5ecrQmHIVBIrlWJQ69mv0efIcHX4nOuA2ZSbXQ7Cd2bAz4zoYIfue+HDe5e6vyCl1Ek1OdCYbAe5rs3pd9m/5BpasAGWINOZ8lVHWPjtz5iekzl9PQWUBZuAw+/gxc4C2TgIwJbKMSEI3KzaztOsxtcMi46N8JKLUwU/Fx6nilZc+LT3Pt78aq982z4mBnXNJeQ1vNOecnvT2PwOMOdwMqGAQskuWTYN4zUtAioQPoaOqZzycTbpCB/nmEF5owYB9O8Rua0fo5jXOMZbsHZGvdyHGl4KkYwGwlzhyBdF14cN0YtV7IjOrp5LDz6SlJHct7FF6vtnLOs1PnUq14cAAQvUVBexchqSb1VlF5akAtDq8tz5Bc1+xhGtcoLwuO4d9HIzsYDXAVGU0LpA7IZEt1eDOlgc8CkwU+UCiVCbhzsNbjNbhTU4G+dghMJ3PjvVJgNahFSJ2USzRzSq4td6rDaDk9U7EYDxibLtiVO0StxvtqrPzMlOKHFSef/DCpM9bSeLg4zjEiH4MvqiTb968+XJXpep5lKvPTr6XZVF05b2eDUHE4YCITzR9SllMV26Qczh/Rc4qyTvkSjUSq3La1NygytzLeK19kKvU1WwAGPGkp32o8Zkk=
+  bucket: loanz
+  local-dir: build
+  acl: ''
+  on:
+    repo: Lukenio/luken-frontend
+    branch: develop
