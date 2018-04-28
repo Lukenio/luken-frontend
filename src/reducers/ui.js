@@ -12,7 +12,7 @@ const defaultState = {
   chosenNewAccount: null,
   newLoanUserApplied: false,
   mobileMenuOpen: false,
-  sideMenuOpen: false
+  sideMenuOpen: true
 };
 
 function modals(state = defaultState, action) {
