@@ -5,11 +5,18 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { BitcoinIcon, EthereumIcon, HomeIcon } from '../ui/SVGIcons.jsx';
 import SVGContainer from '../ui/SVGContainer';
+import {
+  BitcoinIcon,
+  EthereumIcon,
+  HomeIcon,
+  LoanIcon,
+  UserIcon,
+  SupportIcon
+} from '../ui/SVGIcons.jsx';
 
 const WrapFlex = styled(Flex)`
-  background: #4d92df;
+  background: #3C92DB;
   box-shadow: 1px 0 5px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: width 300ms ease-out;
@@ -19,33 +26,39 @@ const WrapFlex = styled(Flex)`
 `;
 
 const StyledNavLink = styled(NavLink)`
+  overflow: hidden;
   display: block;
   width: 195px;
   height: 70px;
   text-decoration: none;
-  background: rgba(155, 155, 155, 0.2);
+  background: rgba(155, 155, 155, 0);
+  border-bottom: 1px dotted #E1EDFA;
 
   &.active > div {
-    background: rgba(74, 74, 74, 0.2);
+    height: 69px;
+    background: #275F90;
   }
 `;
 
 const NavItem = styled(Flex)`
   height: 70px;
-  padding: 25px 30px;
+  padding: 25px;
+  padding-right: 10px;
   color: #fff;
   margin: 0;
 `;
 
 const NavItemName = styled.span`
   display: inline-block;
-  margin-left: 9px;
-  font-family: Montserrat-Medium;
+  margin-left: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
   font-size: 14px;
   color: ${props => (props.shown ? '#ffffff' : 'transparent')};
   letter-spacing: 0;
   line-height: 22px;
   transition: all 300ms ease-out;
+  white-space: nowrap;
 `;
 
 const SideNavigation = ({ isOpen = true, didApplyKYC }) => (
@@ -53,7 +66,7 @@ const SideNavigation = ({ isOpen = true, didApplyKYC }) => (
     <Box>
       <StyledNavLink exact to="/a/btc">
         <NavItem alignItems="center">
-          <SVGContainer w={20} h={20}>
+          <SVGContainer w={28} h={28}>
             <BitcoinIcon />
           </SVGContainer>
           <NavItemName shown={isOpen}>Bitcoin</NavItemName>
@@ -63,18 +76,48 @@ const SideNavigation = ({ isOpen = true, didApplyKYC }) => (
     <Box>
       <StyledNavLink exact to="/a/eth">
         <NavItem alignItems="center">
-          <SVGContainer w={20} h={20}>
+          <SVGContainer w={28} h={28}>
             <EthereumIcon />
           </SVGContainer>
           <NavItemName shown={isOpen}>Ethereum</NavItemName>
         </NavItem>
       </StyledNavLink>
     </Box>
-    {!didApplyKYC && (
+    <Box>
+      <StyledNavLink exact to="/">
+        <NavItem alignItems="center">
+          <SVGContainer w={28} h={28}>
+            <LoanIcon />
+          </SVGContainer>
+          <NavItemName shown={isOpen}>Crypto Loans</NavItemName>
+        </NavItem>
+      </StyledNavLink>
+    </Box>
+    <Box>
+      <StyledNavLink exact to="/">
+        <NavItem alignItems="center">
+          <SVGContainer w={28} h={28}>
+            <UserIcon />
+          </SVGContainer>
+          <NavItemName shown={isOpen}>My Profile</NavItemName>
+        </NavItem>
+      </StyledNavLink>
+    </Box>
+    <Box>
+      <StyledNavLink exact to="/">
+        <NavItem alignItems="center">
+          <SVGContainer w={28} h={28}>
+            <SupportIcon />
+          </SVGContainer>
+          <NavItemName shown={isOpen}>Contact Support</NavItemName>
+        </NavItem>
+      </StyledNavLink>
+    </Box>
+    {false && !didApplyKYC && (
       <Box>
         <StyledNavLink exact to="/kyc">
           <NavItem alignItems="center">
-            <SVGContainer w={20} h={20}>
+            <SVGContainer w={28} h={28}>
               <HomeIcon />
             </SVGContainer>
             <NavItemName shown={isOpen}>KYC</NavItemName>
