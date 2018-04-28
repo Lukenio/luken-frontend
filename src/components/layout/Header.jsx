@@ -56,8 +56,8 @@ const DropdownList = styled.ul`
   position: absolute;
   right: 0;
   top: 100%;
-  margin: 7px 0 0;
-  padding: .5em 0;
+  margin: 0;
+  padding: .7em 0;
   width: 175px;
   list-style: none;
   font-size: 14px;
