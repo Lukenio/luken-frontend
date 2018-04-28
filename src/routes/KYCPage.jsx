@@ -1,30 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 import { connect } from 'react-redux';
-import { submit } from 'redux-form';
 
-import { PlaceholderImage } from '../components/ui/Placeholders';
 import { FlexContainer } from '../components/ui/Containers';
-import { AccountButton } from '../components/ui/Button';
-import { TransparentModal } from '../components/ui/Modal.jsx';
 
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import SideNavigation from '../components/layout/SideNavigation';
-import DataLoaderPlaceholder from '../components/ui/DataLoaderPlaceholder';
-import TransactionsList from '../components/accounts/TransactionsList';
-import WithdrawRequestModal from '../components/accounts/modals/WithdrawRequestModal';
-import DepositModal from '../components/accounts/modals/DepositModal';
-
-import { dataFetchAccountData } from '../actions/coin-accounts';
-import {
-  showWithdrawRequestModal,
-  hideWithdrawRequestModal,
-  showAccountAddressModal,
-  hideAccountAddressModal
-} from '../actions/modals';
-import { getCRTickerSymbols } from '../utils';
 
 const WrapFlexContainer = styled(FlexContainer)`
   background: #ffffff;
@@ -56,11 +39,11 @@ const Loading = styled.p`
 `;
 
 const IframeFlex = styled(Flex)`
-  ${({ loading }) => (`
+  ${props => props.isLoading && css`
     min-height: 539px;
     background: url(/loading.svg) no-repeat 50% 50%;
     background-size: 185px 185px;
-  `)}
+  `}
 `;
 
 class KYC extends Component {
@@ -72,14 +55,13 @@ class KYC extends Component {
   }
 
   renderIframe(userId) {
-    const { isLoadingIframe } = this.state;
-
     return (
       <iframe
         id="JotFormIFrame-80925336043252"
+        title="KYC"
         onLoad={this.handleIframeLoad}
         allowtransparency="true"
-        allowFullscreen={true}
+        allowFullScreen={true}
         allow="geolocation; microphone; camera"
         src={`https://form.jotform.com/80925336043252?userid=${userId}`}
         frameBorder="0"
@@ -104,7 +86,7 @@ class KYC extends Component {
                 <Heading>KYC</Heading>
               </Flex>
               <Divider width={1} />
-              <IframeFlex width={1} py={20} px={30} justifyContent="space-between" loading={isLoadingIframe}>
+              <IframeFlex width={1} py={20} px={30} justifyContent="space-between" isLoading={isLoadingIframe}>
                 {userId ? (
                   this.renderIframe(userId)
                 ) : (

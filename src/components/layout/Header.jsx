@@ -91,7 +91,7 @@ class UserDropDownBox extends Component {
   }
 
   render() {
-    const { fullName = 'Loading', email = '', onClick } = this.props;
+    const { email = '', onClick } = this.props;
     const { isDropdownVisible } = this.state;
 
     return (
