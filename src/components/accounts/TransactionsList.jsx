@@ -74,7 +74,7 @@ const TransactionRow = ({
   amount
 }) => (
   <FlexWithBorder width={1} py={18}>
-    <CellText width={200}>{formatDatetime(new Date(datetime))}</CellText>
+    <CellText width={200}>{formatDatetime(datetime)}</CellText>
     <CellText width={150}>{transactionTypes[type]}</CellText>
     <TransactionCellText flex="1" pr={20}>
       <TransactionLink
