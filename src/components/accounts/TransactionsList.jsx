@@ -8,21 +8,20 @@ import Scrollable from '../ui/Scrollable';
 import { getCRTickerSymbols, format0000 } from '../../utils';
 
 const WrapFlex = styled(Flex)`
-  background: #eeeeee;
-  opacity: 0.5;
+  background: #f7f7f7;
 `;
 
 const HeadingText = styled(Box)`
   font-weight: 600;
   font-size: 15px;
-  color: #9b9b9b;
+  color: #999;
   letter-spacing: 0;
   line-height: 22px;
 `;
 
 const CellText = styled(Box)`
   font-size: 14px;
-  color: #9b9b9b;
+  color: #999;
   letter-spacing: 0;
   line-height: 22px;
 `;
@@ -75,7 +74,7 @@ const TransactionRow = ({
   amount
 }) => (
   <FlexWithBorder width={1} py={18}>
-    <CellText width={200}>{formatDatetime(new Date(datetime))}</CellText>
+    <CellText width={200}>{formatDatetime(datetime)}</CellText>
     <CellText width={150}>{transactionTypes[type]}</CellText>
     <TransactionCellText flex="1" pr={20}>
       <TransactionLink

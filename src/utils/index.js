@@ -47,6 +47,6 @@ export function parseQueryString(str) {
   }, {});
 }
 
-export const format0000 = (n = 0, symbol = ',') => {
-  return n.toFixed(4).replace('.', symbol);
+export const format0000 = (n = 0, symbol = ',', f = 4) => {
+  return n.toFixed(f).replace('.', symbol);
 };
