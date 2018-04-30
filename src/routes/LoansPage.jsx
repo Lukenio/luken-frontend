@@ -6,14 +6,20 @@ import { connect } from 'react-redux';
 import { PlaceholderImage } from '../components/ui/Placeholders';
 import { FlexContainer } from '../components/ui/Containers';
 import { AccountButton } from '../components/ui/Button';
+import { TransparentModal } from '../components/ui/Modal.jsx';
 
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import SideNavigation from '../components/layout/SideNavigation';
 import DataLoaderPlaceholder from '../components/ui/DataLoaderPlaceholder';
 import LoansList from '../components/loans/LoansList';
+import NewLoanModal from '../components/loans/modals/NewLoanModal';
 
 import { fetchLoanApplications } from '../actions/loan-applications';
+import {
+  showNewLoanModal,
+  hideNewLoanModal
+} from '../actions/modals';
 import { getCRTickerSymbols, format0000 } from '../utils';
 
 const WrapFlexContainer = styled(FlexContainer)`
@@ -73,7 +79,10 @@ class LoansPage extends Component {
     const {
       accounts,
       loans,
-      isFetching
+      isFetching,
+      newLoanModalShown,
+      showNewLoanModal,
+      hideNewLoanModal
     } = this.props;
 
     return (
@@ -108,7 +117,7 @@ class LoansPage extends Component {
                     ))}
                   </Flex>
                   <Flex>
-                    <AccountButton flat>
+                    <AccountButton flat onClick={showNewLoanModal}>
                       New Loan
                     </AccountButton>
                     <Box w={15} />
@@ -123,6 +132,15 @@ class LoansPage extends Component {
             <Footer />
           </Flex>
         </Flex>
+        <TransparentModal
+          showModal={newLoanModalShown}
+          width={900}
+          height={450}
+        >
+          <NewLoanModal
+            handleCancel={hideNewLoanModal}
+          />
+        </TransparentModal>
       </Fragment>
     );
   }
@@ -145,14 +163,17 @@ const mapStateToProps = (state) => {
   return {
     accounts,
     loans,
-    isFetching: loanApplications.isFetching
+    isFetching: loanApplications.isFetching,
+    newLoanModalShown: state.modals.newLoanModalShown
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   fetchLoanApplications: () => {
     dispatch(fetchLoanApplications());
-  }
+  },
+  showNewLoanModal: () => dispatch(showNewLoanModal()),
+  hideNewLoanModal: () => dispatch(hideNewLoanModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoansPage);

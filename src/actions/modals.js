@@ -4,7 +4,9 @@ import {
   SHOW_WITHDRAW_REQUEST_MODAL,
   HIDE_WITHDRAW_REQUEST_MODAL,
   SHOW_ACCOUNT_ADDRESS_MODAL,
-  HIDE_ACCOUNT_ADDRESS_MODAL
+  HIDE_ACCOUNT_ADDRESS_MODAL,
+  SHOW_NEW_LOAN_MODAL,
+  HIDE_NEW_LOAN_MODAL
 } from '../constants';
 
 export function showNewAccountModal() {
@@ -29,4 +31,12 @@ export function showAccountAddressModal() {
 
 export function hideAccountAddressModal() {
   return { type: HIDE_ACCOUNT_ADDRESS_MODAL };
+}
+
+export function showNewLoanModal() {
+  return { type: SHOW_NEW_LOAN_MODAL };
+}
+
+export function hideNewLoanModal() {
+  return { type: HIDE_NEW_LOAN_MODAL };
 }
