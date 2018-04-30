@@ -93,7 +93,7 @@ const LoanRow = ({
   state
 }) => (
   <FlexWithBorder width={1} py={18}>
-    <CellText width={1}>{formatDatetime(new Date(created))}</CellText>
+    <CellText width={1}>{formatDatetime(created)}</CellText>
     <CellText width={1}>${loaned_amount}</CellText>
     <CellText width={1}>
       {total_loaned_amount}{' '}
