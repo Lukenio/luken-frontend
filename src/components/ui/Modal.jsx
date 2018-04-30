@@ -107,13 +107,13 @@ export const ModalHeader = ({ handleClose, children }) => (
 
 const StyledFlexWrap = styled(Flex)`
   font-size: 14px;
-  height: 100%;
+  height: ${props => props.height || '100%'};
   background: ${props => (props.flat ? 'transparent' : '#fff')};
   color: ${props => (props.flat ? '#fff' : 'inherit')};
 `;
 
-export const ModalBody = ({ children, flat, ...other }) => (
-  <StyledFlexWrap flexDirection="column" width={1} flat={flat} {...other}>
+export const ModalBody = ({ children, flat, height, ...other }) => (
+  <StyledFlexWrap flexDirection="column" width={1} height={height} flat={flat} {...other}>
     {children}
   </StyledFlexWrap>
 );
