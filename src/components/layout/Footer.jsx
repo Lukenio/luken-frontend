@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'grid-styled';
-import { Link } from 'react-router-dom';
 
-const StyledLink = styled(Link)`
+const StyledAnchor = styled.a`
   color: #9b9b9b;
-
   text-decoration: none;
   margin-right: 15px;
 `;
@@ -28,14 +26,13 @@ const Footer = ({ className }) => (
     mt={25}
   >
     <Flex alignItems="center">
-      <StyledLink to="#">Privacy</StyledLink>
-      <StyledLink to="#">Terms of Service</StyledLink>
-      <StyledLink to="#">Support</StyledLink>
-      <StyledLink to="#">Contact Us</StyledLink>
+      <StyledAnchor href="https://loanz.io/privacy-policy/">Privacy</StyledAnchor>
+      <StyledAnchor href="https://loanz.io/terms-of-service/">Terms of Service</StyledAnchor>
+      <StyledAnchor href="https://loanz.io/contact-support/">Support</StyledAnchor>
+      <StyledAnchor href="https://loanz.io/contact-support/">Contact Us</StyledAnchor>
     </Flex>
     <span>
-      Copyright © {new Date().getFullYear()} Cryptocurrency Wallet . All rights
-      reserved.
+      © {new Date().getFullYear()} Loanz.io. All rights reserved.
     </span>
   </StyledFlex>
 );
