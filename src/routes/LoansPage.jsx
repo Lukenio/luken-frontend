@@ -14,6 +14,7 @@ import DataLoaderPlaceholder from '../components/ui/DataLoaderPlaceholder';
 import LoansList from '../components/loans/LoansList';
 
 import { fetchLoanApplications } from '../actions/loan-applications';
+import { getCRTickerSymbols, format0000 } from '../utils';
 
 const WrapFlexContainer = styled(FlexContainer)`
   background: #ffffff;
@@ -54,7 +55,7 @@ const CoinsPending = styled.p`
 
 class LoansPage extends Component {
   componentDidMount() {
-    // this.fetchLoans(this.props);
+    this.fetchLoans(this.props);
   }
 
   fetchLoans(props) {
@@ -70,6 +71,7 @@ class LoansPage extends Component {
 
   render() {
     const {
+      accounts,
       loans,
       isFetching
     } = this.props;
@@ -92,25 +94,18 @@ class LoansPage extends Component {
                 <Divider width={1} />
                 <Flex width={1} py={20} px={30} justifyContent="space-between">
                   <Flex>
-                    <Flex flexDirection="column">
-                      <CoinsOwned>
-                        <strong>6.01503759</strong>{' '}
-                        BTC
-                      </CoinsOwned>
-                      <CoinsPending>
-                        Pending: 0,0000 BTC
-                      </CoinsPending>
-                    </Flex>
-                    <Box w={65} />
-                    <Flex flexDirection="column">
-                      <CoinsOwned>
-                        <strong>50.12531328</strong>{' '}
-                        ETH
-                      </CoinsOwned>
-                      <CoinsPending>
-                        Pending: 50,12531328 ETH
-                      </CoinsPending>
-                    </Flex>
+                    {accounts.map(a => (
+                      <Flex flexDirection="column" pr={65}>
+                        <CoinsOwned>
+                          <strong>{a.balance}</strong>{' '}
+                          {getCRTickerSymbols(a.type)}
+                        </CoinsOwned>
+                        <CoinsPending>
+                          Pending: {format0000(a.pending_withdrawal_request)}{' '}
+                          {getCRTickerSymbols(a.type)}
+                        </CoinsPending>
+                      </Flex>
+                    ))}
                   </Flex>
                   <Flex>
                     <AccountButton flat>
@@ -134,13 +129,21 @@ class LoansPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { loanApplications } = state;
+  const {
+    userAccount: { accountIdsByType },
+    coinAccounts,
+    loanApplications
+  } = state;
+
+  const accountIds = [accountIdsByType[0], accountIdsByType[1]];
+  const accounts = accountIds.map(id => coinAccounts.byId[id]);
 
   const loans = loanApplications.allIds.map((id) => {
     return loanApplications.byId[id];
   });
 
   return {
+    accounts,
     loans,
     isFetching: loanApplications.isFetching
   };
