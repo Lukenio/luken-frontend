@@ -18,7 +18,7 @@ const Avatar = styled(Box)`
   width: 40px;
   height: 40px;
   margin-right: 15px;
-  background: #D8D8D8 url(https://www.gravatar.com/avatar/${({ email }) => md5(email)}?d=identicon);
+  background: #D8D8D8 url(https://www.gravatar.com/avatar/${({ email }) => md5(email)}?d=mm);
   background-size: 40px 40px;
   border-radius: 50%;
 `;
