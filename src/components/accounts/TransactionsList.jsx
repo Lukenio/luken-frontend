@@ -8,21 +8,20 @@ import Scrollable from '../ui/Scrollable';
 import { getCRTickerSymbols, format0000 } from '../../utils';
 
 const WrapFlex = styled(Flex)`
-  background: #eeeeee;
-  opacity: 0.5;
+  background: #f7f7f7;
 `;
 
 const HeadingText = styled(Box)`
   font-weight: 600;
   font-size: 15px;
-  color: #9b9b9b;
+  color: #999;
   letter-spacing: 0;
   line-height: 22px;
 `;
 
 const CellText = styled(Box)`
   font-size: 14px;
-  color: #9b9b9b;
+  color: #999;
   letter-spacing: 0;
   line-height: 22px;
 `;
