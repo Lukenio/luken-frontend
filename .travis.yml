@@ -8,6 +8,7 @@ script:
 - npm install
 - npm run build
 deploy:
+  skip_cleanup: true
   provider: s3
   access_key_id: AKIAJRJLCO24GQAIAFNQ
   secret_access_key:
