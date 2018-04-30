@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 import { connect } from 'react-redux';
 
-import { PlaceholderImage } from '../components/ui/Placeholders';
 import { FlexContainer } from '../components/ui/Containers';
 import { AccountButton } from '../components/ui/Button';
 import { TransparentModal } from '../components/ui/Modal.jsx';
+import SVGContainer from '../components/ui/SVGContainer';
+import {
+  LoanIcon
+} from '../components/ui/SVGIcons.jsx';
 
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -97,7 +100,9 @@ class LoansPage extends Component {
                 isDataExists={true}
               >
                 <Flex width={1} alignItems="center" py={10} px={30}>
-                  <PlaceholderImage size={48} />
+                  <SVGContainer w={48} h={48} fill="#d8d8d8">
+                    <LoanIcon />
+                  </SVGContainer>
                   <AccountName>Crypto Loans</AccountName>
                 </Flex>
                 <Divider width={1} />

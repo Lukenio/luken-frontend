@@ -4,10 +4,14 @@ import { Flex, Box } from 'grid-styled';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 
-import { PlaceholderImage } from '../components/ui/Placeholders';
 import { FlexContainer } from '../components/ui/Containers';
 import { AccountButton } from '../components/ui/Button';
 import { TransparentModal } from '../components/ui/Modal.jsx';
+import SVGContainer from '../components/ui/SVGContainer';
+import {
+  BitcoinIcon,
+  EthereumIcon
+} from '../components/ui/SVGIcons.jsx';
 
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -114,7 +118,9 @@ class AccountDetailsPage extends Component {
                 isDataExists={account.id}
               >
                 <Flex width={1} alignItems="center" py={10} px={30}>
-                  <PlaceholderImage size={48} />
+                  <SVGContainer w={48} h={48} fill="#d8d8d8">
+                    {account.type === 0 ? <BitcoinIcon /> : <EthereumIcon />}
+                  </SVGContainer>
                   <AccountName>{account.name}</AccountName>
                 </Flex>
                 <Divider width={1} />
