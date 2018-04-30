@@ -10,6 +10,7 @@ import { Signup, Signin, ForgotPassword, ResetPassword, AccountVerification, Aft
 // import Home from './Home.jsx';
 import NotFound from './NotFound.jsx';
 import AccountDetailsPage from './AccountDetailsPage.jsx';
+import LoansPage from './LoansPage.jsx';
 import KYCPage from './KYCPage.jsx';
 import KYCRedirect from './KYCRedirect.jsx';
 
@@ -30,6 +31,11 @@ export default (
       exact
       path="/a/:accountSymbol"
       component={requireAuthentication(AccountDetailsPage)}
+    />
+    <Route
+      exact
+      path="/loans"
+      component={requireAuthentication(LoansPage)}
     />
     <Route exact path="/kyc" component={requireAuthentication(KYCPage)} />
     <Route exact path="/home" component={requireAuthentication(KYCRedirect)} />
