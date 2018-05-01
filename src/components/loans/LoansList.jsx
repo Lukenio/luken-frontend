@@ -31,8 +31,14 @@ const getCellTextColor = (prop, value) => {
 
   if (prop === 'state') {
     switch (value) {
-      case 2: return colors.success;
-      default: return colors.default;
+      case 2:
+        return colors.success;
+      
+      case 3:
+        return colors.error;
+
+      default:
+        return colors.default;
     }
   }
   
@@ -62,7 +68,6 @@ const LoansHeadingRow = () => (
     <HeadingText width={1}>Total Collateral Amount</HeadingText>
     <HeadingText width={1}>APR</HeadingText>
     <HeadingText width={1}>Crypto Type</HeadingText>
-    <HeadingText width={1}>Loan Agreement</HeadingText>
     <HeadingText width={1}>Status</HeadingText>
   </FlexWithBorder>
 );
@@ -73,9 +78,15 @@ export const formatDatetime = d => {
 };
 
 const statusTypes = {
-  0: '',
-  1: 'In Process',
-  2: 'Funded'
+  0: 'Submitted',
+  1: 'In Review',
+  2: 'Approved',
+  3: 'Declined',
+  4: 'KYC Submitted',
+  5: 'KYC Verified',
+  6: 'Contract Signed',
+  7: 'Funded',
+  8: 'Loan released'
 };
 
 const cryptoTypes = {
@@ -84,26 +95,22 @@ const cryptoTypes = {
 };
 
 const LoanRow = ({
-  created,
-  loaned_amount,
+  maturity_date,
   total_loaned_amount,
+  crypto_collateral,
   apr,
   crypto_type,
-  terms_of_service_agree,
   state
 }) => (
   <FlexWithBorder width={1} py={18}>
-    <CellText width={1}>{formatDatetime(created)}</CellText>
-    <CellText width={1}>${loaned_amount}</CellText>
+    <CellText width={1}>{formatDatetime(maturity_date)}</CellText>
+    <CellText width={1}>${total_loaned_amount}</CellText>
     <CellText width={1}>
-      {total_loaned_amount}{' '}
+      {crypto_collateral}{' '}
       {getCRTickerSymbols(crypto_type)}
     </CellText>
     <CellText width={1}>{format0000(apr * 100, '.', 2)}%</CellText>
     <CellText width={1}>{cryptoTypes[crypto_type] || 'Other'}</CellText>
-    <CellText width={1} color={getCellTextColor('agree', terms_of_service_agree)}>
-      {terms_of_service_agree ? 'Signed' : 'Pending KYC'}
-    </CellText>
     <CellText width={1} color={getCellTextColor('state', state)}>
       {statusTypes[state]}
     </CellText>
