@@ -12,6 +12,7 @@ import ui from './ui';
 import input from './input';
 import userAccount from './userAccount';
 import loanApplications from './loanApplications';
+import cryptoWithdrawal from './cryptoWithdrawal';
 
 const defaultNotification = {
   position: 'tr',
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   ui,
   input,
   loanApplications,
+  cryptoWithdrawal,
   form: formReducer,
   routing: routerReducer,
   notifications: notificationsReducer(defaultNotification)

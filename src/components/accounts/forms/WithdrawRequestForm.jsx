@@ -46,10 +46,12 @@ const validate = values => {
 };
 
 const WithdrawRequestForm = props => {
-  const { error, handleSubmit } = props;
+  const { error, handleSubmit, accountId, cryptoWithdrawal } = props;
+  const { statusText } = cryptoWithdrawal[accountId] || {};
+
   return (
     <FormWrapper onSubmit={handleSubmit}>
-      {error && <FormErrorAlert statusText={error} />}
+      {(error || statusText) && <FormErrorAlert statusText={error || statusText} />}
 
       <Field name="pub_address" label="Address" type="text" component={Input} />
       <Field name="amount" label="Amount" type="text" component={Input} />

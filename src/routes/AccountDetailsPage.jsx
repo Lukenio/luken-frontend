@@ -153,7 +153,7 @@ class AccountDetailsPage extends Component {
         <TransparentModal
           showModal={withdrawModalShown}
           width={460}
-          height={570}
+          height={620}
         >
           <WithdrawRequestModal
             handleSave={submitForm}
