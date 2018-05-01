@@ -23,6 +23,10 @@ class ChangePasswordModal extends Component {
     this.state = { didSend: false, ownStatusText: null };
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.closeModalTimeout);
+  }
+
   render() {
     const { handleCancel } = this.props;
     const { didSend, ownStatusText } = this.state;
@@ -62,7 +66,8 @@ class ChangePasswordModal extends Component {
 
   handleClick = () => {
     const {
-      userAccount: { username }
+      userAccount: { username },
+      handleCancel
     } = this.props;
 
     fetch(`${SERVER_URL}/api/v1/accounts/send-reset-password-link/`, {
@@ -79,6 +84,7 @@ class ChangePasswordModal extends Component {
       .then(parseJSON)
       .then(() => {
         this.setState({ didSend: true });
+        this.closeModalTimeout = setTimeout(handleCancel, 3000);
       })
       .catch(error => {
         this.setState({ ownStatusText: error.message });
