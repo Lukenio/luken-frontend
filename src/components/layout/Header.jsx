@@ -6,9 +6,15 @@ import { Flex, Box } from 'grid-styled';
 import md5 from 'js-md5';
 import { HeaderMenuIcon } from '../ui/SVGIcons';
 import SVGContainer from '../ui/SVGContainer';
+import { TransparentModal } from '../ui/Modal';
+import ChangePasswordModal from './modals/ChangePasswordModal';
 
 import { handleSideMenuToggle } from '../../actions/ui';
 import { authLogoutAndRedirect } from '../../actions/auth';
+import {
+  showChangePasswordModal,
+  hideChangePasswordModal
+} from '../../actions/modals';
 
 const StyledFlex = styled(Flex)`
   background: #fff;
@@ -91,7 +97,11 @@ class UserDropDownBox extends Component {
   }
 
   render() {
-    const { email = '', onClick } = this.props;
+    const {
+      email = '',
+      onClick,
+      showChangePasswordModal
+    } = this.props;
     const { isDropdownVisible } = this.state;
 
     return (
@@ -102,7 +112,7 @@ class UserDropDownBox extends Component {
         {isDropdownVisible && (
           <DropdownList>
             <DropdownItem>My Profile</DropdownItem>
-            <DropdownItem>Change Password</DropdownItem>
+            <DropdownItem onClick={showChangePasswordModal}>Change Password</DropdownItem>
             <DropdownItem onClick={onClick}>Log Out</DropdownItem>
           </DropdownList>
         )}
@@ -131,6 +141,9 @@ const Header = ({
   email,
   handleSideMenuToggle,
   hadleLogout,
+  changePasswordModalShown,
+  showChangePasswordModal,
+  hideChangePasswordModal,
   ...other
 }) => {
   return (
@@ -148,7 +161,21 @@ const Header = ({
         </SVGContainer>
         <Logo src="/logo.png" alt="Loanz logo" />
       </Flex>
-      <UserDropDownBox fullName={fullName} email={email} onClick={hadleLogout} />
+      <UserDropDownBox
+        fullName={fullName}
+        email={email}
+        onClick={hadleLogout}
+        showChangePasswordModal={showChangePasswordModal}
+      />
+      <TransparentModal
+        showModal={changePasswordModalShown}
+        width={470}
+        height={265}
+      >
+        <ChangePasswordModal
+          handleCancel={hideChangePasswordModal}
+        />
+      </TransparentModal>
     </StyledFlex>
   );
 };
@@ -157,12 +184,15 @@ const fn = userData => `${userData.first_name} ${userData.last_name}`;
 
 const mapStateToProps = state => ({
   fullName: fn(state.userAccount),
-  email: state.userAccount.email
+  email: state.userAccount.email,
+  changePasswordModalShown: state.modals.changePasswordModalShown
 });
 
-const mapDispatchToProps = {
-  handleSideMenuToggle,
-  hadleLogout: authLogoutAndRedirect
-};
+const mapDispatchToProps = dispatch => ({
+  handleSideMenuToggle: () => dispatch(handleSideMenuToggle()),
+  hadleLogout: () => dispatch(authLogoutAndRedirect()),
+  showChangePasswordModal: () => dispatch(showChangePasswordModal()),
+  hideChangePasswordModal: () => dispatch(hideChangePasswordModal())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

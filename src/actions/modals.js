@@ -6,7 +6,9 @@ import {
   SHOW_ACCOUNT_ADDRESS_MODAL,
   HIDE_ACCOUNT_ADDRESS_MODAL,
   SHOW_NEW_LOAN_MODAL,
-  HIDE_NEW_LOAN_MODAL
+  HIDE_NEW_LOAN_MODAL,
+  SHOW_CHANGE_PASSWORD_MODAL,
+  HIDE_CHANGE_PASSWORD_MODAL
 } from '../constants';
 
 export function showNewAccountModal() {
@@ -39,4 +41,12 @@ export function showNewLoanModal() {
 
 export function hideNewLoanModal() {
   return { type: HIDE_NEW_LOAN_MODAL };
+}
+
+export function showChangePasswordModal() {
+  return { type: SHOW_CHANGE_PASSWORD_MODAL };
+}
+
+export function hideChangePasswordModal() {
+  return { type: HIDE_CHANGE_PASSWORD_MODAL };
 }
