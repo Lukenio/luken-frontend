@@ -47,7 +47,12 @@ const validate = values => {
 
 const WithdrawRequestForm = props => {
   const { error, handleSubmit, accountId, cryptoWithdrawal } = props;
-  const { statusText } = cryptoWithdrawal[accountId] || {};
+  let { statusText } = cryptoWithdrawal[accountId] || {};
+
+  // Temporary solution
+  if (statusText) {
+    statusText = statusText.replace(/^non_field_errors - i/, 'I');
+  }
 
   return (
     <FormWrapper onSubmit={handleSubmit}>
