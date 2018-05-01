@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 
@@ -30,7 +31,7 @@ const AttentionText = styled(Box)`
 
 class WithdrawRequestModal extends Component {
   render() {
-    const { accountId, handleCancel, handleSave } = this.props;
+    const { accountId, handleCancel, handleSave, cryptoWithdrawal } = this.props;
 
     return (
       <ModalBody>
@@ -41,7 +42,7 @@ class WithdrawRequestModal extends Component {
             request.
           </InfoBox>
           <DividerBox my={25} />
-          <WithdrawRequestForm accountId={accountId} />
+          <WithdrawRequestForm accountId={accountId} cryptoWithdrawal={cryptoWithdrawal} />
           <DividerBox my={25} />
           <Flex alignItems="center">
             <AttentionRoundIcon />
@@ -61,4 +62,8 @@ class WithdrawRequestModal extends Component {
   }
 }
 
-export default WithdrawRequestModal;
+const mapStateToProps = state => ({
+  cryptoWithdrawal: state.cryptoWithdrawal
+});
+
+export default connect(mapStateToProps)(WithdrawRequestModal);
