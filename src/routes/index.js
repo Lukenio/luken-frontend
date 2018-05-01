@@ -13,6 +13,7 @@ import AccountDetailsPage from './AccountDetailsPage.jsx';
 import LoansPage from './LoansPage.jsx';
 import KYCPage from './KYCPage.jsx';
 import KYCRedirect from './KYCRedirect.jsx';
+import SupportPage from './SupportPage.jsx';
 
 // middlewares
 import requireAuthentication from './utils/requireAuthentication';
@@ -39,6 +40,7 @@ export default (
     />
     <Route exact path="/kyc" component={requireAuthentication(KYCPage)} />
     <Route exact path="/home" component={requireAuthentication(KYCRedirect)} />
+    <Route exact path="/support" component={requireAuthentication(SupportPage)} />
     <Redirect exact from="/" to="/a/btc" />
     <Redirect exact from="/a" to="/" />
     <Route path="*" component={NotFound} />
