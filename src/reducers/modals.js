@@ -6,14 +6,17 @@ import {
   SHOW_ACCOUNT_ADDRESS_MODAL,
   HIDE_ACCOUNT_ADDRESS_MODAL,
   SHOW_NEW_LOAN_MODAL,
-  HIDE_NEW_LOAN_MODAL
+  HIDE_NEW_LOAN_MODAL,
+  SHOW_CHANGE_PASSWORD_MODAL,
+  HIDE_CHANGE_PASSWORD_MODAL
 } from '../constants';
 
 const defaultState = {
   newAccountModalShown: false,
   newWithdrawalRequestShown: false,
   accountAddressShown: false,
-  newLoanModalShown: false
+  newLoanModalShown: false,
+  changePasswordModalShown: false
 };
 
 function modals(state = defaultState, action) {
@@ -57,6 +60,16 @@ function modals(state = defaultState, action) {
       return {
         ...state,
         newLoanModalShown: false
+      };
+    case SHOW_CHANGE_PASSWORD_MODAL:
+      return {
+        ...state,
+        changePasswordModalShown: true
+      };
+    case HIDE_CHANGE_PASSWORD_MODAL:
+      return {
+        ...state,
+        changePasswordModalShown: false
       };
     default:
       return state;
