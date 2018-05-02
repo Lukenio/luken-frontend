@@ -7,6 +7,9 @@ export const BaseButton = styled.button`
   outline: none;
   font-family: inherit;
   background: transparent;
+  zoom: 1;
+  white-space: nowrap;
+  user-select: none;
 `;
 
 const Button = BaseButton.extend`
@@ -23,6 +26,28 @@ const Button = BaseButton.extend`
   padding: ${({ small }) => (small ? '10 12px' : '10px 45px')};
   text-align: center;
   min-width: 61px;
+
+  &:hover {
+    background-image: linear-gradient(rgba(0,0,0, 0.03), rgba(0,0,0, 0.06));
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:active {
+    box-shadow: 0 0 0 1px rgba(0,0,0, 0.1) inset, 0 0 6px rgba(0,0,0, 0.15) inset;
+    border-color: rgba(0,0,0, 0.2);
+  }
+
+  &[disabled] {
+    border: none;
+    background-image: none;
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+    pointer-events: none;
+  }
 `;
 
 export const AccountButton = Button.extend`
