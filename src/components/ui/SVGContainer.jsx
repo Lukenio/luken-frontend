@@ -20,6 +20,10 @@ const SVGContainer = styled(Box)`
       fill: ${props.fill};
     }
   `}
+
+  ${props => props.onClick && css`
+    cursor: pointer;
+  `}
 `;
 
 export default SVGContainer;
