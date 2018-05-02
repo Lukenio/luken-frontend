@@ -23,8 +23,7 @@ const PublicAddressCodeBox = styled.img`
 `;
 
 const Warning = styled(Box)`
-  opacity: 0.7;
-
+  opacity: 1;
   letter-spacing: 0;
   text-align: center;
   line-height: 22px;
@@ -52,15 +51,16 @@ class DepositModal extends Component {
       <ModalBody flat alignItems="center">
         <ModalHeading mb="24px">Account Address</ModalHeading>
         <PublicAddressCodeBox src={qrImageSrc} />
-        <Box mb="8px">{accountPubAddress}</Box>
-        <Box mb="13px">
-          <strong>
-            Only send {getCRTickerTitle(accountType)} ({getCRTickerSymbols(
-              accountType
-            )}) to this address.
-          </strong>
+        <Box mb="25px">
+          <strong>{accountPubAddress}</strong>
+        </Box>
+        <Box mb="3px">
+          <b>TAKE NOTICE:</b>
         </Box>
         <Warning mb="27px">
+          Only send {getCRTickerTitle(accountType)} ({getCRTickerSymbols(
+            accountType
+          )}) to this address.<br />
           Any other asset to this address, including ETC and<br />
           ERC20 tokens, will be permanently lost.
         </Warning>

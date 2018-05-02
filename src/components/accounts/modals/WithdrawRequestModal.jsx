@@ -6,6 +6,7 @@ import { Flex, Box } from 'grid-styled';
 import { ModalHeader, ModalBody, ModalFooter } from '../../ui/Modal.jsx';
 import { AttentionRoundIcon } from '../../ui/SVGIcons.jsx';
 import { AccountButton } from '../../ui/Button.jsx';
+import { getCRTickerTitle } from '../../../utils';
 import WithdrawRequestForm from '../forms/WithdrawRequestForm';
 
 const InfoBox = styled(Box)`
@@ -31,14 +32,20 @@ const AttentionText = styled(Box)`
 
 class WithdrawRequestModal extends Component {
   render() {
-    const { accountId, handleCancel, handleSave, cryptoWithdrawal } = this.props;
+    const {
+      accountId,
+      accountType,
+      handleCancel,
+      handleSave,
+      cryptoWithdrawal
+    } = this.props;
 
     return (
       <ModalBody>
         <ModalHeader handleClose={handleCancel}>Withdraw Request</ModalHeader>
         <Flex flex="1" w={1} px={25} py={30} flexDirection="column">
           <InfoBox>
-            Enter the Bitcoin Address and needed amount for the Withdrawal
+            Enter the {getCRTickerTitle(accountType)} Address and required amount for the Withdrawal
             request.
           </InfoBox>
           <DividerBox my={25} />
@@ -47,8 +54,8 @@ class WithdrawRequestModal extends Component {
           <Flex alignItems="center">
             <AttentionRoundIcon />
             <AttentionText ml={10}>
-              Make sure to use valid address for Withdraw.<br />
-              We can't refund an incorrect withdrawal.
+              Make sure to use valid address for Withdrawal.<br />
+              We do not refund incorrect withdrawals.
             </AttentionText>
           </Flex>
         </Flex>

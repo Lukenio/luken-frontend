@@ -159,12 +159,13 @@ class AccountDetailsPage extends Component {
             handleSave={submitForm}
             handleCancel={hideWithdrawRequestModal}
             accountId={account.id}
+            accountType={account.type}
           />
         </TransparentModal>
         <TransparentModal
           showModal={accountAddressModalShown}
           width={400}
-          height={450}
+          height={500}
         >
           <DepositModal
             handleCancel={hideAccountAddressModal}

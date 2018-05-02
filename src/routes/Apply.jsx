@@ -54,11 +54,16 @@ const LeadText = styled.p`
 `;
 
 const ThankYouHeading = LeadTitle.extend`
+  font-size: 50px;
+  font-weight: bold;
   color: #9b9b9b;
+  margin-bottom: 13px;
 `;
 
 const ThankYouText = LeadText.extend`
+  font-size: 20px;
   color: #9b9b9b;
+  line-height: 1.35em;
 `;
 
 const ContentHeaderWrapper = styled(Flex)`
@@ -285,9 +290,13 @@ class Apply extends Component {
               >
                 <ThankYouHeading>Thank You!</ThankYouHeading>
                 <ThankYouText>
-                  You've successfully submitted an application! We are going to
-                  review your application in 24 hours. We will<br />send you an
-                  email once your loan application is approved.
+                  Your application has been successfully submitted<br />
+                  and will be reviewed in 48 hours or less.
+                </ThankYouText>
+                <Box pb={13} />
+                <ThankYouText>
+                  We will send you an email once your loan application<br />
+                  has been approved.
                 </ThankYouText>
               </Flex>
             ) : (
