@@ -7,6 +7,9 @@ export const BaseButton = styled.button`
   outline: none;
   font-family: inherit;
   background: transparent;
+  zoom: 1;
+  white-space: nowrap;
+  user-select: none;
 `;
 
 const Button = BaseButton.extend`

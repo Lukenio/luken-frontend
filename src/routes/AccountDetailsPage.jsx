@@ -111,7 +111,7 @@ class AccountDetailsPage extends Component {
         <Header />
         <Flex width={1} flex="1">
           <SideNavigation />
-          <Flex w={1} mt={30} mb={25} mx={30} flexDirection="column">
+          <Flex w={1} mt={30} mb={25} mx={30} flexDirection="column" style={{ minWidth: '200px' }}>
             <WrapFlexContainer flexDirection="column" w={1}>
               <DataLoaderPlaceholder
                 isFetching={isFetching}
