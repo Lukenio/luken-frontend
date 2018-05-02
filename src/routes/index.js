@@ -11,6 +11,7 @@ import { Signup, Signin, ForgotPassword, ResetPassword, AccountVerification, Aft
 import NotFound from './NotFound.jsx';
 import AccountDetailsPage from './AccountDetailsPage.jsx';
 import LoansPage from './LoansPage.jsx';
+import ProfilePage from './ProfilePage.jsx';
 import KYCPage from './KYCPage.jsx';
 import KYCRedirect from './KYCRedirect.jsx';
 import SupportPage from './SupportPage.jsx';
@@ -38,7 +39,8 @@ export default (
       path="/loans"
       component={requireAuthentication(LoansPage)}
     />
-    <Route exact path="/kyc" component={requireAuthentication(KYCPage)} />
+    <Route exact path="/profile" component={requireAuthentication(ProfilePage)} />
+    <Route exact path="/profile/edit" component={requireAuthentication(KYCPage)} />
     <Route exact path="/home" component={requireAuthentication(KYCRedirect)} />
     <Route exact path="/support" component={requireAuthentication(SupportPage)} />
     <Redirect exact from="/" to="/a/btc" />
