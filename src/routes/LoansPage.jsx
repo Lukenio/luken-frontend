@@ -122,12 +122,8 @@ class LoansPage extends Component {
                     ))}
                   </Flex>
                   <Flex>
-                    <AccountButton flat onClick={showNewLoanModal}>
+                    <AccountButton onClick={showNewLoanModal}>
                       New Loan
-                    </AccountButton>
-                    <Box w={15} />
-                    <AccountButton>
-                      Repay Loan
                     </AccountButton>
                   </Flex>
                 </Flex>
