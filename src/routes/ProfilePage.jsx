@@ -10,10 +10,12 @@ import SVGContainer from '../components/ui/SVGContainer';
 import {
   UserIcon
 } from '../components/ui/SVGIcons.jsx';
+import { LoadingIndicator } from '../components/auth/forms/Elements';
 
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import SideNavigation from '../components/layout/SideNavigation';
+import { dataFetchUserAccountData } from '../actions/user-account';
 
 const WrapFlexContainer = styled(FlexContainer)`
   background: #ffffff;
@@ -68,40 +70,93 @@ const ItemValue = styled.p`
   line-height: 22px;
 `;
 
-const profileData = [
-  {
-    title: 'Enter Your Full name',
-    value: 'qwe qwe'
-  },
-  {
-    title: 'Phone Number',
-    value: '(111) 111-1111'
-  },
-  {
-    title: 'Source of Funds',
-    value: '123123213'
-  },
-  {
-    title: 'Enter Your Wallet Public Key',
-    value: '123123'
-  },
-  {
-    title: 'What will you use the proceeds from the loan for?',
-    value: 'General Expence'
-  }
-];
-
 class ProfilePage extends Component {
-  componentWillMount() {
-    const { didApplyKYC, dispatch } = this.props;
-
-    if (!didApplyKYC) {
-      dispatch(push('/profile/edit'));
-    }
+  componentDidMount() {
+    const { dataFetchUserAccountData } = this.props;
+    dataFetchUserAccountData();
   }
   
   render() {
-    const { dispatch } = this.props;
+    const {
+      dispatch,
+      userAccount: {
+        isFetching,
+        kyc_applied,
+        kyc
+      }
+    } = this.props;
+
+    let loadingContent;
+    if (isFetching) {
+      loadingContent = (
+        <Flex justifyContent="center">
+          <LoadingIndicator />
+        </Flex>
+      );
+    }
+
+    let innerContent;
+    if (!kyc_applied) {
+      innerContent = (
+        <Fragment>
+          <Flex flexDirection="column" alignItems="center">
+            <p>Not applied to KYC</p>
+            <AccountButton onClick={() => dispatch(push('/profile/edit'))}>
+              Apply
+            </AccountButton>
+          </Flex>
+        </Fragment>
+      );
+    } else {
+      const {
+        q2_enterYour,
+        q10_phoneNumber,
+        q13_enterYour13_,
+        q5_whatWill
+      } = kyc || {};
+
+      const questions = [
+        {
+          title: 'Enter Your Full name',
+          value: (function (q2_enterYour = { first: 'NA', last: '' }) {
+            return `${q2_enterYour.first} ${q2_enterYour.last}`;
+          }(q2_enterYour))
+        },
+        {
+          title: 'Phone Number',
+          value: (function (q10_phoneNumber = { full: 'NA' }) {
+            return `${q10_phoneNumber.full}`
+          }(q10_phoneNumber))
+        },
+        {
+          title: 'Address',
+          value: (function (q13_enterYour13_ = { addr_search: 'NA' }) {
+            return `${q13_enterYour13_.addr_search}`;
+          }(q13_enterYour13_))
+        },
+        {
+          title: 'What will you use the proceeds from the loan for?',
+          value: (function (q5_whatWill = ['NA']) {
+            return q5_whatWill.join(', ');
+          }(q5_whatWill))
+        }
+      ];
+
+      innerContent = (
+        <Fragment>
+          <SubHeading>Enter Your Personal Information</SubHeading>
+          <ProfileList>
+            {questions.map((item, i, list) => (
+              <ProfileListItem key={i}>
+                <ItemTitle>{item.title}</ItemTitle>
+                <ItemValue>{item.value}</ItemValue>
+                {(list.length - 1 > i) && <Divider />}
+              </ProfileListItem>
+            ))}
+          </ProfileList>
+        </Fragment>
+      );
+    }
 
     return (
       <Fragment>
@@ -117,26 +172,16 @@ class ProfilePage extends Component {
                   </SVGContainer>
                   <Heading>My Profile</Heading>
                 </Flex>
-                <AccountButton onClick={() => dispatch(push('/profile/edit'))}>
-                  Edit
-                </AccountButton>
+                {!isFetching && kyc_applied && (
+                  <AccountButton onClick={() => dispatch(push('/profile/edit'))}>
+                    Edit
+                  </AccountButton>
+                )}
               </Flex>
               <Divider width={1} />
-
               <Flex width={1} flexDirection="column" pt={20} px={30}>
-                <SubHeading>Enter Your Personal Information</SubHeading>
-
-                <ProfileList>
-                  {profileData.map((item, i, list) => (
-                    <ProfileListItem key={i}>
-                      <ItemTitle>{item.title}</ItemTitle>
-                      <ItemValue>{item.value}</ItemValue>
-                      {(list.length - 1 > i) && <Divider />}
-                    </ProfileListItem>
-                  ))}
-                </ProfileList>
+                {isFetching ? loadingContent : innerContent}
               </Flex>
-
             </WrapFlexContainer>
             <Footer />
           </Flex>
@@ -148,8 +193,14 @@ class ProfilePage extends Component {
 
 const mapStateToProps = state => {
   return {
-    didApplyKYC: state.userAccount.kyc_applied
+    userAccount: state.userAccount
   };
 };
 
-export default connect(mapStateToProps)(ProfilePage);
+const mapDispatchToProps = dispatch => {
+  return {
+    dataFetchUserAccountData: () => dispatch(dataFetchUserAccountData())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
