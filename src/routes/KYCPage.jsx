@@ -4,6 +4,10 @@ import { Flex, Box } from 'grid-styled';
 import { connect } from 'react-redux';
 
 import { FlexContainer } from '../components/ui/Containers';
+import SVGContainer from '../components/ui/SVGContainer';
+import {
+  UserIcon
+} from '../components/ui/SVGIcons.jsx';
 
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -83,7 +87,12 @@ class KYC extends Component {
           <Flex w={1} mt={30} mb={25} mx={30} flexDirection="column">
             <WrapFlexContainer flexDirection="column" w={1}>
               <Flex width={1} alignItems="center" py={10} px={30}>
-                <Heading>KYC</Heading>
+                <Flex width={1} alignItems="center">
+                  <SVGContainer w={48} h={48} fill="#d8d8d8">
+                    <UserIcon />
+                  </SVGContainer>
+                  <Heading>My Profile</Heading>
+                </Flex>
               </Flex>
               <Divider width={1} />
               <IframeFlex width={1} py={20} px={30} justifyContent="space-between" isLoading={isLoadingIframe}>

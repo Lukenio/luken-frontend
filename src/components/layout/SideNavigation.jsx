@@ -94,7 +94,7 @@ const SideNavigation = ({ isOpen = true, didApplyKYC }) => (
       </StyledNavLink>
     </Box>
     <Box>
-      <StyledNavLink exact to="/">
+      <StyledNavLink exact to="/profile">
         <NavItem alignItems="center">
           <SVGContainer w={28} h={28}>
             <UserIcon />
