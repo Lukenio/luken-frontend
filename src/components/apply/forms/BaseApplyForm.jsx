@@ -218,7 +218,8 @@ class BaseApplyForm extends Component {
       cryptoType,
       handleSubmit,
       submitting,
-      isCryptoPriceFetching
+      isCryptoPriceFetching,
+      omitEmailAndTerms
     } = this.props;
 
     return (
@@ -310,6 +311,7 @@ class BaseApplyForm extends Component {
             alignItems="center"
             justifyContent="center"
             flexDirection="column"
+            style={{ display: omitEmailAndTerms ? 'none' : 'auto' }}
           >
             <Box w={[1, 340]} my={[30, 0]}>
               <Field
@@ -329,6 +331,7 @@ class BaseApplyForm extends Component {
             alignItems="center"
             justifyContent="center"
             flexDirection="column"
+            style={{ display: omitEmailAndTerms ? 'none' : 'auto' }}
           >
             <Box>
               <Field
@@ -366,6 +369,10 @@ export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
   ownProps
 ) => {
   const valuesSelector = formValueSelector(form);
+  const {
+    omitEmailAndTerms,
+    userEmail
+  } = ownProps;
 
   return {
     syncErrors: getFormSyncErrors(form)(state),
@@ -376,9 +383,11 @@ export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
     initialValues: {
       terms_month: '0',
       total_loaned_amount: '0',
-      terms_of_service_agree: false,
-      loaned_amount: state.input.globalLoanedAmountValue
-    }
+      terms_of_service_agree: omitEmailAndTerms || false,
+      loaned_amount: state.input.globalLoanedAmountValue,
+      email: userEmail || ''
+    },
+    omitEmailAndTerms
   };
 };
 

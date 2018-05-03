@@ -19,7 +19,7 @@ const ContentWrap = styled(Box)`
   background: #ffffff;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
   border-radius: 6px;
-  min-height: 642px;
+  min-height: 550px;
 `;
 
 const LeadTitle = styled.h1`
@@ -42,11 +42,16 @@ const LeadText = styled.p`
 `;
 
 const ThankYouHeading = LeadTitle.extend`
+  font-size: 50px;
+  font-weight: bold;
   color: #9b9b9b;
+  margin-bottom: 13px;
 `;
 
 const ThankYouText = LeadText.extend`
+  font-size: 20px;
   color: #9b9b9b;
+  line-height: 1.35em;
 `;
 
 const ContentHeaderWrapper = styled(Flex)`
@@ -166,24 +171,13 @@ class NewLoanModal extends Component {
   };
 
   render() {
-    const { handleCancel, applied } = this.props;
+    const { handleCancel, applied, userEmail } = this.props;
     const { activeCurrencyType, currencies } = this.state;
 
     return (
       <ModalBody height="auto">
-        <ModalHeader handleClose={handleCancel}>Withdraw Request</ModalHeader>
+        <ModalHeader handleClose={handleCancel}>New Loan</ModalHeader>
         <Flex flex="1" w={1} px={25} py={30} flexDirection="column">
-
-          <FlexContainer
-            alignItems="center"
-            justifyContent="center"
-            my={30}
-            centered={true}
-          >
-            <Flex alignItems="center" flexDirection="column">
-              <LeadTitle>Apply in under 1 minute</LeadTitle>
-            </Flex>
-          </FlexContainer>
 
           <FlexContainer
             alignItems="center"
@@ -199,13 +193,17 @@ class NewLoanModal extends Component {
                   justifyContent="center"
                   alignItems="center"
                   px={[15, 0]}
-                  style={{ minHeight: '642px' }}
+                  style={{ minHeight: '550px' }}
                 >
                   <ThankYouHeading>Thank You!</ThankYouHeading>
                   <ThankYouText>
-                    You've successfully submitted an application! We are going to
-                    review your application in 24 hours. We will<br />send you an
-                    email once your loan application is approved.
+                    Your application has been successfully submitted<br />
+                    and will be reviewed in 48 hours or less.
+                  </ThankYouText>
+                  <Box pb={13} />
+                  <ThankYouText>
+                    We will send you an email once your loan application<br />
+                    has been approved.
                   </ThankYouText>
                 </Flex>
               ) : (
@@ -221,9 +219,9 @@ class NewLoanModal extends Component {
                     />
                   </ContentHeaderWrapper>
                   {activeCurrencyType === currencies[0].type ? (
-                    <BTCApplyForm />
+                    <BTCApplyForm omitEmailAndTerms={true} userEmail={userEmail} />
                   ) : (
-                    <ETHApplyForm />
+                    <ETHApplyForm omitEmailAndTerms={true} userEmail={userEmail} />
                   )}
                 </Fragment>
               )}
@@ -236,7 +234,8 @@ class NewLoanModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  applied: state.ui.newLoanUserApplied
+  applied: state.ui.newLoanUserApplied,
+  userEmail: state.userAccount.email
 });
 
 const mapDispatchToProps = {

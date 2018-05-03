@@ -109,7 +109,7 @@ class LoansPage extends Component {
                 <Flex width={1} py={20} px={30} justifyContent="space-between">
                   <Flex>
                     {accounts.map(a => (
-                      <Flex flexDirection="column" pr={65}>
+                      <Flex key={a.id} flexDirection="column" pr={65}>
                         <CoinsOwned>
                           <strong>{a.balance}</strong>{' '}
                           {getCRTickerSymbols(a.type)}
