@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { Flex, Box } from 'grid-styled';
 import md5 from 'js-md5';
 import { HeaderMenuIcon } from '../ui/SVGIcons';
@@ -100,7 +101,8 @@ class UserDropDownBox extends Component {
     const {
       email = '',
       onClick,
-      showChangePasswordModal
+      showChangePasswordModal,
+      handleProfileLinkClick
     } = this.props;
     const { isDropdownVisible } = this.state;
 
@@ -111,7 +113,7 @@ class UserDropDownBox extends Component {
         <AngleDownIcon />
         {isDropdownVisible && (
           <DropdownList>
-            <DropdownItem>My Profile</DropdownItem>
+            <DropdownItem onClick={handleProfileLinkClick}>My Profile</DropdownItem>
             <DropdownItem onClick={showChangePasswordModal}>Change Password</DropdownItem>
             <DropdownItem onClick={onClick}>Log Out</DropdownItem>
           </DropdownList>
@@ -140,10 +142,11 @@ const Header = ({
   fullName,
   email,
   handleSideMenuToggle,
-  hadleLogout,
+  handleLogout,
   changePasswordModalShown,
   showChangePasswordModal,
   hideChangePasswordModal,
+  handleProfileLinkClick,
   ...other
 }) => {
   return (
@@ -164,8 +167,9 @@ const Header = ({
       <UserDropDownBox
         fullName={fullName}
         email={email}
-        onClick={hadleLogout}
+        onClick={handleLogout}
         showChangePasswordModal={showChangePasswordModal}
+        handleProfileLinkClick={handleProfileLinkClick}
       />
       <TransparentModal
         showModal={changePasswordModalShown}
@@ -190,9 +194,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleSideMenuToggle: () => dispatch(handleSideMenuToggle()),
-  hadleLogout: () => dispatch(authLogoutAndRedirect()),
+  handleLogout: () => dispatch(authLogoutAndRedirect()),
   showChangePasswordModal: () => dispatch(showChangePasswordModal()),
-  hideChangePasswordModal: () => dispatch(hideChangePasswordModal())
+  hideChangePasswordModal: () => dispatch(hideChangePasswordModal()),
+  handleProfileLinkClick: () => dispatch(push('/profile'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
