@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import DataLoaderPlaceholder from '../ui/DataLoaderPlaceholder';
 import Scrollable from '../ui/Scrollable';
-import { getCRTickerSymbols, format0000 } from '../../utils';
+import { getCRTickerSymbols, getCRTickerTitle, format0000 } from '../../utils';
 
 const WrapFlex = styled(Flex)`
   background: #f7f7f7;
@@ -64,8 +64,8 @@ const FlexWithBorder = styled(Flex)`
 const LoansHeadingRow = () => (
   <FlexWithBorder width={1} py={18}>
     <HeadingText width={1}>Maturity Date</HeadingText>
-    <HeadingText width={1}>Total Loan Amount</HeadingText>
-    <HeadingText width={1}>Total Collateral Amount</HeadingText>
+    <HeadingText width={1}>Loan Amount</HeadingText>
+    <HeadingText width={1}>Collateral Amount</HeadingText>
     <HeadingText width={1}>APR</HeadingText>
     <HeadingText width={1}>Crypto Type</HeadingText>
     <HeadingText width={1}>Status</HeadingText>
@@ -89,11 +89,6 @@ const statusTypes = {
   8: 'Loan released'
 };
 
-const cryptoTypes = {
-  0: 'Bitcoin',
-  1: 'Ethereum'
-};
-
 const LoanRow = ({
   maturity_date,
   total_loaned_amount,
@@ -110,7 +105,7 @@ const LoanRow = ({
       {getCRTickerSymbols(crypto_type)}
     </CellText>
     <CellText width={1}>{format0000(apr * 100, '.', 2)}%</CellText>
-    <CellText width={1}>{cryptoTypes[crypto_type] || 'Other'}</CellText>
+    <CellText width={1}>{getCRTickerTitle(crypto_type)}</CellText>
     <CellText width={1} color={getCellTextColor('state', state)}>
       {statusTypes[state]}
     </CellText>
