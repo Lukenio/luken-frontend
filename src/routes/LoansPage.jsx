@@ -136,7 +136,8 @@ class LoansPage extends Component {
         <TransparentModal
           showModal={newLoanModalShown}
           width={900}
-          height={450}
+          height={'100%'}
+          top={'60%'}
         >
           <NewLoanModal
             handleCancel={hideNewLoanModal}

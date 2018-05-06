@@ -13,6 +13,7 @@
     "pusher-js": "^4.2.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-fullstory-component": "^2.1.0",
     "react-icons": "^2.2.7",
     "react-modal": "^3.3.1",
     "react-number-format": "^3.2.0",
@@ -32,12 +33,10 @@
   },
   "scripts": {
     "start": "BROWSER=none react-scripts start",
-    "dev":
-      "REACT_APP_SERVER_URL=https://luken-qa.herokuapp.com react-scripts start",
+    "dev": "REACT_APP_SERVER_URL=https://luken-qa.herokuapp.com react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy":
-      "aws s3 cp build/ s3://loanz --recursive --profile my && aws cloudfront create-invalidation --distribution-id E30ZFESIUM20Q5 --paths '/*' --profile my"
+    "deploy": "aws s3 cp build/ s3://loanz --recursive --profile my && aws cloudfront create-invalidation --distribution-id E30ZFESIUM20Q5 --paths '/*' --profile my"
   }
 }

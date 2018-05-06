@@ -51,7 +51,8 @@ const modelStyle = other => ({
   ...style,
   content: {
     ...style.content,
-    ...dimensions(other)
+    ...dimensions(other),
+    ...other
   }
 });
 

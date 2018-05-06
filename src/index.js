@@ -9,6 +9,18 @@ import pusherStoreListener from './pusherStoreListener';
 import registerServiceWorker from './registerServiceWorker';
 import App from './App.jsx';
 
+import { FullStoryClient } from 'react-fullstory-component';
+
+const client = new FullStoryClient({
+  host: 'fullstory.com',
+  orgKey: 'BZ24N',
+  iframe: true
+}, window);
+
+client.render();
+client.setSession('mysessionId');
+
+
 const initialState = {};
 
 const history = createHistory();
