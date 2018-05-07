@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import dataFetchCoinsPrice from '../actions/coinsPrice';
-import { FlexContainer } from '../components/ui/Containers';
 import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
 import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
 
@@ -159,6 +158,7 @@ class ApplyEmbedded extends Component {
 
   componentWillMount() {
     this.props.dataFetchCoinsPrice();
+    document.body.style.backgroundColor = "white";
   }
 
   componentWillReceiveProps(nextProps) {
