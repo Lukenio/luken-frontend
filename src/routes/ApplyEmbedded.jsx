@@ -108,23 +108,6 @@ const CryptoIcon = styled.div`
   }
 `;
 
-const Disclaimer = styled.p`
-  text-decoration: none;
-  opacity: 0.5;
-  font-weight: 500;
-  font-size: 12px;
-  color: #323b45;
-  letter-spacing: 0;
-  line-height: 18px;
-  margin-bottom: 4px;
-  padding: 4px 110px;
-  margin: 0;
-
-  @media only screen and (max-width: 767px) {
-    padding: 0 20px;
-  }
-`;
-
 const Tabs = ({ currencies = [], activeType = 0, onChange }) => {
   // const currenciesNumber = currencies.length;
   // const width = currenciesNumber ? 1 / currenciesNumber : 1;
@@ -249,9 +232,6 @@ class ApplyEmbedded extends Component {
           my={30}
           centered={true}
         >
-          <Disclaimer>
-          * The Total Loan Amount will be calculated based on your Desired Loan Amount, Term of the Loan and Annual Percentage Rate (APR). Due to high volatility, the collateral amount based on 35% LTV of our perception of the yearly minimal price of the Btcoin and Eherium. Total Loan Amount includes all fees associated with your transactions. In order to receive the collateral back, total Loan Amount must be discharged on maturity date. The loan maturity date will be indicated on the final loan agreement. Email notification will be sent 30 days prior date of discharge
-          </Disclaimer>
         </FlexContainer>
       </Fragment>
     );

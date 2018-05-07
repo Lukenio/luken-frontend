@@ -226,7 +226,7 @@ class BaseApplyForm extends Component {
       <Flex px={[20, 59]} py={[20, 20]} w={1}>
         <FormWrapper onSubmit={handleSubmit(dispatchValues(cryptoType))}>
           {error && <FormErrorAlert statusText={error} />}
-          <Flex w={1} flexDirection={['column', 'row']}>
+          <Flex w={1} flexDirection={['column', 'row']} justifyContent={'center'}>
             <Box w={[1, 340]} my={[30, 0]}>
               <Field
                 name="loaned_amount"
