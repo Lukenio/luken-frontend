@@ -15,7 +15,7 @@ import {
 
 const ContentWrap = styled(Box)`
   background: #ffffff;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.05);
   min-height: 642px;
 `;
 
@@ -225,14 +225,6 @@ class ApplyEmbedded extends Component {
             </Fragment>
           )}
         </ContentWrap>
-
-        <FlexContainer
-          alignItems="center"
-          justifyContent="center"
-          my={30}
-          centered={true}
-        >
-        </FlexContainer>
       </Fragment>
     );
   }
