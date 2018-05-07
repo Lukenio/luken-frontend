@@ -36,10 +36,10 @@ const validate = values => {
   const errors = {};
 
   if (!values.pub_address) {
-    errors.pub_address = 'Please fiil out this field.';
+    errors.pub_address = 'Please fill out this field.';
   }
   if (!values.amount) {
-    errors.amount = 'Please fiil out this field.';
+    errors.amount = 'Please fill out this field.';
   }
 
   return errors;

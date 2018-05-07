@@ -1,58 +1,52 @@
 import React, { Component } from 'react';
 import { Flex } from 'grid-styled';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
 
 import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
 import Button from '../../ui/Button.jsx';
 import { SERVER_URL } from '../../../utils/config';
-import { checkHttpStatus, parseJSON, parseQueryString } from '../../../utils';
+import { parseQueryString } from '../../../utils';
 
 const validate = values => {
   const errors = {};
 
-  if (!values.password1) {
-    errors.password1 = 'Please fill out this field.';
+  if (!values.password) {
+    errors.password = 'Please fill out this field.';
   }
-  if (!values.password2) {
-    errors.password2 = 'Please fill out this field.';
+  if (!values.password_confirm) {
+    errors.password_confirm = 'Please fill out this field.';
   }
-  if (values.password1 !== values.password2) {
-    errors.password1 = "Passwords don't match";
+  if (values.password !== values.password_confirm) {
+    errors.password = "Passwords don't match";
   }
 
   return errors;
 };
 
 class ResetPasswordForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { ownStatusText: null };
-  }
-
   render() {
-    const { handleSubmit, submitting } = this.props;
-    const { ownStatusText } = this.state;
+    const { error, handleSubmit, pristine, submitting } = this.props;
 
     return (
       <FormWrapper>
         <form onSubmit={handleSubmit(this.processValues)}>
-          {ownStatusText && <FormErrorAlert statusText={ownStatusText} />}
+          {error && <FormErrorAlert statusText={error} />}
           <Field
-            name="password1"
+            name="password"
             label="Password"
             type="password"
             component={Input}
           />
           <Field
-            name="password2"
+            name="password_confirm"
             label="Confirm Password"
             type="password"
             component={Input}
           />
           <Flex justify="center">
-            <Button type="submit" disabled={submitting}>
+            <Button type="submit" disabled={pristine || submitting}>
               Send
             </Button>
           </Flex>
@@ -61,14 +55,14 @@ class ResetPasswordForm extends Component {
     );
   }
 
-  processValues = ({ password1 }, dispatch) => {
+  processValues = ({ password }, dispatch) => {
     const {
       user_id,
       timestamp,
       signature
     } = parseQueryString(document.location.search);
 
-    fetch(`${SERVER_URL}/api/v1/accounts/reset-password/`, {
+    return fetch(`${SERVER_URL}/api/v1/accounts/reset-password/`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -78,16 +72,34 @@ class ResetPasswordForm extends Component {
         user_id,
         timestamp,
         signature,
-        password: password1
+        password
       })
     })
-      .then(checkHttpStatus)
-      .then(parseJSON)
-      .then(() => {
+      .then(res => {
+        if (!res.ok) {
+          return res.json();
+        }
+
         dispatch(push('/login'));
       })
+      .then(res => {
+        const { password, detail, ...other } = res;
+        const error = new SubmissionError({
+          password: Array.isArray(password) ? password.join(' ') : password,
+          _error: (
+            (Array.isArray(detail) ? detail.join(' ') : detail)
+            || (Object.keys(other).length > 0 ? 'There were problems.' : '')
+          )
+        });
+        error.isFormError = true;
+        throw error;
+      })
       .catch(error => {
-        this.setState({ ownStatusText: error.message });
+        if (error.isFormError) {
+          throw error;
+        }
+
+        throw new SubmissionError({ _error: error.message });
       });
   }
 }

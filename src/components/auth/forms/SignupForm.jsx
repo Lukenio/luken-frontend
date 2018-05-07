@@ -35,7 +35,7 @@ const validate = values => {
   return errors;
 };
 
-const SignupForm = ({ handleSubmit, submitting, statusText }) => {
+const SignupForm = ({ handleSubmit, pristine, submitting, statusText }) => {
   return (
     <FormWrapper>
       <form onSubmit={handleSubmit(dispatchValues)}>
@@ -56,7 +56,7 @@ const SignupForm = ({ handleSubmit, submitting, statusText }) => {
           component={Input}
         />
         <Flex justify="center">
-          <Button type="submit" disabled={submitting}>
+          <Button type="submit" disabled={pristine || submitting}>
             Create Account
           </Button>
         </Flex>

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { Flex } from 'grid-styled';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import fetch from 'isomorphic-fetch';
 
 import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
 import Button from '../../ui/Button.jsx';
 import { SERVER_URL } from '../../../utils/config';
-import { checkHttpStatus, parseJSON } from '../../../utils';
 
 const validate = values => {
   const errors = {};
 
-  if (!values.username) {
-    errors.username = 'Please fill out this field.';
+  if (!values.login) {
+    errors.login = 'Please fill out this field.';
   }
 
   return errors;
@@ -21,12 +20,12 @@ const validate = values => {
 class ForgotPasswordForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { didSend: false, ownStatusText: null };
+    this.state = { didSend: false };
   }
 
   render() {
-    const { handleSubmit, submitting } = this.props;
-    const { didSend, ownStatusText } = this.state;
+    const { error, handleSubmit, pristine, submitting } = this.props;
+    const { didSend } = this.state;
 
     if (didSend) {
       return (
@@ -39,15 +38,15 @@ class ForgotPasswordForm extends Component {
     return (
       <FormWrapper>
         <form onSubmit={handleSubmit(this.processValues)}>
-          {ownStatusText && <FormErrorAlert statusText={ownStatusText} />}
+          {error && <FormErrorAlert statusText={error} />}
           <Field
-            name="username"
+            name="login"
             label="Username"
-            type="username"
+            type="text"
             component={Input}
           />
           <Flex justify="center">
-            <Button type="submit" disabled={submitting}>
+            <Button type="submit" disabled={pristine || submitting}>
               Send
             </Button>
           </Flex>
@@ -56,24 +55,42 @@ class ForgotPasswordForm extends Component {
     );
   }
 
-  processValues = ({ username }) => {
-    fetch(`${SERVER_URL}/api/v1/accounts/send-reset-password-link/`, {
+  processValues = ({ login }) => {
+    return fetch(`${SERVER_URL}/api/v1/accounts/send-reset-password-link/`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        login: username
+        login
       })
     })
-      .then(checkHttpStatus)
-      .then(parseJSON)
-      .then(() => {
+      .then(res => {
+        if (!res.ok) {
+          return res.json();
+        }
+
         this.setState({ didSend: true });
       })
+      .then(res => {
+        const { login, detail, ...other } = res;
+        const error =  new SubmissionError({
+          login: Array.isArray(login) ? login.join(' ') : login,
+          _error: (
+            (Array.isArray(detail) ? detail.join(' ') : detail)
+            || (Object.keys(other).length > 0 ? 'There were problems.' : '')
+          )
+        });
+        error.isFormError = true;
+        throw error;
+      })
       .catch(error => {
-        this.setState({ ownStatusText: error.message });
+        if (error.isFormError) {
+          throw error;
+        }
+
+        throw new SubmissionError({ _error: error.message });
       });
   }
 }
