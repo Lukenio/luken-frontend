@@ -169,8 +169,8 @@ export function authRegisterUser({
         last_name: lastName,
 
         // Temporary.
-        // Server requires this data to provided as of now.
-        username: email.split('@')[0],
+        // We are using email as a login.
+        username: email,
         type: 'borrower'
       })
     })
