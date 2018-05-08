@@ -23,6 +23,7 @@ import {
   showNewLoanModal,
   hideNewLoanModal
 } from '../actions/modals';
+import { setNewLoanUserAppliedValue } from '../actions/ui';
 import { getCRTickerSymbols, format0000 } from '../utils';
 
 const WrapFlexContainer = styled(FlexContainer)`
@@ -83,9 +84,7 @@ class LoansPage extends Component {
       accounts,
       loans,
       isFetching,
-      newLoanModalShown,
-      showNewLoanModal,
-      hideNewLoanModal
+      newLoanModalShown
     } = this.props;
 
     return (
@@ -97,7 +96,7 @@ class LoansPage extends Component {
             <WrapFlexContainer flexDirection="column" w={1}>
               <DataLoaderPlaceholder
                 isFetching={isFetching}
-                isDataExists={true}
+                data={loans}
               >
                 <Flex width={1} alignItems="center" py={10} px={30}>
                   <SVGContainer w={48} h={48} fill="#d8d8d8">
@@ -122,7 +121,7 @@ class LoansPage extends Component {
                     ))}
                   </Flex>
                   <Flex>
-                    <AccountButton onClick={showNewLoanModal}>
+                    <AccountButton onClick={this.handleModalOpen}>
                       New Loan
                     </AccountButton>
                   </Flex>
@@ -140,11 +139,31 @@ class LoansPage extends Component {
           top={'60%'}
         >
           <NewLoanModal
-            handleCancel={hideNewLoanModal}
+            handleCancel={this.handleModalClose}
           />
         </TransparentModal>
       </Fragment>
     );
+  }
+
+  handleModalOpen = () => {
+    const { setNewLoanUserAppliedValue, showNewLoanModal } = this.props;
+    setNewLoanUserAppliedValue(false);
+    showNewLoanModal();
+  }
+
+  handleModalClose = () => {
+    const {
+      hideNewLoanModal,
+      newLoanUserApplied,
+      fetchLoanApplications
+    } = this.props;
+
+    if (newLoanUserApplied) {
+      fetchLoanApplications();
+    }
+
+    hideNewLoanModal();
   }
 }
 
@@ -166,7 +185,8 @@ const mapStateToProps = (state) => {
     accounts,
     loans,
     isFetching: loanApplications.isFetching,
-    newLoanModalShown: state.modals.newLoanModalShown
+    newLoanModalShown: state.modals.newLoanModalShown,
+    newLoanUserApplied: state.ui.newLoanUserApplied
   };
 };
 
@@ -176,6 +196,9 @@ const mapDispatchToProps = dispatch => ({
   },
   showNewLoanModal: () => dispatch(showNewLoanModal()),
   hideNewLoanModal: () => dispatch(hideNewLoanModal()),
+  setNewLoanUserAppliedValue: (value) => {
+    dispatch(setNewLoanUserAppliedValue(value));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoansPage);
