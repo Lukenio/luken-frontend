@@ -4,6 +4,7 @@ import {
   // APPLY_NEW_LOAN_REQUEST,
   APPLY_NEW_LOAN_SUCCESS,
   // APPLY_NEW_LOAN_FAILURE,
+  SET_NEW_LOAN_USER_APPLIED_VALUE,
   NAV_MENU_TOGGLE,
   SIDE_MENU_TOGGLE
 } from '../constants';
@@ -37,6 +38,11 @@ function modals(state = defaultState, action) {
     //     ...state,
     //     newLoanError: action.payload.statusText
     //   };
+    case SET_NEW_LOAN_USER_APPLIED_VALUE:
+      return {
+        ...state,
+        newLoanUserApplied: action.payload.value
+      };
     case NAV_MENU_TOGGLE:
       return {
         ...state,
