@@ -6,11 +6,16 @@ import { push } from 'react-router-redux';
 
 import { FormWrapper } from './Elements.jsx';
 
-const Circle = styled.div`
+const EmailIcon = styled(Flex)`
   width: 120px;
   height: 120px;
   background: #D8D8D8;
   border-radius: 50%;
+`;
+
+const EmailIconImage = styled.img`
+  width: 92px;
+  height: 68px;
 `;
 
 class AfterSignupForm extends Component {
@@ -27,7 +32,9 @@ class AfterSignupForm extends Component {
     return (
       <FormWrapper>
         <Flex flexDirection="column" alignItems="center">
-          <Circle />
+          <EmailIcon justifyContent="center" alignItems="center">
+            <EmailIconImage src="/email-icon.png" alt="Email icon" />
+          </EmailIcon>
           <p style={{ textAlign: 'center' }}>
             We sent a verification email to {this.email}. Click the link inside to get started!
           </p>

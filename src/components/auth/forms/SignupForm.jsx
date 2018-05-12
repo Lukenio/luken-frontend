@@ -40,18 +40,18 @@ const SignupForm = ({ handleSubmit, pristine, submitting, statusText }) => {
     <FormWrapper>
       <form onSubmit={handleSubmit(dispatchValues)}>
         {statusText && <FormErrorAlertHTML statusText={statusText} />}
-        <Field name="firstName" label="First Name" component={Input} />
-        <Field name="lastName" label="Last Name" component={Input} />
-        <Field name="email" label="Email" type="email" component={Input} />
+        <Field name="firstName" placeholder="First Name" component={Input} />
+        <Field name="lastName" placeholder="Last Name" component={Input} />
+        <Field name="email" placeholder="Email" type="email" component={Input} />
         <Field
           name="password1"
-          label="Password"
+          placeholder="Password"
           type="password"
           component={Input}
         />
         <Field
           name="password2"
-          label="Confirm Password"
+          placeholder="Confirm Password"
           type="password"
           component={Input}
         />

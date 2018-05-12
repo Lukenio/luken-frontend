@@ -106,7 +106,7 @@ export const Input = ({
   ...other
 }) => (
   <Fragment>
-    <Label mini={mini}>{label}</Label>
+    {label && <Label mini={mini}>{label}</Label>}
     <StyledInput
       {...input}
       {...other}
