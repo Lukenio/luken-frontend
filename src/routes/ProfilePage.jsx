@@ -70,6 +70,28 @@ const ItemValue = styled.p`
   line-height: 22px;
 `;
 
+const SubHeadingVariant = Heading.extend`
+  margin: 29px 0 21px;
+  font-size: 29px;
+`;
+
+const VerifyParagraph = ItemTitle.extend`
+  text-align: center;
+`;
+
+const DocumentList = styled.ul`
+  margin: 0 0 3em;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5em;
+`;
+
+const DocumentListBold = styled.b`
+  color: #4d92df;
+`;
+
 class ProfilePage extends Component {
   componentDidMount() {
     const { dataFetchUserAccountData } = this.props;
@@ -100,10 +122,35 @@ class ProfilePage extends Component {
       innerContent = (
         <Fragment>
           <Flex flexDirection="column" alignItems="center">
-            <p>Not applied to KYC</p>
+            <SubHeadingVariant>Verify Your Account</SubHeadingVariant>
+            <div style={{ marginBottom: '2em' }}>
+              <VerifyParagraph>
+                Verification is required to comply with KYC/AML regulations
+                and to protect your account from unauthorized access.
+              </VerifyParagraph>
+            </div>
             <AccountButton onClick={() => dispatch(push('/profile/edit'))}>
-              Apply
+              Start Your Verification
             </AccountButton>
+            <div style={{ paddingTop: '1.7em' }}>
+              <VerifyParagraph>
+                The following documents are accepted for verification of identity:
+              </VerifyParagraph>
+              <DocumentList>
+                <li>
+                  <DocumentListBold>Photo ID</DocumentListBold><br />
+                  <span>Driver License, National Identity Card, Passport or other Valid Government Issued photo ID.</span>
+                </li>
+                <li>
+                  <DocumentListBold>Proof of Address (Less than 3 month old)</DocumentListBold><br />
+                  <span>Utility Bills, Driver License, National Identity Card, Passport.</span>
+                </li>
+                <li>
+                  <DocumentListBold>Selfie Picture holding your ID</DocumentListBold><br />
+                  <span>Make sure to take a quality picture holding your ID.</span>
+                </li>
+              </DocumentList>
+            </div>
           </Flex>
         </Fragment>
       );
