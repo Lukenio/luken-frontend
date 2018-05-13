@@ -4,8 +4,24 @@ import { push } from 'react-router-redux';
 
 class KYCRedirect extends Component {
   componentWillMount() {
+    this.checkProps(this.props);
     const { didApplyKYC, dispatch } = this.props;
     dispatch(push(didApplyKYC ? '/a/btc' : '/profile'));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.checkProps(nextProps);
+  }
+
+  checkProps(props) {
+    const {
+      dispatch,
+      userAccount: { isFetching, kyc_applied }
+    } = props;
+    
+    if (!isFetching && typeof kyc_applied === 'boolean') {
+      dispatch(push('/loans'));
+    }
   }
 
   render() {
@@ -15,7 +31,7 @@ class KYCRedirect extends Component {
 
 const mapStateToProps = state => {
   return {
-    didApplyKYC: state.userAccount.kyc_applied
+    userAccount: state.userAccount
   };
 };
 
