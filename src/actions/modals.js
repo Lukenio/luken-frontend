@@ -8,7 +8,9 @@ import {
   SHOW_NEW_LOAN_MODAL,
   HIDE_NEW_LOAN_MODAL,
   SHOW_CHANGE_PASSWORD_MODAL,
-  HIDE_CHANGE_PASSWORD_MODAL
+  HIDE_CHANGE_PASSWORD_MODAL,
+  SHOW_KYC_PROMPT_MODAL,
+  HIDE_KYC_PROMPT_MODAL
 } from '../constants';
 
 export function showNewAccountModal() {
@@ -49,4 +51,12 @@ export function showChangePasswordModal() {
 
 export function hideChangePasswordModal() {
   return { type: HIDE_CHANGE_PASSWORD_MODAL };
+}
+
+export function showKycPromptModal() {
+  return { type: SHOW_KYC_PROMPT_MODAL };
+}
+
+export function hideKycPromptModal() {
+  return { type: HIDE_KYC_PROMPT_MODAL };
 }

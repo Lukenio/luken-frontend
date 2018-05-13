@@ -8,7 +8,9 @@ import {
   SHOW_NEW_LOAN_MODAL,
   HIDE_NEW_LOAN_MODAL,
   SHOW_CHANGE_PASSWORD_MODAL,
-  HIDE_CHANGE_PASSWORD_MODAL
+  HIDE_CHANGE_PASSWORD_MODAL,
+  SHOW_KYC_PROMPT_MODAL,
+  HIDE_KYC_PROMPT_MODAL
 } from '../constants';
 
 const defaultState = {
@@ -70,6 +72,16 @@ function modals(state = defaultState, action) {
       return {
         ...state,
         changePasswordModalShown: false
+      };
+    case SHOW_KYC_PROMPT_MODAL:
+      return {
+        ...state,
+        kycPromptModalShown: true
+      };
+    case HIDE_KYC_PROMPT_MODAL:
+      return {
+        ...state,
+        kycPromptModalShown: false
       };
     default:
       return state;
