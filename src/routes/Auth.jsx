@@ -86,7 +86,7 @@ const AfterSignupRoute = ({ statusText, ...other }) => (
 );
 
 const SigninRoute = ({ statusText, ...other }) => (
-  <Base title="Sign In to Wallet" {...other}>
+  <Base title="Sign to your account" {...other}>
     <SigninForm statusText={statusText} />
   </Base>
 );

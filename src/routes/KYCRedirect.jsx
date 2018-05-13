@@ -5,6 +5,8 @@ import { push } from 'react-router-redux';
 class KYCRedirect extends Component {
   componentWillMount() {
     this.checkProps(this.props);
+    const { didApplyKYC, dispatch } = this.props;
+    dispatch(push(didApplyKYC ? '/a/btc' : '/profile'));
   }
 
   componentWillReceiveProps(nextProps) {

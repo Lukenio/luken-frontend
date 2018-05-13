@@ -31,13 +31,13 @@ const SigninForm = ({ statusText, handleSubmit, pristine, submitting }) => {
         {statusText && <FormErrorAlertHTML statusText={statusText} />}
         <Field
           name="username"
-          label="Username"
+          placeholder="Username"
           type="username"
           component={Input}
         />
         <Field
           name="password"
-          label="Password"
+          placeholder="Password"
           type="password"
           component={Input}
         />
