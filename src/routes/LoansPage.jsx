@@ -161,7 +161,7 @@ class LoansPage extends Component {
             <WrapFlexContainer flexDirection="column" w={1}>
               <DataLoaderPlaceholder
                 isFetching={isFetching}
-                data={loans}
+                data={accounts}
               >
                 <Flex width={1} alignItems="center" py={10} px={30}>
                   <SVGContainer w={48} h={48} fill="#d8d8d8">
@@ -297,7 +297,7 @@ const mapStateToProps = (state) => {
   });
 
   return {
-    accounts: accounts,
+    accounts,
     didApplyKYC,
     loans,
     isFetching: loanApplications.isFetching,
