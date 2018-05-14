@@ -33,7 +33,7 @@ class AfterSignupForm extends Component {
       <FormWrapper>
         <Flex flexDirection="column" alignItems="center">
           <EmailIcon justifyContent="center" alignItems="center">
-            <EmailIconImage src="/email-icon.png" alt="Email icon" />
+            <EmailIconImage src="/images/email-icon.png" alt="Email icon" />
           </EmailIcon>
           <p style={{ textAlign: 'center' }}>
             We sent a verification email to {this.email}. Click the link inside to get started!
