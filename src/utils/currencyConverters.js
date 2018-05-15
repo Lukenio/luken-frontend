@@ -14,9 +14,10 @@ export const getTE = teType => {
   if (typeof teType === 'undefined') return null;
 
   const TEByType = {
-    0: 3,
-    1: 6,
-    2: 12
+    0: 1,
+    1: 3,
+    2: 6,
+    3: 12
   };
   return TEByType[Number(teType)];
 };
@@ -25,9 +26,10 @@ export const getAPR = teType => {
   if (typeof teType === 'undefined') return null;
 
   const APRByTEType = {
-    0: 0.2,
-    1: 0.18,
-    2: 0.17
+    0: 0.15,
+    1: 0.15,
+    2: 0.15,
+    3: 0.15
   };
   return APRByTEType[Number(teType)];
 };
@@ -40,7 +42,8 @@ export const convertFromCryptoToUSD = ({ C, P, TE, APR }) => {
   return C * (LTV * P * (1 - APR / 12 * TE));
 };
 
-export const calculateTLA = ({ TA, TE, APR }) => {
+export const calculateTLA = ({ TA, TE, APR, fee = 0.03 }) => {
   console.log(TA, TE, APR);
-  return TA / (1 - APR / 12 * TE);
+  const fixedFee = TA * fee;
+  return TA * (1 + APR / 12 * TE) + fixedFee;
 };
