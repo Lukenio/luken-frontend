@@ -2,10 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { Flex, Box } from 'grid-styled';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import dataFetchCoinsPrice from '../actions/coinsPrice';
 import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
 import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
+import { SERVER_URL } from '../utils/config';
 
 import {
   BitcoinIconApply,
@@ -162,6 +164,8 @@ class ApplyEmbedded extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { dispatch } = this.props;
+
     if (
       this.props.applied !== nextProps.applied
       && nextProps.applied
@@ -169,6 +173,14 @@ class ApplyEmbedded extends Component {
       window.parent.postMessage({
         type: 'FORM_SUBMIT_SUCCESS'
       }, '*');
+
+      const signupPath = '/signup';
+      if (window.top === window.parent) {
+        dispatch(push(signupPath));
+      } else {
+        const w = window.open(`${SERVER_URL}${signupPath}`, '_blank');
+        w.focus();
+      }
     }
   }
 
@@ -234,8 +246,9 @@ const mapStateToProps = state => ({
   applied: state.ui.newLoanUserApplied
 });
 
-const mapDispatchToProps = {
-  dataFetchCoinsPrice
-};
+const mapDispatchToProps = dispatch => ({
+  dataFetchCoinsPrice: () => dispatch(dataFetchCoinsPrice()),
+  dispatch
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplyEmbedded);
