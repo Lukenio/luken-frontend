@@ -282,9 +282,9 @@ export const TLAComponent = ({
 }) => (
   <Fragment>
     <TLATextWrapper>
-      <TLAText>Desired Loan Amount:</TLAText>
+      <TLAText>Total Loan Amount:</TLAText>
       <TLAWrapper
-        value={input.value}
+        value={input.value || 0}
         thousandSeparator={true}
         decimalScale={decimalScale}
         prefix={prefix}
@@ -296,3 +296,28 @@ export const TLAComponent = ({
     {meta.error && meta.touched && <ErrorField>{meta.error}</ErrorField>}
   </Fragment>
 );
+
+export const ExplanationList = styled.ul`
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #B9B9B9;
+
+  @media (min-width: 640px) {
+    display: flex;
+  }
+`;
+
+export const ExplanationItem = styled.li`
+  padding: 0 0.7em;
+
+  @media (min-width: 640px) {
+    padding: 0 1.1em;
+    border-left: solid 1px #B9B9B9;
+
+    &:first-child {
+      border: none;
+    }
+  }
+`;
