@@ -1,11 +1,13 @@
 language: node_js
 node_js:
 - stable
+python:
+  - "3.5"
 cache:
   directories:
   - node_modules
 install:
-  - pip3 install awscli
+  - pip install awscli
 script:
 - npm install
 - npm run build
