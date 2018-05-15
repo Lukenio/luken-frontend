@@ -1,13 +1,19 @@
+sudo: false
+dist: "trusty" # otherwise 'python3-pip' won't be available
 language: node_js
+ddons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
 node_js:
 - stable
-python:
-  - "3.5"
 cache:
   directories:
   - node_modules
 install:
-  - pip install awscli
+  - pip3 install awscli
+
 script:
 - npm install
 - npm run build
