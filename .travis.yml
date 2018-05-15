@@ -1,7 +1,7 @@
 sudo: false
 dist: "trusty" # otherwise 'python3-pip' won't be available
 language: node_js
-ddons:
+addons:
   apt:
     packages:
       - "python3"
