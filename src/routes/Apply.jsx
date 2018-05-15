@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Flex, Box } from 'grid-styled';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import dataFetchCoinsPrice from '../actions/coinsPrice';
 import SVGContainer from '../components/ui/SVGContainer';
@@ -9,6 +10,7 @@ import { FlexContainer } from '../components/ui/Containers';
 import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
 import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
 import Navigation from '../components/ui/Navigation';
+import { SERVER_URL } from '../utils/config';
 
 import {
   PhoneIcon,
@@ -247,6 +249,23 @@ class Apply extends Component {
     this.props.dataFetchCoinsPrice();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { applied, dispatch } = this.props;
+
+    if (
+      applied !== nextProps.applied
+      && nextProps.applied
+    ) {
+      const signupPath = '/signup';
+      if (window.top === window.parent) {
+        dispatch(push(signupPath));
+      } else {
+        const w = window.open(`${SERVER_URL}${signupPath}`, '_blank');
+        w.focus();
+      }
+    }
+  }
+
   handleTabClick = c => {
     this.setState({
       activeCurrencyType: c.type
@@ -459,8 +478,9 @@ const mapStateToProps = state => ({
   applied: state.ui.newLoanUserApplied
 });
 
-const mapDispatchToProps = {
-  dataFetchCoinsPrice
-};
+const mapDispatchToProps = dispatch => ({
+  dataFetchCoinsPrice: () => dispatch(dataFetchCoinsPrice()),
+  dispatch
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Apply);

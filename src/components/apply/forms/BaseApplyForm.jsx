@@ -6,6 +6,7 @@ import {
   formValueSelector,
   SubmissionError
 } from 'redux-form';
+import NumberFormat from 'react-number-format';
 
 import {
   Input,
@@ -18,7 +19,9 @@ import {
   RadioInput,
   CheckboxInput,
   Divider,
-  TLAComponent
+  TLAComponent,
+  ExplanationList,
+  ExplanationItem
 } from './Elements.jsx';
 
 import { BlueButton } from '../../ui/Button.jsx';
@@ -46,7 +49,7 @@ const dispatchValues = cryptoType => (values, dispatch) => {
 
   const APR = getAPR(terms_month);
   const TE = getTE(terms_month);
-  const tla = calculateTLA({ TA: total_loaned_amount, TE, APR });
+  const tla = calculateTLA({ TA: loaned_amount, TE, APR });
   const { partner_token } = parseQueryString(document.location.search);
 
   const payload = {
@@ -119,11 +122,10 @@ class BaseApplyForm extends Component {
       );
       this.setFormValue(
         'total_loaned_amount',
-        initialValues.loaned_amount
-        // this.calculateTLA(
-        //   initialValues.loaned_amount,
-        //   initialValues.terms_month
-        // )
+        this.calculateTLA(
+          initialValues.loaned_amount,
+          initialValues.terms_month
+        )
       );
     }
   }
@@ -140,8 +142,7 @@ class BaseApplyForm extends Component {
 
         this.setFormValue(
           'total_loaned_amount',
-          loanedAmount
-          // this.calculateTLA(loanedAmount, termsMonth)
+          this.calculateTLA(loanedAmount, termsMonth)
         );
       }
     }
@@ -188,8 +189,7 @@ class BaseApplyForm extends Component {
       'crypto_collateral',
       this.calculateCryptoCollateral(TA, termsMonth)
     );
-    this.setFormValue('total_loaned_amount', TA); // this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth)
-
+    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
     setGlobalLoanedAmmountValue(TA);
   };
 
@@ -205,7 +205,7 @@ class BaseApplyForm extends Component {
 
     const TA = this.calculateLoanedAmmount(c, termsMonth);
     this.setFormValue('loaned_amount', TA);
-    this.setFormValue('total_loaned_amount', TA); // this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
+    this.setFormValue('total_loaned_amount', this.calculateTLA(TA, termsMonth));
     setGlobalLoanedAmmountValue(TA);
   };
 
@@ -219,7 +219,9 @@ class BaseApplyForm extends Component {
       handleSubmit,
       submitting,
       isCryptoPriceFetching,
-      omitEmailAndTerms
+      omitEmailAndTerms,
+      loanedAmount,
+      termsMonth
     } = this.props;
 
     return (
@@ -262,32 +264,39 @@ class BaseApplyForm extends Component {
             alignItems="center"
             justifyContent="center"
           >
-            <Box w={[1, 380]} alignItems="center" justifyContent="center">
+            <Box w={[1, 480]} alignItems="center" justifyContent="center">
               <TermSpan>Select Term:</TermSpan>
               <Box>
-                <Field
+              <Field
                   type="radio"
                   name="terms_month"
-                  label="3 month"
+                  label="1 month"
                   value="0"
                   component={RadioInput}
                 />
                 <Field
                   type="radio"
                   name="terms_month"
-                  label="6 month"
+                  label="3 month"
                   value="1"
                   component={RadioInput}
                 />
                 <Field
                   type="radio"
                   name="terms_month"
-                  label="12 month"
+                  label="6 month"
                   value="2"
                   component={RadioInput}
                 />
+                <Field
+                  type="radio"
+                  name="terms_month"
+                  label="12 month"
+                  value="3"
+                  component={RadioInput}
+                />
               </Box>
-              <Divider w={[1, 380]} />
+              <Divider w={[1, 440]} />
             </Box>
           </Flex>
           {submitFailed &&
@@ -303,6 +312,40 @@ class BaseApplyForm extends Component {
             flexDirection="column"
           >
             <Field name="total_loaned_amount" component={TLAComponent} />
+          </Flex>
+
+          <Flex
+            w={1}
+            mt={15}
+            alignItems="center"
+            justifyContent="center"
+            flexDirection="column"
+          >
+            <Box>
+              <ExplanationList>
+                <ExplanationItem>
+                  Principal: {' '}
+                  <NumberFormat
+                    value={loanedAmount || 0}
+                    displayType="text"
+                    thousandSeparator={true}
+                    decimalScale={2}
+                    prefix="$"
+                  />
+                </ExplanationItem>
+                <ExplanationItem>
+                  Fees &amp; Interest: {' '}
+                  <NumberFormat
+                    value={this.calculateTLA(loanedAmount, termsMonth) - loanedAmount}
+                    displayType="text"
+                    thousandSeparator={true}
+                    decimalScale={2}
+                    prefix="$"
+                  />
+                </ExplanationItem>
+                <ExplanationItem>APR: 15%</ExplanationItem>
+              </ExplanationList>
+            </Box>
           </Flex>
 
           <Flex
