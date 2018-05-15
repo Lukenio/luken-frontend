@@ -5,7 +5,7 @@ cache:
   directories:
   - node_modules
 install:
-  - pip install awscli
+  - pip3 install awscli
 script:
 - npm install
 - npm run build
