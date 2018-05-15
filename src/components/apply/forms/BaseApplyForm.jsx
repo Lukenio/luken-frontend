@@ -269,28 +269,28 @@ class BaseApplyForm extends Component {
                   type="radio"
                   name="terms_month"
                   label="1 month"
-                  value="0"
-                  component={RadioInput}
-                />
-                <Field
-                  type="radio"
-                  name="terms_month"
-                  label="3 month"
                   value="1"
                   component={RadioInput}
                 />
                 <Field
                   type="radio"
                   name="terms_month"
+                  label="3 month"
+                  value="3"
+                  component={RadioInput}
+                />
+                <Field
+                  type="radio"
+                  name="terms_month"
                   label="6 month"
-                  value="2"
+                  value="6"
                   component={RadioInput}
                 />
                 <Field
                   type="radio"
                   name="terms_month"
                   label="12 month"
-                  value="3"
+                  value="12"
                   component={RadioInput}
                 />
               </Box>
@@ -422,7 +422,7 @@ export const mapStateToPropsBuilder = (form, priceSelector = () => {}) => (
     isCryptoPriceFetching: state.coinsPrice.isFetching,
     cryptoPrice: priceSelector(state),
     initialValues: {
-      terms_month: '0',
+      terms_month: '1',
       total_loaned_amount: '0',
       terms_of_service_agree: omitEmailAndTerms || false,
       loaned_amount: state.input.globalLoanedAmountValue,

@@ -14,10 +14,10 @@ export const getTE = teType => {
   if (typeof teType === 'undefined') return null;
 
   const TEByType = {
-    0: 1,
-    1: 3,
-    2: 6,
-    3: 12
+    1: 1,
+    3: 3,
+    6: 6,
+    12: 12
   };
   return TEByType[Number(teType)];
 };
@@ -26,10 +26,10 @@ export const getAPR = teType => {
   if (typeof teType === 'undefined') return null;
 
   const APRByTEType = {
-    0: 0.15,
     1: 0.15,
-    2: 0.15,
-    3: 0.15
+    3: 0.15,
+    6: 0.15,
+    12: 0.15
   };
   return APRByTEType[Number(teType)];
 };
