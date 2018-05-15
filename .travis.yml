@@ -1,4 +1,3 @@
-sudo: false
 dist: "trusty" # otherwise 'python3-pip' won't be available
 language: node_js
 addons:
