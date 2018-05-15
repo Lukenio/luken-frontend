@@ -48,14 +48,12 @@ const dispatchValues = cryptoType => (values, dispatch) => {
   } = values;
 
   const APR = getAPR(terms_month);
-  const TE = getTE(terms_month);
-  const tla = calculateTLA({ TA: loaned_amount, TE, APR });
   const { partner_token } = parseQueryString(document.location.search);
 
   const payload = {
     email,
     crypto_collateral,
-    total_loaned_amount: tla,
+    total_loaned_amount,
     loaned_amount,
     terms_month,
     apr: APR,
