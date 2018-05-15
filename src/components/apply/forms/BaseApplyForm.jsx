@@ -243,7 +243,7 @@ class BaseApplyForm extends Component {
             <Box w={[1, 340]} mb={[10, 0]}>
               <Field
                 name="crypto_collateral"
-                label="How much Collateral are You Posting?"
+                label="How Much Collateral are You Posting?"
                 type="text"
                 placeholder="Please enter your collateral amount"
                 rounded
