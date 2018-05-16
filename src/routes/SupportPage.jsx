@@ -23,7 +23,7 @@ const WrapFlexContainer = styled(FlexContainer)`
 const Heading = styled.h3`
   font-size: 20px;
   font-weight: 500;
-  color: #4d92df;
+  color: #1F52C5;
   letter-spacing: -0.67px;
   line-height: 32px;
   margin-left: 10px;
@@ -36,7 +36,7 @@ const Divider = styled(Box)`
 
 const Loading = styled.p`
   font-size: 14px;
-  color: #4d92df;
+  color: #1F52C5;
   letter-spacing: 0;
   line-height: 22px;
   margin: 0;

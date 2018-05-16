@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Flex, Box } from 'grid-styled';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
 import dataFetchCoinsPrice from '../actions/coinsPrice';
 import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
@@ -23,7 +22,7 @@ const ContentWrap = styled(Box)`
 const LeadTitle = styled.h1`
   font-weight: 600;
   font-size: 30px;
-  color: #4176d1;
+  color: #285BCF;
   letter-spacing: -1px;
   text-align: center;
   line-height: 42px;
@@ -74,12 +73,12 @@ const TabBoxWrapper = styled(Box)`
   display: inline-block;
   margin: 0 10px; 
   text-decoration: none;
-  background: ${({ active }) => (active ? '#4176d1' : '#ffffff')};
+  background: ${({ active }) => (active ? '#285BCF' : '#ffffff')};
   border-radius: 100px;
   font-family: Montserrat;
   font-weight: 600;
   font-size: 16px;
-  color: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
+  color: ${({ active }) => (active ? '#ffffff' : '#285BCF')};
   border-color: #224e88;
   border: 1px solid;
   text-align: left;
@@ -102,10 +101,10 @@ const CryptoIcon = styled.div`
   height: 50px;
   width: 50px;
   text-align: left;
-  color: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
+  color: ${({ active }) => (active ? '#ffffff' : '#285BCF')};
 
   > svg {
-    fill: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
+    fill: ${({ active }) => (active ? '#ffffff' : '#285BCF')};
   }
 `;
 
@@ -164,10 +163,10 @@ class ApplyEmbedded extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dispatch } = this.props;
+    const { applied } = this.props;
 
     if (
-      this.props.applied !== nextProps.applied
+      applied !== nextProps.applied
       && nextProps.applied
     ) {
       window.parent.postMessage({
@@ -175,12 +174,8 @@ class ApplyEmbedded extends Component {
       }, '*');
 
       const signupPath = '/signup';
-      if (window.top === window.parent) {
-        dispatch(push(signupPath));
-      } else {
-        const w = window.open(`${SERVER_URL}${signupPath}`, '_blank');
-        w.focus();
-      }
+      const w = window.open(`${SERVER_URL}${signupPath}`, '_blank');
+      w && w.focus();
     }
   }
 
@@ -246,9 +241,8 @@ const mapStateToProps = state => ({
   applied: state.ui.newLoanUserApplied
 });
 
-const mapDispatchToProps = dispatch => ({
-  dataFetchCoinsPrice: () => dispatch(dataFetchCoinsPrice()),
-  dispatch
-});
+const mapDispatchToProps = {
+  dataFetchCoinsPrice
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplyEmbedded);

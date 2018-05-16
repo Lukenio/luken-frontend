@@ -54,7 +54,7 @@ const inputStyles = css`
   text-align: left;
   color: #9b9b9b;
   border: 0;
-  border-bottom: solid 2px #3195ec;
+  border-bottom: solid 2px #285BCF;
   padding-left: 0;
   padding-right: 5px;
   font-weight: 200;
@@ -246,7 +246,7 @@ export const TermSpan = styled.span`
 export const Divider = styled(Box)`
   margin-top: 10px;
   height: 2px;
-  background: #3195ec;
+  background: #285BCF;
   margin-left: 5px;
   margin-right: 5px;
 `;
@@ -259,7 +259,7 @@ export const DisclaimerTotalLoanAmount = styled.p`
 export const TLAText = styled.span`
   font-size: 24px;
   display: inline-block;
-  color: #2893ef;
+  color: #285BCF;
   margin-right: 15px;
 `;
 
@@ -267,7 +267,7 @@ const TLAWrapper = styled(NumberFormat)`
   font-size: 34px;
   font-weight: 800;
   display: inline-block;
-  color: #2893ef;
+  color: #285BCF;
 `;
 
 const TLATextWrapper = styled.div`

@@ -27,7 +27,7 @@ const WrapFlexContainer = styled(FlexContainer)`
 const Heading = styled.h3`
   font-size: 20px;
   font-weight: 500;
-  color: #4d92df;
+  color: #1F52C5;
   letter-spacing: -0.67px;
   line-height: 32px;
   margin-left: 10px;
@@ -89,7 +89,7 @@ const DocumentList = styled.ul`
 `;
 
 const DocumentListBold = styled.b`
-  color: #4d92df;
+  color: #1F52C5;
 `;
 
 class ProfilePage extends Component {
