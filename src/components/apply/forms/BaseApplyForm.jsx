@@ -36,7 +36,7 @@ import {
   LTV
 } from '../../../utils/currencyConverters';
 import { parseQueryString } from '../../../utils';
-import { SERVER_URL } from '../../../utils/config';
+import { APP_URL } from '../../../utils/config';
 
 const dispatchValues = cryptoType => (values, dispatch) => {
   const {
@@ -53,7 +53,7 @@ const dispatchValues = cryptoType => (values, dispatch) => {
 
   if (document.location.pathname.indexOf('/apply-embed') === 0) {
     const signupPath = '/signup';
-    const w = window.open(`${SERVER_URL}${signupPath}`, '_blank');
+    const w = window.open(`${APP_URL}${signupPath}`, '_blank');
     w && w.focus();
   }
 
