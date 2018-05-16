@@ -36,6 +36,7 @@ import {
   LTV
 } from '../../../utils/currencyConverters';
 import { parseQueryString } from '../../../utils';
+import { SERVER_URL } from '../../../utils/config';
 
 const dispatchValues = cryptoType => (values, dispatch) => {
   const {
@@ -49,6 +50,12 @@ const dispatchValues = cryptoType => (values, dispatch) => {
 
   const APR = getAPR(terms_month);
   const { partner_token } = parseQueryString(document.location.search);
+
+  if (document.location.pathname.indexOf('/apply-embed') === 0) {
+    const signupPath = '/signup';
+    const w = window.open(`${SERVER_URL}${signupPath}`, '_blank');
+    w && w.focus();
+  }
 
   const payload = {
     email,
