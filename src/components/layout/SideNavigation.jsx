@@ -16,7 +16,7 @@ import {
 } from '../ui/SVGIcons.jsx';
 
 const WrapFlex = styled(Flex)`
-  background: #3C92DB;
+  background: #3861BF;
   box-shadow: 1px 0 5px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: width 300ms ease-out;
@@ -36,7 +36,7 @@ const StyledNavLink = styled(NavLink)`
 
   &.active > div {
     height: 69px;
-    background: #275F90;
+    background: #20528E;
   }
 `;
 

@@ -324,7 +324,7 @@ export const HeaderMenuIcon = () => (
       <g
         id="ux_cryptocurrency_wallet_opened_sidemenu_bitcoin_account_page_state_1_desktop_layout_1200px_container_1170px"
         transform="translate(-30 -29)"
-        fill="#4D92DF"
+        fill="#1F52C5"
         fillRule="nonzero"
       >
         <g id="header">

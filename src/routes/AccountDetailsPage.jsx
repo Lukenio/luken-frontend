@@ -40,7 +40,7 @@ const WrapFlexContainer = styled(FlexContainer)`
 const AccountName = styled.h3`
   font-size: 20px;
   font-weight: 500;
-  color: #4d92df;
+  color: #1F52C5;
   letter-spacing: -0.67px;
   line-height: 32px;
   margin-left: 10px;
@@ -53,7 +53,7 @@ const Divider = styled(Box)`
 
 const CoinsOwned = styled.p`
   font-size: 24px;
-  color: #4d92df;
+  color: #1F52C5;
   letter-spacing: 0;
   line-height: 38px;
   margin: 0;

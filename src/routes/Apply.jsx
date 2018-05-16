@@ -10,7 +10,6 @@ import { FlexContainer } from '../components/ui/Containers';
 import BTCApplyForm from '../components/apply/forms/BTCApplyForm';
 import ETHApplyForm from '../components/apply/forms/ETHApplyForm';
 import Navigation from '../components/ui/Navigation';
-import { SERVER_URL } from '../utils/config';
 
 import {
   PhoneIcon,
@@ -39,7 +38,7 @@ const ContentWrap = styled(Box)`
 const LeadTitle = styled.h1`
   font-weight: 600;
   font-size: 30px;
-  color: #4176d1;
+  color: #285BCF;
   letter-spacing: -1px;
   text-align: center;
   line-height: 42px;
@@ -90,12 +89,12 @@ const TabBoxWrapper = styled(Box)`
   display: inline-block;
   margin: 0 10px; 
   text-decoration: none;
-  background: ${({ active }) => (active ? '#4176d1' : '#ffffff')};
+  background: ${({ active }) => (active ? '#285BCF' : '#ffffff')};
   border-radius: 100px;
   font-family: Montserrat;
   font-weight: 600;
   font-size: 16px;
-  color: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
+  color: ${({ active }) => (active ? '#ffffff' : '#285BCF')};
   border-color: #224e88;
   border: 1px solid;
   text-align: left;
@@ -118,10 +117,10 @@ const CryptoIcon = styled.div`
   height: 50px;
   width: 50px;
   text-align: left;
-  color: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
+  color: ${({ active }) => (active ? '#ffffff' : '#285BCF')};
 
   > svg {
-    fill: ${({ active }) => (active ? '#ffffff' : '#4176d1')};
+    fill: ${({ active }) => (active ? '#ffffff' : '#285BCF')};
   }
 `;
 
@@ -257,12 +256,7 @@ class Apply extends Component {
       && nextProps.applied
     ) {
       const signupPath = '/signup';
-      if (window.top === window.parent) {
-        dispatch(push(signupPath));
-      } else {
-        const w = window.open(`${SERVER_URL}${signupPath}`, '_blank');
-        w.focus();
-      }
+      dispatch(push(signupPath));
     }
   }
 

@@ -33,7 +33,7 @@ const Avatar = styled(Box)`
 const FullNameBox = styled(Box)`
   font-weight: 500;
   font-size: 14px;
-  color: #4d92df;
+  color: #1F52C5;
   letter-spacing: 0;
   text-align: center;
   line-height: 22px;
