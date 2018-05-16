@@ -10,7 +10,7 @@ import { handleNavMenuToggle } from '../../actions/ui';
 
 const NavigationFlexWrap = styled(Flex)`
   height: 60px;
-  background: #4176d1;
+  background: #1F52C5;
   z-index: 2;
 
   @media only screen and (min-width: 767px) {
@@ -38,7 +38,7 @@ const MobileMenu = styled(Box)`
   @media only screen and (max-width: 767px) {
     ${show()};
     height: ${props => (props.open ? '360px' : 0)};
-    background: #4176d1;
+    background: #1F52C5;
   }
 
   @media only screen and (min-width: 767px) {
@@ -92,7 +92,7 @@ const NavItem = styled.a`
 `;
 
 const MenuIconBox = styled(Flex)`
-  background: #4176d1;
+  background: #1F52C5;
   height: 32px;
   border-radius: 3px;
   text-align: center;
