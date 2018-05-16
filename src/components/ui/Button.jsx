@@ -16,9 +16,9 @@ const Button = BaseButton.extend`
   display: inline-block;
   text-decoration: none;
   color: ${({ secondary, danger, flat }) =>
-    secondary ? '#6F6F6F' : danger ? '#d84256' : flat ? '#4D92DF' : '#fff'};
+    secondary ? '#6F6F6F' : danger ? '#d84256' : flat ? '#1F52C5' : '#fff'};
   background: ${({ secondary, flat }) =>
-    secondary ? '#D8D8D8' : flat ? 'transparent' : '#4D92DF'};
+    secondary ? '#D8D8D8' : flat ? 'transparent' : '#1F52C5'};
   border-radius: 5px;
   font-size: ${({ small }) => (small ? '12px' : 'inherit')};
   line-height: ${({ small }) => (small ? '14px' : 'inherit')};
@@ -55,7 +55,7 @@ export const AccountButton = Button.extend`
   border-width: 1px;
   border-style: solid;
   border-color: ${({ secondary, flat }) =>
-    flat ? 'rgba(77, 146, 223, 0.3)' : '#4D92DF'};
+    flat ? 'rgba(77, 146, 223, 0.3)' : '#1F52C5'};
   padding: 10px 30px;
   font-weight: 600;
   font-size: 16px;
@@ -72,7 +72,7 @@ export const BlueButton = BaseButton.extend`
   display: inline-block;
   text-decoration: none;
   color: #fff;
-  background: #2893ef;
+  background: #285BCF;
   border-radius: 100px;
   font-family: Montserrat;
   font-weight: 600;
