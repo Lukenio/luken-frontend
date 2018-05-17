@@ -50,3 +50,70 @@ export function parseQueryString(str) {
 export const format0000 = (n = 0, symbol = ',', f = 4) => {
   return n.toFixed(f).replace('.', symbol);
 };
+
+export const createFormError = (fieldNames = [], opts = {}) => (error) => {
+  return new Promise((resolve) => {
+    if (
+      error &&
+      typeof error.response !== 'undefined' &&
+      error.response.status === 401
+    ) {
+      // Invalid authentication credentials
+      resolve({
+        _error: error.message
+      });
+    } else if (
+      error &&
+      typeof error.response !== 'undefined' &&
+      error.response.status >= 500
+    ) {
+      // Server side error
+      resolve({
+        _error: 'A server error occurred while sending your data!'
+      });
+    } else if (
+      error &&
+      typeof error.response !== 'undefined' &&
+      error.response.status === 400
+    ) {
+      // Bad request error
+      error.response.json().then((data) => {
+        const wrapValue = v => Array.isArray(v) ? v : [v];
+
+        let formError = fieldNames.reduce((acc, fname) => {
+          if (data[fname]) {
+            acc[fname] = wrapValue(data[fname]);
+          }
+          return acc;
+        }, {});
+
+        if (opts._error) {
+          formError._error = opts._error;
+        } else {
+          let other = Object.keys(data).reduce((acc, key) => {
+            if ([...fieldNames, 'detail'].indexOf(key) === -1) {
+              return [...acc, ...wrapValue(data[key])];
+            }
+            return acc;
+          }, [])
+  
+          formError._error = [
+            ...wrapValue(data.detail || []),
+            ...other
+          ];
+        }
+
+        Object.keys(formError).forEach((k) => {
+          formError[k] = formError[k].join(' ');
+        });
+
+        resolve(formError);
+      });
+    } else {
+      // Most likely connection issues
+      resolve({
+        _error: 'An error occurred while sending your data!'
+      });
+    }
+  });
+};
