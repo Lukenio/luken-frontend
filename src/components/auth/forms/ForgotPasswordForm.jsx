@@ -6,6 +6,11 @@ import fetch from 'isomorphic-fetch';
 import { FormWrapper, Input, FormErrorAlert } from './Elements.jsx';
 import Button from '../../ui/Button.jsx';
 import { SERVER_URL } from '../../../utils/config';
+import {
+  checkHttpStatus,
+  parseJSON,
+  createFormError
+} from '../../../utils';
 
 const validate = values => {
   const errors = {};
@@ -66,31 +71,18 @@ class ForgotPasswordForm extends Component {
         login
       })
     })
-      .then(res => {
-        if (!res.ok) {
-          return res.json();
-        }
-
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then(() => {
         this.setState({ didSend: true });
       })
-      .then(res => {
-        const { login, detail, ...other } = res;
-        const error =  new SubmissionError({
-          login: Array.isArray(login) ? login.join(' ') : login,
-          _error: (
-            (Array.isArray(detail) ? detail.join(' ') : detail)
-            || (Object.keys(other).length > 0 ? 'There were problems.' : '')
-          )
-        });
-        error.isFormError = true;
-        throw error;
-      })
-      .catch(error => {
-        if (error.isFormError) {
-          throw error;
-        }
-
-        throw new SubmissionError({ _error: error.message });
+      .catch((error) => {
+        return createFormError([
+          'login'
+        ])(error)
+          .then((formError) => {
+            throw new SubmissionError(formError);
+          });
       });
   }
 }
