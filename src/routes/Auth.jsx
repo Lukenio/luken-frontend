@@ -52,18 +52,12 @@ class Base extends Component {
   }
 
   render() {
-    const { title, children, location } = this.props;
-    
-    let containerStyle = {};
-    if (
-      location
-      && (location.pathname === '/login' || location.pathname === '/signup')
-    ) {
-      containerStyle = {
-        background: '#eee url(/images/login-bg.png) repeat-x center bottom',
-        backgroundSize: '1913px 613px'
-      };
-    }
+    const { title, children } = this.props;
+
+    const containerStyle = {
+      background: '#eee url(/images/login-bg.png) repeat-x center bottom',
+      backgroundSize: '1913px 613px'
+    };
 
     return (
       <Fragment>
@@ -125,8 +119,7 @@ const AccountVerificationRoute = ({ statusText, ...other }) => (
 const mapStateToProps = (state, ownProps) => ({
   isAuthenticated: state.auth.isAuthenticated,
   userId: state.auth.userId,
-  statusText: state.auth.statusText,
-  location: ownProps.location
+  statusText: state.auth.statusText
 });
 
 const mapDispatchToProps = dispatch => ({

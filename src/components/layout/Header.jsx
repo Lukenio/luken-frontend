@@ -49,6 +49,7 @@ const AngleDownIcon = styled(Box)`
 `;
 
 const Logo = styled.img`
+  display: block;
   width: auto;
   height: 45px;
 `;
@@ -100,9 +101,9 @@ class UserDropDownBox extends Component {
   render() {
     const {
       email = '',
-      onClick,
+      authLogoutAndRedirect,
       showChangePasswordModal,
-      handleProfileLinkClick
+      pushProfileLocation
     } = this.props;
     const { isDropdownVisible } = this.state;
 
@@ -113,9 +114,9 @@ class UserDropDownBox extends Component {
         <AngleDownIcon />
         {isDropdownVisible && (
           <DropdownList>
-            <DropdownItem onClick={handleProfileLinkClick}>My Profile</DropdownItem>
+            <DropdownItem onClick={pushProfileLocation}>My Profile</DropdownItem>
             <DropdownItem onClick={showChangePasswordModal}>Change Password</DropdownItem>
-            <DropdownItem onClick={onClick}>Log Out</DropdownItem>
+            <DropdownItem onClick={authLogoutAndRedirect}>Log Out</DropdownItem>
           </DropdownList>
         )}
       </DropdownFlex>
@@ -142,11 +143,11 @@ const Header = ({
   fullName,
   email,
   handleSideMenuToggle,
-  handleLogout,
+  authLogoutAndRedirect,
   changePasswordModalShown,
   showChangePasswordModal,
   hideChangePasswordModal,
-  handleProfileLinkClick,
+  pushProfileLocation,
   ...other
 }) => {
   return (
@@ -162,14 +163,16 @@ const Header = ({
         <SVGContainer w={20} h={13} mr={30} onClick={handleSideMenuToggle}>
           <HeaderMenuIcon />
         </SVGContainer>
-        <Logo src="/logo.png" alt="Loanz logo" />
+        <a href="https://loanz.io/">
+          <Logo src="/logo.png" alt="Loanz logo" />
+        </a>
       </Flex>
       <UserDropDownBox
         fullName={fullName}
         email={email}
-        onClick={handleLogout}
+        authLogoutAndRedirect={authLogoutAndRedirect}
         showChangePasswordModal={showChangePasswordModal}
-        handleProfileLinkClick={handleProfileLinkClick}
+        pushProfileLocation={pushProfileLocation}
       />
       <TransparentModal
         showModal={changePasswordModalShown}
@@ -194,10 +197,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleSideMenuToggle: () => dispatch(handleSideMenuToggle()),
-  handleLogout: () => dispatch(authLogoutAndRedirect()),
+  authLogoutAndRedirect: () => dispatch(authLogoutAndRedirect()),
   showChangePasswordModal: () => dispatch(showChangePasswordModal()),
   hideChangePasswordModal: () => dispatch(hideChangePasswordModal()),
-  handleProfileLinkClick: () => dispatch(push('/profile'))
+  pushProfileLocation: () => dispatch(push('/profile'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
