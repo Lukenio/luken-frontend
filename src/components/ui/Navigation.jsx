@@ -14,13 +14,13 @@ const NavigationFlexWrap = styled(Flex)`
   z-index: 2;
 
   @media only screen and (min-width: 767px) {
-    height: 130px;
+    height: 110px;
   }
 `;
 
 const LogoLoanz = styled.img`
-  height: 100px;
-  min-height: 100px;
+  height: 80px;
+  min-height: 80px;
 
   @media only screen and (max-width: 767px) {
     height: 50px;
@@ -58,7 +58,7 @@ const DesktopMenu = styled(Flex)`
 `;
 
 const NavItem = styled.a`
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #ffffff;
   letter-spacing: 0;
@@ -67,6 +67,7 @@ const NavItem = styled.a`
   padding: 5px 20px;
   text-decoration: none;
   display: inline-block;
+  transition: all .3s ease-in-out;
 
   &:last-child {
     margin-right: 0;
@@ -76,7 +77,11 @@ const NavItem = styled.a`
     // border-bottom: 2px solid #ffffff;
   }
 
-  @media only screen and (min-width: 767px) and (max-width: 1024px) {
+  &:hover {
+    color: #ffca0f;
+  }
+
+  @media only screen and (min-width: 767px) and (max-width: 1049px) {
     font-size: 17px;
     line-height: 17px;
     padding-right: 15px;
@@ -88,6 +93,30 @@ const NavItem = styled.a`
     height: 60px;
     width: 100%;
     text-align: left;
+  }
+`;
+
+const NavItemButton = NavItem.extend`
+  @media (min-width: 960px) {
+    padding: 11px 20px;
+    line-height: 21px;
+    background-color: #f7f7f7;
+    color: #3d3d3d;
+    border-radius: 5px;
+    transition: none;
+  
+    &:hover {
+      background-color: #EAEAEA;
+      color: #3d3d3d;
+    }
+  }
+
+  @media (min-width: 1060px) {
+    margin-left: 10px;
+  }
+
+  @media (min-width: 1100px) {
+    margin-left: 20px;
   }
 `;
 
@@ -106,11 +135,11 @@ const MenuIconBox = styled(Flex)`
 const MenuItems = () => (
   <Fragment>
     <NavItem href="/apply">Apply for a Crypto Loan</NavItem>
-    <NavItem href="https://loanz.io/buy-bitcoin/">How to Buy or Sell Bitcoin</NavItem>
-    <NavItem href="https://loanz.io/digital-wallet/">Digital Wallet</NavItem>
-    <NavItem href="https://loanz.io/company/">Company</NavItem>
-    <NavItem href="https://loanz.io/faqs/">FAQ's</NavItem>
+    <NavItem href="https://loanz.io/buy-bitcoin/">Buy Bitcoin</NavItem>
+    <NavItem href="https://loanz.io/faqs/">FAQ’s</NavItem>
+    <NavItem href="https://loanz.io/blog/">Blog</NavItem>
     <NavItem href="https://loanz.io/contact-support/">Contact Us</NavItem>
+    <NavItemButton href="/login">My Account</NavItemButton>
   </Fragment>
 );
 
@@ -140,8 +169,8 @@ const Navigation = ({ menuOpen, handleNavMenuToggle }) => (
       <Flex alignItems="center" flexDirection="row">
         <a href="https://loanz.io/">
           <LogoLoanz
-            src="https://loanz.io/wp-content/uploads/2018/03/loanzio-logo-bitcoinv4.png"
-            data-retina="https://loanz.io/wp-content/uploads/2018/03/loanzio-logo-bitcoinv4.png"
+            src="/images/logo-bitcoinv4.png"
+            data-retina="/images/logo-bitcoinv4.png"
           />
         </a>
       </Flex>

@@ -7,6 +7,7 @@ const StyledFlex = styled(Flex)`
 `;
 
 const Logo = styled.img`
+  display: block;
   width: auto;
   height: 45px;
 `;
@@ -21,7 +22,9 @@ const SimpleHeader = () => {
       width={1}
     >
       <Flex alignItems="center" flexDirection="row">
-        <Logo src="/logo.png" alt="Loanz logo" />
+        <a href="https://loanz.io/">
+          <Logo src="/logo.png" alt="Loanz logo" />
+        </a>
       </Flex>
     </StyledFlex>
   );
